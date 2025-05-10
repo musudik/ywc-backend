@@ -1,0 +1,418 @@
+{
+  "item": [
+    {
+      "name": "Consents",
+      "description": "Endpoints for managing consents",
+      "item": [
+        {
+          "name": "Create Consent",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"consentType\": \"DataProcessing\",\n    \"consentDate\": \"2023-07-15\",\n    \"expiryDate\": \"2025-07-15\",\n    \"isActive\": true,\n    \"notes\": \"Consent for processing personal data\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/consent",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "consent"]
+            },
+            "description": "Create a new consent record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Consents",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/consent",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "consent"]
+            },
+            "description": "Get all consent records for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Consent",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"expiryDate\": \"2026-07-15\",\n    \"isActive\": true,\n    \"notes\": \"Updated consent for processing personal data\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/consent/{{consentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "consent", "{{consentId}}"]
+            },
+            "description": "Update a consent record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Consent",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/consent/{{consentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "consent", "{{consentId}}"]
+            },
+            "description": "Delete a consent record"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "description": "Endpoints for managing documents",
+      "item": [
+        {
+          "name": "Create Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"documentType\": \"Identity\",\n    \"name\": \"Passport\",\n    \"description\": \"Passport copy for identification\",\n    \"fileUrl\": \"https://storage.example.com/documents/passport123.pdf\",\n    \"uploadDate\": \"2023-07-15\",\n    \"expiryDate\": \"2033-07-15\",\n    \"isVerified\": true,\n    \"notes\": \"Passport verified by coach\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/document",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "document"]
+            },
+            "description": "Create a new document record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Documents",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/document",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "document"]
+            },
+            "description": "Get all document records for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Document",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"fileUrl\": \"https://storage.example.com/documents/updated_passport123.pdf\",\n    \"uploadDate\": \"2023-08-20\",\n    \"isVerified\": true,\n    \"notes\": \"Updated passport verified by coach\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/document/{{documentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "document", "{{documentId}}"]
+            },
+            "description": "Update a document record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Document",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/document/{{documentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "document", "{{documentId}}"]
+            },
+            "description": "Delete a document record"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Forms",
+      "description": "Endpoints for managing forms",
+      "item": [
+        {
+          "name": "Create Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"formType\": \"LoanApplication\",\n    \"status\": \"Submitted\",\n    \"submissionDate\": \"2023-07-15\",\n    \"lastModifiedDate\": \"2023-07-15\",\n    \"formData\": {\n        \"loanAmount\": 200000,\n        \"loanPurpose\": \"Home Purchase\",\n        \"loanTerm\": 30\n    },\n    \"notes\": \"Loan application for home purchase\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/form",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "form"]
+            },
+            "description": "Create a new form record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Forms",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/form",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "form"]
+            },
+            "description": "Get all form records for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Form",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"Approved\",\n    \"lastModifiedDate\": \"2023-07-20\",\n    \"formData\": {\n        \"loanAmount\": 190000,\n        \"loanPurpose\": \"Home Purchase\",\n        \"loanTerm\": 25\n    },\n    \"notes\": \"Loan application approved with adjusted terms\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/form/{{formId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "form", "{{formId}}"]
+            },
+            "description": "Update a form record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Form",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/form/{{formId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "form", "{{formId}}"]
+            },
+            "description": "Delete a form record"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Custom Forms",
+      "description": "Endpoints for managing custom forms",
+      "item": [
+        {
+          "name": "Create Custom Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"formName\": \"Investment Questionnaire\",\n    \"status\": \"Submitted\",\n    \"submissionDate\": \"2023-07-15\",\n    \"lastModifiedDate\": \"2023-07-15\",\n    \"formFields\": [\n        {\n            \"fieldName\": \"investmentGoal\",\n            \"fieldType\": \"text\",\n            \"fieldValue\": \"Retirement\"\n        },\n        {\n            \"fieldName\": \"investmentAmount\",\n            \"fieldType\": \"number\",\n            \"fieldValue\": \"50000\"\n        },\n        {\n            \"fieldName\": \"investmentHorizon\",\n            \"fieldType\": \"select\",\n            \"fieldValue\": \"LongTerm\"\n        }\n    ],\n    \"notes\": \"Custom investment questionnaire\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/custom-form",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "custom-form"]
+            },
+            "description": "Create a new custom form record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Custom Forms",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/custom-form",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "custom-form"]
+            },
+            "description": "Get all custom form records for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Custom Form",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"Approved\",\n    \"lastModifiedDate\": \"2023-07-20\",\n    \"formFields\": [\n        {\n            \"fieldName\": \"investmentGoal\",\n            \"fieldType\": \"text\",\n            \"fieldValue\": \"Retirement and Education\"\n        },\n        {\n            \"fieldName\": \"investmentAmount\",\n            \"fieldType\": \"number\",\n            \"fieldValue\": \"75000\"\n        },\n        {\n            \"fieldName\": \"investmentHorizon\",\n            \"fieldType\": \"select\",\n            \"fieldValue\": \"LongTerm\"\n        }\n    ],\n    \"notes\": \"Updated custom investment questionnaire\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/custom-form/{{customFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "custom-form", "{{customFormId}}"]
+            },
+            "description": "Update a custom form record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Custom Form",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/custom-form/{{customFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "custom-form", "{{customFormId}}"]
+            },
+            "description": "Delete a custom form record"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "consentId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "documentId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "formId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "customFormId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+} 

@@ -1,0 +1,802 @@
+{
+  "info": {
+    "name": "YWC Backend - Client Data API",
+    "description": "Collection for testing the Client Data API endpoints of YourWealth.Coach backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "description": "Authentication endpoints to get token for API access",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Login and get authentication token"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Employment Details",
+      "description": "Endpoints for managing employment details",
+      "item": [
+        {
+          "name": "Create Employment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"employmentType\": \"PrimaryEmployment\",\n    \"occupation\": \"Software Developer\",\n    \"contractType\": \"Permanent\",\n    \"contractDuration\": \"Indefinite\",\n    \"employerName\": \"Tech Company\",\n    \"employedSince\": \"2020-01-01\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/employment",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "employment"]
+            },
+            "description": "Create a new employment record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Employments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/employment",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "employment"]
+            },
+            "description": "Get all employment records for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Employment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"occupation\": \"Senior Software Developer\",\n    \"contractType\": \"Permanent\",\n    \"employerName\": \"Updated Tech Company\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/employment/{{employmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "employment", "{{employmentId}}"]
+            },
+            "description": "Update an employment record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Employment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/employment/{{employmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "employment", "{{employmentId}}"]
+            },
+            "description": "Delete an employment record"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Income",
+      "description": "Endpoints for managing income details",
+      "item": [
+        {
+          "name": "Create Income",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"grossIncome\": 75000,\n    \"netIncome\": 50000,\n    \"taxClass\": \"Class 3\",\n    \"taxId\": \"ABC123456\",\n    \"numberOfSalaries\": 12,\n    \"childBenefit\": 0,\n    \"otherIncome\": 1000,\n    \"incomeTradeBusiness\": 0,\n    \"incomeSelfEmployedWork\": 0,\n    \"incomeSideJob\": 5000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/income",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "income"]
+            },
+            "description": "Create a new income record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Incomes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/income",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "income"]
+            },
+            "description": "Get all income records for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Income",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"grossIncome\": 80000,\n    \"netIncome\": 55000,\n    \"otherIncome\": 2000,\n    \"incomeSideJob\": 7000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/income/{{incomeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "income", "{{incomeId}}"]
+            },
+            "description": "Update an income record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Income",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/income/{{incomeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "income", "{{incomeId}}"]
+            },
+            "description": "Delete an income record"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Expenses",
+      "description": "Endpoints for managing expenses details",
+      "item": [
+        {
+          "name": "Create Expenses",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"housingCosts\": 1200,\n    \"utilities\": 350,\n    \"foodAndGroceries\": 500,\n    \"transportation\": 300,\n    \"insurance\": 250,\n    \"healthcare\": 150,\n    \"entertainment\": 200,\n    \"education\": 100,\n    \"travel\": 200,\n    \"savings\": 400,\n    \"otherExpenses\": 150\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/expenses",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "expenses"]
+            },
+            "description": "Create a new expenses record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Expenses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/expenses",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "expenses"]
+            },
+            "description": "Get all expenses records for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Expenses",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"housingCosts\": 1300,\n    \"utilities\": 380,\n    \"foodAndGroceries\": 550,\n    \"transportation\": 320,\n    \"entertainment\": 250\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/expenses/{{expensesId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "expenses", "{{expensesId}}"]
+            },
+            "description": "Update an expenses record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Expenses",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/expenses/{{expensesId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "expenses", "{{expensesId}}"]
+            },
+            "description": "Delete an expenses record"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Assets",
+      "description": "Endpoints for managing assets",
+      "item": [
+        {
+          "name": "Create Asset",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"assetType\": \"RealEstate\",\n    \"description\": \"Primary Residence\",\n    \"currentValue\": 300000,\n    \"acquisitionDate\": \"2015-05-15\",\n    \"acquisitionValue\": 250000,\n    \"notes\": \"3 bedroom house in suburban area\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/asset",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "asset"]
+            },
+            "description": "Create a new asset record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Assets",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/asset",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "asset"]
+            },
+            "description": "Get all asset records for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Asset",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"currentValue\": 325000,\n    \"notes\": \"3 bedroom house in suburban area with recent renovations\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/asset/{{assetId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "asset", "{{assetId}}"]
+            },
+            "description": "Update an asset record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Asset",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/asset/{{assetId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "asset", "{{assetId}}"]
+            },
+            "description": "Delete an asset record"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Liabilities",
+      "description": "Endpoints for managing liabilities",
+      "item": [
+        {
+          "name": "Create Liability",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"liabilityType\": \"Mortgage\",\n    \"description\": \"Home Mortgage\",\n    \"originalAmount\": 200000,\n    \"currentBalance\": 175000,\n    \"interestRate\": 3.5,\n    \"startDate\": \"2015-05-15\",\n    \"endDate\": \"2045-05-15\",\n    \"monthlyPayment\": 950,\n    \"lender\": \"Bank of Finance\",\n    \"notes\": \"30-year fixed rate mortgage\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/liability",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "liability"]
+            },
+            "description": "Create a new liability record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Liabilities",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/liability",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "liability"]
+            },
+            "description": "Get all liability records for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Liability",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"currentBalance\": 170000,\n    \"monthlyPayment\": 975,\n    \"notes\": \"Refinanced 30-year fixed rate mortgage\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/liability/{{liabilityId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "liability", "{{liabilityId}}"]
+            },
+            "description": "Update a liability record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Liability",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/liability/{{liabilityId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "liability", "{{liabilityId}}"]
+            },
+            "description": "Delete a liability record"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Goals and Wishes",
+      "description": "Endpoints for managing goals and wishes",
+      "item": [
+        {
+          "name": "Create Goals and Wishes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"type\": \"FinancialGoal\",\n    \"title\": \"Retirement Fund\",\n    \"description\": \"Build a retirement fund to retire by 60\",\n    \"targetDate\": \"2050-01-01\",\n    \"targetAmount\": 1000000,\n    \"currentAmount\": 150000,\n    \"priority\": \"High\",\n    \"status\": \"InProgress\",\n    \"notes\": \"Contributing monthly to retirement accounts\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/goals-wishes",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "goals-wishes"]
+            },
+            "description": "Create a new goals and wishes record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Goals and Wishes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/goals-wishes",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "goals-wishes"]
+            },
+            "description": "Get all goals and wishes records for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Goals and Wishes",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"targetDate\": \"2048-01-01\",\n    \"targetAmount\": 1200000,\n    \"currentAmount\": 200000,\n    \"notes\": \"Increased monthly contributions to retirement accounts\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/goals-wishes/{{goalsWishesId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "goals-wishes", "{{goalsWishesId}}"]
+            },
+            "description": "Update a goals and wishes record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Goals and Wishes",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/goals-wishes/{{goalsWishesId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "goals-wishes", "{{goalsWishesId}}"]
+            },
+            "description": "Delete a goals and wishes record"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Risk Appetite",
+      "description": "Endpoints for managing risk appetite",
+      "item": [
+        {
+          "name": "Create Risk Appetite",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"riskTolerance\": \"Moderate\",\n    \"investmentHorizon\": \"LongTerm\",\n    \"riskAssessmentScore\": 65,\n    \"notes\": \"Client is willing to take moderate risk for potentially higher returns\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/risk-appetite",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "risk-appetite"]
+            },
+            "description": "Create a new risk appetite record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Risk Appetite",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/personal/{{personalId}}/risk-appetite",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "personal", "{{personalId}}", "risk-appetite"]
+            },
+            "description": "Get risk appetite record for a personal record"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Risk Appetite",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"riskTolerance\": \"ModeratelyAggressive\",\n    \"riskAssessmentScore\": 75,\n    \"notes\": \"Client has increased risk tolerance after financial education sessions\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/risk-appetite/{{riskAppetiteId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "risk-appetite", "{{riskAppetiteId}}"]
+            },
+            "description": "Update a risk appetite record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Risk Appetite",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/risk-appetite/{{riskAppetiteId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "risk-appetite", "{{riskAppetiteId}}"]
+            },
+            "description": "Delete a risk appetite record"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userEmail",
+      "value": "coach@example.com",
+      "type": "string"
+    },
+    {
+      "key": "userPassword",
+      "value": "password123",
+      "type": "string"
+    },
+    {
+      "key": "personalId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "employmentId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "incomeId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "expensesId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "assetId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "liabilityId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "goalsWishesId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "riskAppetiteId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+} 

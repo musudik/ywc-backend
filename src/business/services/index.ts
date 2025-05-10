@@ -1,0 +1,13 @@
+export { PersonalDetailsService } from './personal-details.service';
+export { EmploymentDetailsService } from './employment-details.service';
+export { ClientDataService } from './client-data.service';
+export { AssetService } from './asset.service';
+export { ConsentService } from './consent.service';
+export { CustomFormService } from './custom-form.service';
+export { DocumentService } from './document.service';
+export { ExpensesService } from './expenses.service';
+export { FormService } from './form.service';
+export { GoalsAndWishesService } from './goals-wishes.service';
+export { IncomeService } from './income.service';
+export { LiabilityService } from './liability.service';
+export { RiskAppetiteService } from './risk-appetite.service'; 

@@ -1,0 +1,229 @@
+{
+  "info": {
+    "_postman_id": "e8f9d5a1-5c8f-4e3c-8c7d-f3e8d1a2b4c5",
+    "name": "YourWealth.Coach - Personal Details",
+    "description": "API collection for testing personal details endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\": \"coachgpt@yourwealth.coach\",\n\t\"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login to get authentication token"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Personal Details",
+      "item": [
+        {
+          "name": "Create Personal Details",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"coachId\": \"{{coachId}}\",\n\t\"applicantType\": \"PrimaryApplicant\",\n\t\"firstName\": \"John\",\n\t\"lastName\": \"Doe\",\n\t\"streetAddress\": \"123 Main St\",\n\t\"postalCode\": \"12345\",\n\t\"city\": \"Berlin\",\n\t\"phone\": \"+49123456789\",\n\t\"email\": \"john.doe@example.com\",\n\t\"birthDate\": \"1990-01-01\",\n\t\"birthPlace\": \"Berlin\",\n\t\"maritalStatus\": \"Single\",\n\t\"nationality\": \"German\",\n\t\"housing\": \"Rented\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/business/personal-details",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "business",
+                "personal-details"
+              ]
+            },
+            "description": "Create a new personal details record"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Personal Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/business/personal-details",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "business",
+                "personal-details"
+              ]
+            },
+            "description": "Get all personal details (filtered by coach ID)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Personal Details by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/business/personal-details/{{personalDetailsId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "business",
+                "personal-details",
+                "{{personalDetailsId}}"
+              ]
+            },
+            "description": "Get a specific personal details record by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Personal Details",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"firstName\": \"John\",\n\t\"lastName\": \"Doe\",\n\t\"streetAddress\": \"456 New St\",\n\t\"postalCode\": \"54321\",\n\t\"city\": \"Munich\",\n\t\"phone\": \"+49987654321\",\n\t\"email\": \"john.doe.updated@example.com\",\n\t\"maritalStatus\": \"Married\",\n\t\"housing\": \"Owned\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/business/personal-details/{{personalDetailsId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "business",
+                "personal-details",
+                "{{personalDetailsId}}"
+              ]
+            },
+            "description": "Update an existing personal details record"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Personal Details",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/business/personal-details/{{personalDetailsId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "business",
+                "personal-details",
+                "{{personalDetailsId}}"
+              ]
+            },
+            "description": "Delete a personal details record"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "coachId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "personalDetailsId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+} 

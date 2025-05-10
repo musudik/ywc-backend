@@ -123,6 +123,15 @@ Modular architecture allows service splitting in future
 
 
 ===================================
+npx prisma migrate reset --force
+npx prisma migrate dev --name create_initial_schema
+
+Roles:
+ADMIN: with full access permissions
+COACH: with client management permissions
+CLIENT: with self-service permissions
+GUEST: with limited public access permissions
+
 
 CREATE USER yourwealthcoach WITH ENCRYPTED PASSWORD 'yourwealthcoach';
 ALTER USER yourwealthcoach WITH SUPERUSER;

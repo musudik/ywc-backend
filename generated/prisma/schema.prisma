@@ -1,0 +1,561 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String            @id @default(uuid())
+  email            String            @unique
+  password         String // Hashed password
+  displayName      String?
+  emailVerified    Boolean           @default(false)
+  profileImage     String?
+  phoneNumber      String?
+  firebaseUid      String? // Optional Firebase UID for future integration
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  roleId           String
+  role             Role              @relation(fields: [roleId], references: [id])
+  resetToken       String? // For password reset functionality
+  resetTokenExpiry DateTime?
+  analysisForms    AnalysisForm[] // Relation to analysis forms
+  immobillionForms ImmobillionForm[] // Relation to immobillion forms
+  personalDetails  PersonalDetails[] // Coach's clients
+
+  @@map("users")
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  permissions String[]
+  users       User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("roles")
+}
+
+// Child model for storing children information
+model Child {
+  id             String       @id @default(uuid())
+  firstName      String
+  lastName       String
+  birthDate      DateTime
+  birthPlace     String
+  nationality    String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  analysisFormId String
+  analysisForm   AnalysisForm @relation(fields: [analysisFormId], references: [id], onDelete: Cascade)
+
+  @@map("children")
+}
+
+// Base applicant model with common fields
+model Applicant {
+  id        String   @id @default(uuid())
+  type      String // "A" or "B" for Analysis, "1" or "2" for Immobillion
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Personal Information (Common)
+  salutation      String?
+  title           String?
+  firstName       String
+  lastName        String
+  maidenName      String?
+  birthDate       DateTime
+  birthPlace      String
+  birthCountry    String?
+  nationality     String
+  isEUCitizen     Boolean?
+  residencePermit String?
+  inGermanySince  DateTime?
+  street          String
+  houseNumber     String?
+  postalCode      String
+  city            String
+  residentSince   DateTime?
+  previousAddress Json? // Stores previous address information
+  phoneLandline   String?
+  phoneMobile     String
+  email           String
+  taxId           String?
+
+  // Marital/Family Status (Common)
+  maritalStatus      String
+  separationOfGoods  Boolean?
+  numberOfChildren   Int
+  childrenBirthDates DateTime[]
+
+  // Employment & Income (Common)
+  profession        String
+  employmentType    String?
+  employedSince     DateTime?
+  contractType      String
+  contractUntil     DateTime?
+  employerName      String?
+  employerInGermany Boolean?
+  netIncome         Decimal
+  grossIncome       Decimal
+  numberOfSalaries  Int
+  childBenefit      Decimal
+  otherIncome       Decimal
+
+  // Bank Details (Common)
+  iban String?
+  bic  String?
+
+  // Relations
+  analysisFormId     String?
+  analysisForm       AnalysisForm?                @relation(fields: [analysisFormId], references: [id], onDelete: Cascade)
+  immobillionFormId  String?
+  immobillionForm    ImmobillionForm?             @relation(fields: [immobillionFormId], references: [id], onDelete: Cascade)
+  immobillionDetails ImmobillionApplicantDetails?
+
+  @@map("applicants")
+}
+
+// Immobillion-specific applicant details
+model ImmobillionApplicantDetails {
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  applicantId String    @unique
+  applicant   Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+
+  // Employment & Income (Immobillion specific)
+  salaryCurrency      String?
+  salaryCurrencyOther String?
+  hasPartTimeJob      Boolean
+  partTimeSince       DateTime?
+  isFreelancer        Boolean
+  isSelfEmployed      Boolean
+  selfEmployedAs      String?
+  selfEmployedSince   DateTime?
+  selfEmployedCompany String?
+  vehiclesInHousehold Int
+  retirementStart     DateTime?
+  statutoryPension    Decimal?
+  privatePension      Decimal?
+
+  // Interpreter
+  interpreterRequired Boolean
+
+  // Monthly Income (Immobillion specific)
+  monthlyIncome Json // Stores structured monthly income data
+
+  // Monthly Expenses (Immobillion specific)
+  monthlyExpenses Json // Stores structured monthly expenses data
+
+  // Assets (Immobillion specific)
+  assets Json // Stores structured assets data
+
+  // Liabilities (Immobillion specific)
+  liabilities Json // Stores structured liabilities data
+
+  @@map("immobillion_applicant_details")
+}
+
+// Immobillion form model
+model ImmobillionForm {
+  id         String      @id @default(uuid())
+  status     String      @default("No-Form") // No-Form, Submitted, Pending, Approved
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  userId     String
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  applicants Applicant[]
+
+  // Form specific fields
+  formType    String @default("IMMOBILLION")
+  formVersion String @default("1.0")
+
+  @@map("immobillion_forms")
+}
+
+// Main analysis form model
+model AnalysisForm {
+  id         String      @id @default(uuid())
+  status     String      @default("No-Form") // No-Form, Submitted, Pending, Approved
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  userId     String
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  children   Child[]
+  applicants Applicant[]
+
+  // Consultant Information
+  consultantName String
+  officeLocation String
+  analysisDate   DateTime
+
+  // Combined Expenses Information (from both applicants if applicable)
+  coldRent              Decimal
+  gas                   Decimal
+  electricity           Decimal
+  telecommunication     Decimal
+  subscriptions         Decimal
+  accountMaintenanceFee Decimal
+  livingExpenses        Decimal
+  alimony               Decimal
+  otherExpenses         Decimal
+  addLoanOrLeasing      Boolean
+  loanBank              String?
+  loanAmount            Decimal?
+  loanMonthlyRate       Decimal?
+  loanInterest          Decimal?
+
+  // Analysis Consent
+  analysisConsent          Boolean
+  analysisConsentText      String
+  analysisConsentSignature String
+  analysisLocation         String
+  analysisConsentDate      DateTime
+
+  @@map("analysis_forms")
+}
+
+// Personal Details model - Main client information
+model PersonalDetails {
+  id         String   @id @default(uuid())
+  personalId String   @unique @default(uuid()) // Used as reference ID for related tables
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Coach relation
+  coachId String // Reference to the coach (User)
+  coach   User   @relation(fields: [coachId], references: [id])
+
+  // Personal information
+  applicantType ApplicantType
+  firstName     String
+  lastName      String
+  streetAddress String
+  postalCode    String
+  city          String
+  phone         String
+  email         String
+  birthDate     DateTime
+  birthPlace    String
+  maritalStatus String
+  nationality   String
+  housing       String
+
+  // Relations to other tables
+  employmentDetails EmploymentDetails[]
+  incomeDetails     IncomeDetails[]
+  expensesDetails   ExpensesDetails[]
+  assets            Asset[]
+  liabilities       Liability[]
+  goalsAndWishes    GoalsAndWishes?
+  riskAppetite      RiskAppetite?
+  consents          Consent[]
+  documents         Document[]
+  forms             Form[]
+  customForms       CustomForm[]
+
+  @@map("personal_details")
+}
+
+// Employment Details model
+model EmploymentDetails {
+  id           String   @id @default(uuid())
+  employmentId String   @unique @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Employment information
+  employmentType   EmploymentType
+  occupation       String
+  contractType     String
+  contractDuration String
+  employerName     String
+  employedSince    DateTime
+
+  @@map("employment_details")
+}
+
+// Income Details model
+model IncomeDetails {
+  id        String   @id @default(uuid())
+  incomeId  String   @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Income information
+  grossIncome            Decimal
+  netIncome              Decimal
+  taxClass               String
+  taxId                  String
+  numberOfSalaries       Int
+  childBenefit           Decimal
+  otherIncome            Decimal
+  incomeTradeBusiness    Decimal
+  incomeSelfEmployedWork Decimal
+  incomeSideJob          Decimal
+
+  @@map("income_details")
+}
+
+// Expenses Details model
+model ExpensesDetails {
+  id         String   @id @default(uuid())
+  expensesId String   @unique @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Expenses information
+  coldRent              Decimal
+  electricity           Decimal
+  livingExpenses        Decimal
+  gas                   Decimal
+  telecommunication     Decimal
+  accountMaintenanceFee Decimal
+  alimony               Decimal
+  subscriptions         Decimal
+  otherExpenses         Decimal
+
+  @@map("expenses_details")
+}
+
+// Asset model
+model Asset {
+  id        String   @id @default(uuid())
+  assetId   String   @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Asset information
+  realEstate      Decimal
+  securities      Decimal
+  bankDeposits    Decimal
+  buildingSavings Decimal
+  insuranceValues Decimal
+  otherAssets     Decimal
+
+  @@map("assets")
+}
+
+// Liability model
+model Liability {
+  id          String   @id @default(uuid())
+  liabilityId String   @unique @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Liability information
+  loanType        LoanType
+  loanBank        String?
+  loanAmount      Decimal?
+  loanMonthlyRate Decimal?
+  loanInterest    Decimal?
+
+  @@map("liabilities")
+}
+
+// Goals and Wishes model
+model GoalsAndWishes {
+  id               String   @id @default(uuid())
+  goalsAndWishesId String   @unique @default(uuid())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String          @unique // One-to-one relationship
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Goals information
+  retirementPlanning  String
+  capitalFormation    String
+  realEstateGoals     String
+  financing           String
+  protection          String
+  healthcareProvision String
+  otherGoals          String
+
+  @@map("goals_and_wishes")
+}
+
+// Risk Appetite model
+model RiskAppetite {
+  id             String   @id @default(uuid())
+  riskAppetiteId String   @unique @default(uuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String          @unique // One-to-one relationship
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Risk information
+  riskAppetite          String
+  investmentHorizon     String
+  knowledgeExperience   String
+  healthInsurance       String
+  healthInsuranceNumber String
+  healthInsuranceProof  String
+
+  @@map("risk_appetite")
+}
+
+// Consent model
+model Consent {
+  id        String   @id @default(uuid())
+  consentId String   @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Consent information
+  consentType      ConsentType
+  consent          Boolean
+  consentText      String
+  consentSignature String
+  consentDate      DateTime
+  location         String
+
+  @@map("consents")
+}
+
+// Document model
+model Document {
+  id         String   @id @default(uuid())
+  documentId String   @unique @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Document information
+  documentName     String
+  documentLocation String
+  documentDate     DateTime
+
+  @@map("documents")
+}
+
+// Form model
+model Form {
+  id        String   @id @default(uuid())
+  formId    String   @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Form information
+  formType    FormType
+  formName    String
+  formLink    String
+  createdDate DateTime
+  updatedDate DateTime
+
+  @@map("forms")
+}
+
+// Custom Form model
+model CustomForm {
+  id           String   @id @default(uuid())
+  customFormId String   @unique @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Personal Details relation
+  personalId      String
+  personalDetails PersonalDetails @relation(fields: [personalId], references: [personalId], onDelete: Cascade)
+
+  // Custom Form information
+  formTemplate String
+  formName     String
+  createdDate  DateTime
+  updatedDate  DateTime
+
+  @@map("custom_forms")
+}
+
+// Enum definitions
+enum ApplicantType {
+  PrimaryApplicant
+  SecondaryApplicant
+}
+
+enum EmploymentType {
+  PrimaryEmployment
+  SecondaryEmployment
+}
+
+enum LoanType {
+  PersonalLoan
+  HomeLoan
+  CarLoan
+  BusinessLoan
+  EducationLoan
+  OtherLoan
+}
+
+enum ConsentType {
+  Analysis
+  Immobillion
+  PrivateHealthInsurance
+  StateHealthInsurance
+  KFZ
+  Electricity
+  Loans
+  Sanuspay
+  Gems
+  Other
+}
+
+enum FormType {
+  Analysis
+  Immobillion
+  PrivateHealthInsurance
+  StateHealthInsurance
+  KFZ
+  Electricity
+  Loans
+  Sanuspay
+  Gems
+  Other
+}
