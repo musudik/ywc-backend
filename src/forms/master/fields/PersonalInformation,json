@@ -1,0 +1,95 @@
+[
+  {
+    "name": "firstName",
+    "type": "text",
+    "required": true
+  },
+  {
+    "name": "lastName",
+    "type": "text",
+    "required": true
+  },
+  {
+    "name": "streetAddress",
+    "type": "text",
+    "required": true
+  },
+  {
+    "name": "postalCode",
+    "type": "text",
+    "required": true
+  },
+  {
+    "name": "city",
+    "type": "text",
+    "required": true
+  },
+  {
+    "name": "phone",
+    "type": "text",
+    "required": true
+  },
+  {
+    "name": "email",
+    "type": "email",
+    "required": true
+  },
+  {
+    "name": "birthDate",
+    "type": "date",
+    "required": true
+  },
+  {
+    "name": "birthPlace",
+    "type": "text",
+    "required": true
+  },
+  {
+    "name": "maritalStatus",
+    "type": "select",
+    "options": "maritalStatusOptions",
+    "required": true
+  },
+  {
+    "name": "nationality",
+    "type": "text",
+    "required": true
+  },
+  {
+    "name": "housing",
+    "type": "select",
+    "options": "housingOptions",
+    "required": true
+  },
+  {
+    "name": "children",
+    "type": "group",
+    "fields": [
+        {
+            "name": "firstName",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "lastName",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "birthDate",
+            "type": "date",
+            "required": true
+        },
+        {
+            "name": "birthPlace",
+            "type": "text",
+            "required": true    
+        },
+        {
+            "name": "nationality",
+            "type": "text",
+            "required": true
+        }
+    ]
+  }
+]

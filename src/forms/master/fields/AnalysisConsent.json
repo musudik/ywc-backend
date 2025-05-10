@@ -1,0 +1,27 @@
+[
+    {
+        "name": "analysisConsent",
+        "type": "checkbox",
+        "required": true
+    },
+    {
+        "name": "analysisConsentText",
+        "type": "text",
+        "required": true
+    },
+    {
+        "name": "analysisConsentSignature",
+        "type": "signature",
+        "required": true
+    },
+    {
+        "name": "analysisLocation",
+        "type": "text",
+        "required": true
+    },
+    {
+        "name": "analysisConsentDate",
+        "type": "date",
+        "required": true
+    }
+]

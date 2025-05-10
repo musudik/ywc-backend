@@ -1,0 +1,126 @@
+{
+    "consultantInformation": {
+        "title": "Beratungsinformationen",
+        "consultantName": "Berater",
+        "officeLocation": "Büro",
+        "analysisDate": "Analyse-Datum"
+    },
+    "personalInformation": {
+        "title": "Persönliche Informationen",
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "streetAddress": "Straße, Hausnummer",
+        "postalCode": "PLZ",
+        "city": "Ort",
+        "phone": "Telefon",
+        "email": "E-Mail",
+        "birthDate": "Geb.-Datum",
+        "birthPlace": "Geburtsort",
+        "maritalStatus": "Familienstand",
+        "nationality": "Nationalität",
+        "healthInsurance": "Krankenversicherung",
+        "occupation": "Beruf",
+        "housing": "Wohnsituation",
+        "income": "Einkommen",
+        "rent": "Miete",
+        "rentOptions": ["Mietfrei", "Eigentum abgezahlt", "Eigentum restbelastet"],
+        "children": "Kinder",
+        "childrenOptions": ["Ja", "Nein"],
+        "childrenFirstName": "Vorname",
+        "childrenLastName": "Nachname",
+        "childrenBirthDate": "Geb.-Datum",
+        "childrenBirthPlace": "Geburtsort",
+        "childrenNationality": "Nationalität"
+    },
+    "occupationInformation": {
+        "title": "Berufliche Informationen",
+        "occupation": "Aktuelle Tätigkeit",
+        "occupationOptions": ["Angestellt", "Arbeiter", "Beamter", "Azubi", "Pensioner", "Arbeitslos", "Andere"],
+        "contractType": "Arbeitsvertrag",
+        "contractTypeOptions": ["Befristet", "Unbefristet"]
+    },
+    "incomeInformation": {  
+        "title": "Einkommensinformationen",
+        "grossIncome": "Brutto-Einkommen",
+        "netIncome": "Netto-Einkommen",
+        "taxClass": "Steuerklasse",
+        "taxId": "Steuernummer",
+        "numberOfSalaries": "Anzahl der Gehälter",
+        "childBenefit": "Kindergeld",
+        "otherIncome": "Sonstiges Einkommen",
+        "salaryProofAttached": "Gehaltsnachweis als Kopie",
+        "IncomeTradeBusiness": "Gewerbe/Handel",
+        "IncomeSelfEmployedWork": "Selbständige Tätigkeit",
+        "IncomeSideJob": " Nebentätigkeit",
+        "salaryProofAttachedOptions": ["Ja", "Nein"]
+    },
+    "expensesInformation": {
+        "title": "Ausgabeninformationen",
+        "coldRent": "Kaltmiete",
+        "gas": "Gas",
+        "electricity": "Strom",
+        "telecommunication": "Telekommunikation",
+        "subscriptions": "Abonnements",
+        "accountMaintenanceFee": "Kontoführungsgebühr",
+        "livingExpenses": "Lebenshaltung",
+        "alimony": "Unterhalt",
+        "otherExpenses": "Sonstige Ausgaben"
+    },
+    "assetStatement": {
+        "title": "Vermögensauswertung",
+        "realEstate": "Immobilien",
+        "securities": "Wertpapiere",
+        "bankDeposits": "Bankguthaben",
+        "buildingSavings": "Bausparguthaben",
+        "insuranceValues": "Versicherungswerte",
+        "otherAssets": "Sonstige Vermögenswerte"
+    },
+    "liabilities": {
+        "title": "Schulden",
+        "realEstateLoans": "Immobilienkredite",
+        "otherLoans": "Sonstige Kredite",
+        "leasingObligations": "Leasingverpflichtungen",
+        "otherLiabilities": "Sonstige Verbindlichkeiten"
+    },
+    "goalsAndWishes": {
+        "title": "Ziele und Wünsche",
+        "retirementPlanning": "Rente",
+        "retirementPlanningOptions": ["Rentenversorgung", "Privatrente", "Betriebliche Rentenversorgung"],
+        "capitalFormation": "Kapitalbildung",
+        "capitalFormationOptions": ["Bausparvertrag", "Wertpapiere", "Fonds"],
+        "realEstate": "Immobilien",
+        "realEstateOptions": ["Erwerb", "Bauen"],
+        "financing": "Finanzierung",
+        "financingOptions": ["Schutz", "Gesundheitsversorgung"],
+        "protection": "Schutz",
+        "protectionOptions": ["Erwerbsunfähigkeit", "Unfall", "Überlebensfall"],
+        "healthcareProvision": "Gesundheitsversorgung",
+        "healthcareProvisionOptions": ["Zusatzversicherung", "Krankenpflegeversicherung", "Vollprivatversicherung"],   
+        "otherGoals": "Sonstige Ziele"
+    },  
+    "riskAppetite": {
+        "title": "Risikobereitschaft",
+        "riskAppetite": "Risikobereitschaft",
+        "riskAppetiteOptions": ["niedrig", "mittel-niedrig", "mittel", "mittel-hoch", "hoch"],
+        "investmentHorizon": "Investitionshorizont",
+        "investmentHorizonOptions": ["kurzfristig (<3 Jahre)", "mittelfristig (3-7 Jahre)", "langfristig (>7 Jahre)"],
+        "knowledgeExperience": "Wissen & Erfahrung",
+        "knowledgeExperienceOptions": ["keine", "grundlegend", "mittel", "fortgeschritten"]
+    },
+    "analysisConsent": {
+        "title": "Datenschutz & Unterschrift",
+        "analysisConsent": "Einwilligung zur Datenverarbeitung",
+        "analysisConsentText": "Ich stimme der Verarbeitung meiner persönlichen Daten gemäß der Datenschutzerklärung zu.",
+        "analysisConsentSignature": "Unterschrift",
+        "analysisLocation": "Ort",
+        "analysisConsentDate": "Datum"
+    },
+    "healthInsurance": {
+        "title": "Krankenversicherung",
+        "healthInsurance": "Krankenversicherung",
+        "healthInsuranceOptions": ["private", "public"],
+        "healthInsuranceNumber": "Krankenversicherungsnummer",
+        "healthInsuranceProof": "Krankenversicherungsbeweis",
+        "healthInsuranceProofOptions": ["Ja", "Nein"]
+    }   
+}

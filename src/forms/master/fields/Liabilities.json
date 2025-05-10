@@ -1,0 +1,22 @@
+[
+    {
+        "name": "realEstateLoans",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "otherLoans",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "leasingObligations",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "otherLiabilities",
+        "type": "number",
+        "required": true
+    }
+]

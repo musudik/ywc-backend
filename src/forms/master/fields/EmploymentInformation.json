@@ -1,0 +1,19 @@
+[
+    {
+        "name": "OccupationalStatus",
+        "type": "select",
+        "options": "occupationalStatusOptions",
+        "required": true
+    },
+    {
+        "name": "Occupation",
+        "type": "text",
+        "required": true
+    },
+    {
+        "name": "contractType",
+        "type": "select",
+        "options": "contractTypeOptions",
+        "required": true
+    }
+]

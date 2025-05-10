@@ -1,0 +1,18 @@
+[
+    {
+        "name": "riskAppetite",
+        "type": "select",
+        "options": "riskAppetiteOptions"
+    },
+    {
+        "name": "investmentHorizon",
+        "type": "select",
+        "options": "investmentHorizonOptions"
+    },
+    {
+        "name": "knowledgeExperience",
+        "type": "select",
+        "options": "knowledgeExperienceOptions"
+    }   
+]
+

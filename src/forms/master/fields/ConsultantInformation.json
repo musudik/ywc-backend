@@ -1,0 +1,17 @@
+[
+    {
+        "name": "consultantName",
+        "type": "text",
+        "required": true
+    },
+    {
+        "name": "officeLocation",
+        "type": "text",
+        "required": true
+    },
+    {
+        "name": "analysisDate",
+        "type": "date",
+        "required": true
+    }
+]

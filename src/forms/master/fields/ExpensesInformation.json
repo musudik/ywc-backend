@@ -1,0 +1,80 @@
+[
+    {
+      "name": "coldRent",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "gas",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "electricity",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "telecommunication",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "subscriptions",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "accountMaintenanceFee",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "livingExpenses",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "alimony",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "otherExpenses",
+      "type": "number",
+      "required": false
+    },
+    {
+      "name": "addLoan",
+      "type": "group",
+      "fields": [
+        {
+          "name": "purpose",
+          "type": "select",
+          "options": "loanPurposeOptions",
+          "required": true
+        },
+        {
+          "name": "loanBank",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "loanAmount",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "loanMonthlyRate",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "loanInterest",
+          "type": "number",
+          "required": true
+        }
+      ]
+    }
+  ]
+      

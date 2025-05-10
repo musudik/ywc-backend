@@ -1,0 +1,102 @@
+{
+    "consultantInformation": {
+        "consultantName": "string",
+        "officeLocation": "string",
+        "analysisDate": "string"
+    },
+    "personalInformation": {
+        "firstName": "string", 
+        "lastName": "string",
+        "streetAddress": "string",
+        "postalCode": "string",
+        "city": "string",
+        "phone": "string",
+        "email": "string",
+        "birthDate": "string",
+        "birthPlace": "string",
+        "maritalStatus": "string",
+        "nationality": "string",
+        "housing": "string",
+        "children":"[] childrenType" 
+    },
+    "childrenType": {
+        "firstName": "string",
+        "lastName": "string",
+        "birthDate": "string",
+        "birthPlace": "string",
+        "nationality": "string"
+    },
+    "occupationInformation": {
+        "occupation": "string",
+        "contractType": "string",
+    },
+    "incomeInformation": {
+        "grossIncome": "string",
+        "netIncome": "string",
+        "taxClass": "string",
+        "taxId": "string",
+        "numberOfSalaries": "string",
+        "childBenefit": "string",
+        "otherIncome": "string",
+        "salaryProofAttached": "string",
+        "IncomeTradeBusiness": "string",
+        "IncomeSelfEmployedWork": "string",
+        "IncomeSideJob": "string",
+    },
+    "expensesInformation": {
+        "coldRent": "string",
+        "gas": "string",
+        "electricity": "string",
+        "telecommunication": "string",
+        "subscriptions": "string",
+        "accountMaintenanceFee": "string",
+        "livingExpenses": "string",
+        "alimony": "string",
+        "otherExpenses": "string",
+        "addLoanOrLeasing": "string",
+        "loanBank": "string",
+        "loanAmount": "string",
+        "loanMonthlyRate": "string",
+        "loanInterest": "string"
+    },
+    "assetStatement": {
+        " realEstate": "string",
+        "securities": "string",
+        "bankDeposits": "string",
+        "buildingSavings": "string",
+        "insuranceValues": "string",
+        "otherAssets": "string"
+    },
+    "liabilities": {
+        "realEstateLoans": "string",
+        "otherLoans": "string",
+        "leasingObligations": "string",
+        "otherLiabilities": "string"
+    },
+    "goalsAndWishes": {
+        "retirementPlanning": "string",
+        "capitalFormation": "string",
+        "realEstate": "string",
+        "financing": "string",
+        "protection": "string",
+        "healthcareProvision": "string",
+        "otherGoals": "string" 
+    },
+    "riskAppetite": {
+        "riskAppetite": "string",
+        "investmentHorizon": "string",
+        "knowledgeExperience": "string",
+    },
+    "analysisConsent": {
+        "analysisConsent": "string",
+        "analysisConsentText": "string",
+        "analysisConsentSignature": "string",
+        "analysisLocation": "string",
+        "analysisConsentDate": "string"
+    },
+    "healthInsurance": {
+        "healthInsurance": "string",
+        "healthInsuranceNumber": "string",
+        "healthInsuranceProof": "string"
+    }
+}

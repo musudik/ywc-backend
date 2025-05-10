@@ -1,0 +1,32 @@
+[
+    {
+        "name": "realEstate",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "securities",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "bankDeposits",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "buildingSavings",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "insuranceValues",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "otherAssets",
+        "type": "number",
+        "required": true
+    }
+]

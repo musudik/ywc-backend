@@ -1,0 +1,57 @@
+[
+    {
+        "name": "grossIncome",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "netIncome",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "taxClass",
+        "type": "text",
+        "required": true
+    },
+    {
+        "name": "taxId",
+        "type": "text",
+        "required": true
+    },
+    {
+        "name": "numberOfSalaries",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "childBenefit",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "salarySlipAsCopy",
+        "type": "checkbox",
+        "required": true
+    },
+    {
+        "name": "otherIncome",
+        "type": "checkbox",
+        "required": true
+    },
+    {
+        "name": "IncomeTradeBusiness",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "IncomeSelfEmployedWork",
+        "type": "number",
+        "required": true
+    },
+    {
+        "name": "IncomeSideJob",
+        "type": "number",
+        "required": true
+    }
+]

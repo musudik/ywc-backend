@@ -1,0 +1,27 @@
+{
+  "id": "analysis-form-environment",
+  "name": "Analysis Form API Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "formId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2024-03-07T23:45:00.000Z",
+  "_postman_exported_using": "Postman/10.24.0"
+} 

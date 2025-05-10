@@ -1,0 +1,178 @@
+{
+  "info": {
+    "name": "Analysis Form API",
+    "description": "Collection for testing the Analysis Form endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Analysis Form",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"consultantName\": \"Test Consultant\",\n  \"officeLocation\": \"Test Location\",\n  \"analysisDate\": \"2024-03-07\",\n  \"coldRent\": 1000,\n  \"gas\": 100,\n  \"electricity\": 100,\n  \"telecommunication\": 50,\n  \"subscriptions\": 30,\n  \"accountMaintenanceFee\": 10,\n  \"livingExpenses\": 500,\n  \"alimony\": 0,\n  \"otherExpenses\": 0,\n  \"addLoanOrLeasing\": false,\n  \"analysisConsent\": true,\n  \"analysisConsentText\": \"Test consent text\",\n  \"analysisConsentSignature\": \"Test signature\",\n  \"analysisLocation\": \"Test location\",\n  \"analysisConsentDate\": \"2024-03-07\",\n  \"applicants\": [\n    {\n      \"type\": \"A\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"streetAddress\": \"123 Test St\",\n      \"postalCode\": \"12345\",\n      \"city\": \"Test City\",\n      \"phone\": \"1234567890\",\n      \"email\": \"john@example.com\",\n      \"birthDate\": \"1990-01-01\",\n      \"birthPlace\": \"Test Place\",\n      \"maritalStatus\": \"Single\",\n      \"nationality\": \"Test\",\n      \"housing\": \"Own\",\n      \"occupation\": \"Test\",\n      \"contractType\": \"Full-time\",\n      \"grossIncome\": 5000,\n      \"netIncome\": 4000,\n      \"taxClass\": \"1\",\n      \"taxId\": \"12345\",\n      \"numberOfSalaries\": 12,\n      \"childBenefit\": 0,\n      \"otherIncome\": 0,\n      \"salaryProofAttached\": true,\n      \"incomeTradeBusiness\": 0,\n      \"incomeSelfEmployedWork\": 0,\n      \"incomeSideJob\": 0,\n      \"realEstate\": 0,\n      \"securities\": 0,\n      \"bankDeposits\": 0,\n      \"buildingSavings\": 0,\n      \"insuranceValues\": 0,\n      \"otherAssets\": 0,\n      \"realEstateLoans\": 0,\n      \"otherLoans\": 0,\n      \"leasingObligations\": 0,\n      \"otherLiabilities\": 0,\n      \"retirementPlanning\": \"Test\",\n      \"capitalFormation\": \"Test\",\n      \"realEstateGoals\": \"Test\",\n      \"financing\": \"Test\",\n      \"protection\": \"Test\",\n      \"healthcareProvision\": \"Test\",\n      \"otherGoals\": \"Test\",\n      \"riskAppetite\": \"Test\",\n      \"investmentHorizon\": \"Test\",\n      \"knowledgeExperience\": \"Test\",\n      \"healthInsurance\": \"Test\",\n      \"healthInsuranceNumber\": \"12345\",\n      \"healthInsuranceProof\": \"Test\"\n    }\n  ],\n  \"children\": [\n    {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"birthDate\": \"2010-01-01\",\n      \"birthPlace\": \"Test Place\",\n      \"nationality\": \"Test\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/analysis",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "analysis"]
+        },
+        "description": "Create a new analysis form"
+      }
+    },
+    {
+      "name": "Get All Analysis Forms",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/analysis",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "analysis"]
+        },
+        "description": "Get all analysis forms for the current user"
+      }
+    },
+    {
+      "name": "Get Analysis Form by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/analysis/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "analysis", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{formId}}",
+              "description": "ID of the analysis form"
+            }
+          ]
+        },
+        "description": "Get a specific analysis form by ID"
+      }
+    },
+    {
+      "name": "Update Analysis Form",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"consultantName\": \"Updated Consultant\",\n  \"officeLocation\": \"Updated Location\",\n  \"analysisDate\": \"2024-03-07\",\n  \"coldRent\": 1200,\n  \"gas\": 120,\n  \"electricity\": 120,\n  \"telecommunication\": 60,\n  \"subscriptions\": 40,\n  \"accountMaintenanceFee\": 15,\n  \"livingExpenses\": 600,\n  \"alimony\": 0,\n  \"otherExpenses\": 0,\n  \"addLoanOrLeasing\": false,\n  \"analysisConsent\": true,\n  \"analysisConsentText\": \"Updated consent text\",\n  \"analysisConsentSignature\": \"Updated signature\",\n  \"analysisLocation\": \"Updated location\",\n  \"analysisConsentDate\": \"2024-03-07\",\n  \"applicants\": [\n    {\n      \"type\": \"A\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"streetAddress\": \"123 Test St\",\n      \"postalCode\": \"12345\",\n      \"city\": \"Test City\",\n      \"phone\": \"1234567890\",\n      \"email\": \"john@example.com\",\n      \"birthDate\": \"1990-01-01\",\n      \"birthPlace\": \"Test Place\",\n      \"maritalStatus\": \"Single\",\n      \"nationality\": \"Test\",\n      \"housing\": \"Own\",\n      \"occupation\": \"Test\",\n      \"contractType\": \"Full-time\",\n      \"grossIncome\": 6000,\n      \"netIncome\": 4800,\n      \"taxClass\": \"1\",\n      \"taxId\": \"12345\",\n      \"numberOfSalaries\": 12,\n      \"childBenefit\": 0,\n      \"otherIncome\": 0,\n      \"salaryProofAttached\": true,\n      \"incomeTradeBusiness\": 0,\n      \"incomeSelfEmployedWork\": 0,\n      \"incomeSideJob\": 0,\n      \"realEstate\": 0,\n      \"securities\": 0,\n      \"bankDeposits\": 0,\n      \"buildingSavings\": 0,\n      \"insuranceValues\": 0,\n      \"otherAssets\": 0,\n      \"realEstateLoans\": 0,\n      \"otherLoans\": 0,\n      \"leasingObligations\": 0,\n      \"otherLiabilities\": 0,\n      \"retirementPlanning\": \"Updated\",\n      \"capitalFormation\": \"Updated\",\n      \"realEstateGoals\": \"Updated\",\n      \"financing\": \"Updated\",\n      \"protection\": \"Updated\",\n      \"healthcareProvision\": \"Updated\",\n      \"otherGoals\": \"Updated\",\n      \"riskAppetite\": \"Updated\",\n      \"investmentHorizon\": \"Updated\",\n      \"knowledgeExperience\": \"Updated\",\n      \"healthInsurance\": \"Updated\",\n      \"healthInsuranceNumber\": \"12345\",\n      \"healthInsuranceProof\": \"Updated\"\n    }\n  ],\n  \"children\": [\n    {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"birthDate\": \"2010-01-01\",\n      \"birthPlace\": \"Test Place\",\n      \"nationality\": \"Test\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/analysis/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "analysis", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{formId}}",
+              "description": "ID of the analysis form"
+            }
+          ]
+        },
+        "description": "Update an existing analysis form"
+      }
+    },
+    {
+      "name": "Delete Analysis Form",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/analysis/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "analysis", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{formId}}",
+              "description": "ID of the analysis form"
+            }
+          ]
+        },
+        "description": "Delete an analysis form"
+      }
+    },
+    {
+      "name": "Update Form Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Submitted\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/analysis/:id/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "analysis", ":id", "status"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{formId}}",
+              "description": "ID of the analysis form"
+            }
+          ]
+        },
+        "description": "Update the status of an analysis form"
+      }
+    }
+  ]
+} 

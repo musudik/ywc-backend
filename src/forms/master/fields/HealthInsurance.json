@@ -1,0 +1,19 @@
+[
+    {
+        "name": "healthInsurance",
+        "type": "select",
+        "options": "healthInsuranceOptions",
+        "required": true
+    },
+    {
+        "name": "healthInsuranceNumber",
+        "type": "text",
+        "required": true
+    },
+    {
+        "name": "healthInsuranceProof",
+        "type": "radio",
+        "options": "healthInsuranceProofOptions",
+        "required": true
+    }
+]

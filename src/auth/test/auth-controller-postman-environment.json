@@ -1,0 +1,27 @@
+{
+  "id": "d5b8e9f0-6e6f-4d2a-9d0f-4c9f9d8f3e2d",
+  "name": "YWC Auth API - Local",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "firebaseWebhookSecret",
+      "value": "your-webhook-secret-here",
+      "type": "secret",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2023-05-06T12:00:00.000Z",
+  "_postman_exported_using": "Postman/10.13.0"
+} 

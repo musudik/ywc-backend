@@ -1,0 +1,37 @@
+[
+    {
+        "name": "retirementPlanning",
+        "type": "select",
+        "options": "retirementPlanningOptions"
+    },
+    {
+        "name": "capitalFormation",
+        "type": "select",
+        "options": "capitalFormationOptions"
+    },
+    {
+        "name": "realEstate",
+        "type": "select",
+        "options": "realEstateOptions"
+    },
+    {
+        "name": "financing",
+        "type": "select",
+        "options": "financingOptions"
+    },
+    {
+        "name": "protection",
+        "type": "select",
+        "options": "protectionOptions"
+    },
+    {
+        "name": "healthcareProvision",
+        "type": "select",
+        "options": "healthcareProvisionOptions"
+    },
+    {
+        "name": "otherGoals",
+        "type": "text",
+        "required": true
+    }
+]

@@ -1,0 +1,134 @@
+
+{
+    "consultantInformation": {
+        "title": "Consultant Information",
+        "consultantName": "Consultant's Name",
+        "officeLocation": "Office Location",
+        "analysisDate": "Analysis Date"
+    },
+    "personalInformation": {
+        "title": "Personal Information",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "streetAddress": "Street Address",
+        "postalCode": "Postal Code",
+        "city": "City",
+        "phone": "Phone",
+        "email": "Email",
+        "birthDate": "Birth Date",
+        "birthPlace": "Birth Place",
+        "maritalStatus": "Marital Status",
+        "nationality": "Nationality",
+        "healthInsurance": "Health Insurance",
+        "occupation": "Occupation",
+        "housing": "Housing",
+        "income": "Income",
+        "rent": "Rent",
+        "rentOptions": ["Rent-free", "Property paid off", "Property still encumbered"],
+        "children": "Children",
+        "childrenOptions": ["Yes", "No"],
+        "childrenFirstName": "First Name",
+        "childrenLastName": "Last Name",
+        "childrenBirthDate": "Birth Date",
+        "childrenBirthPlace": "Birth Place",
+        "childrenNationality": "Nationality"
+    },
+    "occupationInformation": {
+        "title": "Occupation Information",
+        "occupation": "Current Occupation",
+        "occupationOptions": ["Employee", "Worker", "Civil Servant", "Trainee", "Pensioner", "Unemployed", "Other"],
+        "contractType": "Contract Type",
+        "contractTypeOptions": ["Fixed-term", "Permanent"]
+    },
+    "incomeInformation": {
+        "title": "Income Information",
+        "grossIncome": "Gross Income",
+        "netIncome": "Net Income",
+        "taxClass": "Tax Class",
+        "taxId": "Tax ID",
+        "numberOfSalaries": "Number of Salaries",
+        "childBenefit": "Child Benefit",
+        "otherIncome": "Other Income",
+        "salaryProofAttached": "Salary Proof Attached",
+        "IncomeTradeBusiness": "Trade/Business",
+        "IncomeSelfEmployedWork": "Self-employed Work",
+        "IncomeSideJob": "Side Job",
+        "salaryProofAttachedOptions": ["Yes", "No"]
+    },
+    "expensesInformation": {
+        "title": "Expenses Information",
+        "coldRent": "Cold Rent",
+        "gas": "Gas",
+        "electricity": "Electricity",
+        "telecommunication": "Telecommunication",
+        "subscriptions": "Subscriptions",
+        "accountMaintenanceFee": "Account Maintenance Fee",
+        "livingExpenses": "Living Expenses",
+        "alimony": "Alimony",
+        "otherExpenses": "Other Expenses",
+        "addLoanOrLeasing": "Add Loan or Leasing",
+        "addLoanOrLeasingHeader": "Loan / Leasing",
+        "loanPurposeOptions": ["Car", "House", "Other"],
+        "loanBank": "Bank",
+        "loanAmount": "Amount",
+        "loanMonthlyRate": "Monthly Rate",
+        "loanInterest": "Interest (%)"
+    },
+    "assetStatement": {
+        "title": "Asset Statement",
+        "realEstate": "Real Estate",
+        "securities": "Securities",
+        "bankDeposits": "Bank Deposits",
+        "buildingSavings": "Building Savings",
+        "insuranceValues": "Insurance Values",
+        "otherAssets": "Other Assets"
+    },
+    "liabilities": {
+        "title": "Liabilities",
+        "realEstateLoans": "Real Estate Loans",
+        "otherLoans": "Other Loans",
+        "leasingObligations": "Leasing Obligations",
+        "otherLiabilities": "Other Liabilities"
+    },
+    "goalsAndWishes": {
+        "title": "Goals and Wishes",
+        "retirementPlanning": "Retirement Planning",
+        "retirementPlanningOptions": ["statutoryPension", "privatePension", "companyPension"],
+        "capitalFormation": "Capital Formation",
+        "capitalFormationOptions": ["savingsPlan", "securities", "funds"],
+        "realEstate": "Real Estate",
+        "realEstateOptions": ["purchase", "build"],
+        "financing": "Financing",
+        "financingOptions": ["protection", "healthcareProvision"],
+        "protection": "Protection",
+        "protectionOptions": ["disability", "accident", "survivorProtection"],
+        "healthcareProvision": "Healthcare Provision",
+        "healthcareProvisionOptions": ["supplementaryInsurance", "nursingCareInsurance", "fullPrivateInsurance"],
+        "otherGoals": "Other Goals" 
+    },
+    "riskAppetite": {
+        "title": "Risk Appetite",
+        "riskAppetite": "Risk Appetite",
+        "riskAppetiteOptions": ["low", "medium-low", "medium", "medium-high", "high"],
+        "investmentHorizon": "Investment Horizon",
+        "investmentHorizonOptions": ["short-term", "medium-term", "long-term"],
+        "knowledgeExperience": "Knowledge & Experience",
+        "knowledgeExperienceOptions": ["none", "basic", "intermediate", "advanced"]
+    },
+    "analysisConsent": {
+        "title": "Data Privacy & Signature",
+        "analysisConsent": "Consent to Data Processing",
+        "analysisConsentText": "I agree to the processing of my personal data according to the privacy policy.",
+        "analysisConsentSignature": "Signature",
+        "analysisLocation": "Location",
+        "analysisConsentDate": "Date"
+    },
+    "healthInsurance": {
+        "title": "Health Insurance",
+        "healthInsurance": "Health Insurance",
+        "healthInsuranceOptions": ["private", "public"],
+        "healthInsuranceNumber": "Health Insurance Number",
+        "healthInsuranceProof": "Health Insurance Proof",
+        "healthInsuranceProofOptions": ["Yes", "No"]
+    }
+}

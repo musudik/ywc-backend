@@ -1,0 +1,63 @@
+# Cursor Rules
+
+## Instructions
+
+- Record fixes for mistakes or corrections to avoid repetition in the `Lessons` section.
+- Organize thoughts and plan steps before starting a task in the `Scratchpad` section.
+- Clear old tasks if necessary.
+- Use todo markers for progress tracking:
+  - `[X]` Completed tasks
+  - `[ ]` Pending tasks
+- Update Scratchpad after completing subtasks.
+- Reflect and plan after milestones for better task management.
+- Always refer to Scratchpad before planning the next step.
+## Naming Conventions
+- Use kebab-case for file names
+- Use PascalCase for class-based services
+- Use Plural for controllers/routes (e.g., clients.controller.ts)
+- Use snake_case for database tables
+
+## Scratchpad
+
+### yourwealth.coach
+
+#### 1. Project Setup
+- [X] Initialize Next.js 15 project with TypeScript
+- [X] Set up project structure and folders
+- [X] Configure ESLint and Prettier
+- [X] Install and configure dependencies:
+
+
+#### 2. Database & Backend Setup
+- [X] Set up PostgreSQL database
+- [X] Configure Prisma schema:
+
+
+#### 3. Authentication
+- [X] Implement NextAuth.js authentication:
+
+#### 4. Client Forms (different forms to be implemented)
+- [ ] Implement master dataform which will have the basic form details which could be resused for all other child forms like loans, tax, immobillion, insurances etc.
+- [ ] Each form will be save in different tables, and while retrieving the data it will be combination of master database table and the requested form table to provide the information.
+- [ ] Each form will have different properties, checklist of documents to be uploaded.
+- [ ] Each form will have status 
+      - "No-Form" - Form has not be submited by the client,
+      - "Submitted" - Form has been submited by the client,
+      - "Pending" - Form is awaiting approval from Coach,
+      - "Approved" - Form is approval from Coach,
+- [ ] - Crearte Master data with fields mentioned 
+- [ ] - Crearte immobillion data with fields mentioned 
+- [ ] - Crearte electricity data with fields mentioned 
+- [ ] - Crearte insurances data with fields mentioned 
+- [ ] - Crearte loans data with fields mentioned 
+- [ ] - Crearte sanuspay data with fields mentioned 
+- [ ] - Crearte tax data with fields mentioned 
+
+#### 5. Users
+- [ ] Implement Coach Fuctionalities as below (Controller, routes, middleware, service, types):
+- [ ] Register Client: (registers a client via auth-services with temporary password - subjected to reset by the actual client via email link) - Each client can have multiple forms (src/forms/..) under him, Each can be accessed by a unique link 
+- [ ] List all his clients:
+- [ ] Activate client:
+- [ ] Deativate client:
+- [ ] View, download & Approve Client Forms: Each client will be associated with different form's (src/forms/..) to apply.
+- [ ] Deativate client: 

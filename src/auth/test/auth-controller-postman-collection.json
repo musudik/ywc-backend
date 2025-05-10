@@ -1,0 +1,539 @@
+{
+	"info": {
+		"_postman_id": "b5a7e8d0-5e5f-4c1a-8c0e-3b9f9c7f2e1d",
+		"name": "YWC Auth API",
+		"description": "Collection for testing the yourwealth.coach authentication API endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"Password123!\",\n    \"displayName\": \"Test User\",\n    \"phoneNumber\": \"+1234567890\",\n    \"roleName\": \"CLIENT\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				},
+				"description": "Register a new user with email, password, and role"
+			},
+			"response": [
+				{
+					"name": "Successful Registration",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"Password123!\",\n    \"displayName\": \"Test User\",\n    \"phoneNumber\": \"+1234567890\",\n    \"roleName\": \"CLIENT\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"email\": \"test@example.com\",\n    \"displayName\": \"Test User\",\n    \"phoneNumber\": \"+1234567890\",\n    \"emailVerified\": false,\n    \"role\": {\n        \"id\": \"456e6789-e89b-12d3-a456-426614174000\",\n        \"name\": \"CLIENT\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"Password123!\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				},
+				"description": "Login with email and password"
+			},
+			"response": [
+				{
+					"name": "Successful Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"Password123!\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user\": {\n        \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n        \"email\": \"test@example.com\",\n        \"displayName\": \"Test User\",\n        \"phoneNumber\": \"+1234567890\",\n        \"emailVerified\": false,\n        \"role\": {\n            \"id\": \"456e6789-e89b-12d3-a456-426614174000\",\n            \"name\": \"CLIENT\"\n        }\n    },\n    \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFmODhiODE0MjljYzQ1MWEzMzVjMmY1Y2RiM2RmYjM0ZWIzYmJjN2YiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20veW91cndlYWx0aC1jb2FjaCIsImF1ZCI6InlvdXJ3ZWFsdGgtY29hY2giLCJhdXRoX3RpbWUiOjE2MjU4NTYwMDAsInVzZXJfaWQiOiIxMjNlNDU2Ny1lODliLTEyZDMtYTQ1Ni00MjY2MTQxNzQwMDAiLCJzdWIiOiIxMjNlNDU2Ny1lODliLTEyZDMtYTQ1Ni00MjY2MTQxNzQwMDAiLCJpYXQiOjE2MjU4NTYwMDAsImV4cCI6MTYyNTg1OTYwMCwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInRlc3RAZXhhbXBsZS5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.example-signature\",\n    \"expiresIn\": \"1h\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Verify Email",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"oobCode\": \"verification-code-from-email\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/verify-email",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"verify-email"
+					]
+				},
+				"description": "Verify email using the verification code sent to the user's email"
+			},
+			"response": [
+				{
+					"name": "Successful Email Verification",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oobCode\": \"verification-code-from-email\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/verify-email",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"verify-email"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Email verified successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Forgot Password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@example.com\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/forgot-password",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"forgot-password"
+					]
+				},
+				"description": "Request a password reset email"
+			},
+			"response": [
+				{
+					"name": "Successful Password Reset Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/forgot-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Password reset email sent\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Current User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/me",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"me"
+					]
+				},
+				"description": "Get the current authenticated user's profile"
+			},
+			"response": [
+				{
+					"name": "Successful User Profile Retrieval",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"email\": \"test@example.com\",\n    \"displayName\": \"Test User\",\n    \"phoneNumber\": \"+1234567890\",\n    \"emailVerified\": true,\n    \"profileImage\": \"https://example.com/profile.jpg\",\n    \"role\": {\n        \"id\": \"456e6789-e89b-12d3-a456-426614174000\",\n        \"name\": \"CLIENT\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Profile",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"displayName\": \"Updated Name\",\n    \"phoneNumber\": \"+9876543210\",\n    \"profileImage\": \"https://example.com/new-profile.jpg\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/profile",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"profile"
+					]
+				},
+				"description": "Update the current user's profile"
+			},
+			"response": [
+				{
+					"name": "Successful Profile Update",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"displayName\": \"Updated Name\",\n    \"phoneNumber\": \"+9876543210\",\n    \"profileImage\": \"https://example.com/new-profile.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"email\": \"test@example.com\",\n    \"displayName\": \"Updated Name\",\n    \"phoneNumber\": \"+9876543210\",\n    \"emailVerified\": true,\n    \"profileImage\": \"https://example.com/new-profile.jpg\",\n    \"role\": {\n        \"id\": \"456e6789-e89b-12d3-a456-426614174000\",\n        \"name\": \"CLIENT\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Firebase Webhook",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Firebase-Webhook-Secret",
+						"value": "{{firebaseWebhookSecret}}",
+						"description": "Optional security token"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event\": \"user.verified\",\n    \"user\": {\n        \"uid\": \"123e4567-e89b-12d3-a456-426614174000\",\n        \"email\": \"test@example.com\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/firebase-webhook",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"firebase-webhook"
+					]
+				},
+				"description": "Handle Firebase auth webhook events"
+			},
+			"response": [
+				{
+					"name": "Successful Webhook Processing",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Firebase-Webhook-Secret",
+								"value": "{{firebaseWebhookSecret}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event\": \"user.verified\",\n    \"user\": {\n        \"uid\": \"123e4567-e89b-12d3-a456-426614174000\",\n        \"email\": \"test@example.com\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/firebase-webhook",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"firebase-webhook"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Webhook processed successfully\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Save auth token from login response",
+					"if (pm.response.code === 200 && pm.request.url.toString().includes('/api/auth/login')) {",
+					"    var jsonData = pm.response.json();",
+					"    if (jsonData && jsonData.token) {",
+					"        pm.environment.set('authToken', jsonData.token);",
+					"        console.log('Auth token saved to environment variable');",
+					"    }",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "firebaseWebhookSecret",
+			"value": "your-webhook-secret-here",
+			"type": "string"
+		}
+	]
+} 
