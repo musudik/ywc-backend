@@ -16,7 +16,7 @@ export interface BaseEntity {
 
 // Personal Details
 export interface PersonalDetailsInput extends BaseEntity {
-  personalId?: string;
+  userId?: string;
   coachId: string;
   applicantType: ApplicantType;
   firstName: string;
@@ -164,4 +164,20 @@ export interface CustomFormInput extends BaseEntity {
   formName: string;
   createdDate: Date | string;
   updatedDate: Date | string;
+}
+
+// Profile Completion Status
+export interface ProfileCompletionResponse {
+  isComplete: boolean;
+  sections: {
+    personalDetails: boolean;
+    employment: boolean;
+    income: boolean;
+    expenses: boolean;
+    assets: boolean;
+    liabilities: boolean;
+    goalsAndWishes: boolean;
+    riskAppetite: boolean;
+  };
+  completionPercentage: number;
 } 

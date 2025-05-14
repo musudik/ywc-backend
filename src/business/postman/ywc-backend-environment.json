@@ -1,0 +1,97 @@
+{
+  "id": "ywc-backend-environment",
+  "name": "YourWealth.Coach Backend Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "userId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "personalId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "employmentId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "incomeId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "expensesId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "assetId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "liabilityId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "goalsAndWishesId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "riskAppetiteId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "consentId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "documentId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "formId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "customFormId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+} 

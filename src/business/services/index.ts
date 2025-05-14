@@ -10,4 +10,5 @@ export { FormService } from './form.service';
 export { GoalsAndWishesService } from './goals-wishes.service';
 export { IncomeService } from './income.service';
 export { LiabilityService } from './liability.service';
-export { RiskAppetiteService } from './risk-appetite.service'; 
+export { RiskAppetiteService } from './risk-appetite.service';
+export { ProfileCompletionService } from './profile-completion.service'; 

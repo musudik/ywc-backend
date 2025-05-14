@@ -1,0 +1,690 @@
+{
+  "info": {
+    "name": "YourWealth.Coach API Collection",
+    "description": "API collection for YourWealth.Coach backend services",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "personalId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "description": "Authentication endpoints",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\",\n    \"displayName\": \"Test User\",\n    \"roleName\": \"CLIENT\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Register a new user"
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "if (jsonData && jsonData.token) {",
+                  "    pm.environment.set(\"token\", jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Login to get authentication token"
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "me"]
+            },
+            "description": "Get current user information"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profile Completion",
+      "description": "Profile completion status endpoints",
+      "item": [
+        {
+          "name": "Get Profile Completion Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/profile/completion-status",
+              "host": ["{{baseUrl}}"],
+              "path": ["profile", "completion-status"]
+            },
+            "description": "Get the completion status of the user's profile"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Personal Details",
+      "description": "Personal details endpoints",
+      "item": [
+        {
+          "name": "Create Personal Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "if (jsonData && jsonData.personalId) {",
+                  "    pm.environment.set(\"personalId\", jsonData.personalId);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"coachId\": \"{{userId}}\",\n    \"applicantType\": \"PrimaryApplicant\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"streetAddress\": \"123 Main St\",\n    \"postalCode\": \"12345\",\n    \"city\": \"Berlin\",\n    \"phone\": \"+491234567890\",\n    \"email\": \"john.doe@example.com\",\n    \"birthDate\": \"1990-01-01\",\n    \"birthPlace\": \"Munich\",\n    \"maritalStatus\": \"Single\",\n    \"nationality\": \"German\",\n    \"housing\": \"Owned\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/personal-details",
+              "host": ["{{baseUrl}}"],
+              "path": ["personal-details"]
+            },
+            "description": "Create personal details for a user"
+          }
+        },
+        {
+          "name": "Get All Personal Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/personal-details",
+              "host": ["{{baseUrl}}"],
+              "path": ["personal-details"]
+            },
+            "description": "Get all personal details for the current user"
+          }
+        },
+        {
+          "name": "Get Personal Details by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/personal-details/{{personalId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["personal-details", "{{personalId}}"]
+            },
+            "description": "Get personal details by ID"
+          }
+        },
+        {
+          "name": "Update Personal Details",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstName\": \"John Updated\",\n    \"lastName\": \"Doe Updated\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/personal-details/{{personalId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["personal-details", "{{personalId}}"]
+            },
+            "description": "Update personal details by ID"
+          }
+        },
+        {
+          "name": "Delete Personal Details",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/personal-details/{{personalId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["personal-details", "{{personalId}}"]
+            },
+            "description": "Delete personal details by ID"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Client Data - Employment",
+      "description": "Employment details endpoints",
+      "item": [
+        {
+          "name": "Create Employment Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "if (jsonData && jsonData.employmentId) {",
+                  "    pm.environment.set(\"employmentId\", jsonData.employmentId);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"employmentType\": \"PrimaryEmployment\",\n    \"occupation\": \"Software Engineer\",\n    \"contractType\": \"Permanent\",\n    \"contractDuration\": \"Indefinite\",\n    \"employerName\": \"Tech Company GmbH\",\n    \"employedSince\": \"2020-01-01\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/employment",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "employment"]
+            },
+            "description": "Create employment details for a user"
+          }
+        },
+        {
+          "name": "Get Employment Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/employment/{{personalId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "employment", "{{personalId}}"]
+            },
+            "description": "Get employment details for a user"
+          }
+        },
+        {
+          "name": "Update Employment Details",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"occupation\": \"Senior Software Engineer\",\n    \"employerName\": \"Updated Tech Company GmbH\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/employment/{{employmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "employment", "{{employmentId}}"]
+            },
+            "description": "Update employment details by ID"
+          }
+        },
+        {
+          "name": "Delete Employment Details",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/employment/{{employmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "employment", "{{employmentId}}"]
+            },
+            "description": "Delete employment details by ID"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Client Data - Income",
+      "description": "Income details endpoints",
+      "item": [
+        {
+          "name": "Create Income Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "if (jsonData && jsonData.incomeId) {",
+                  "    pm.environment.set(\"incomeId\", jsonData.incomeId);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"grossIncome\": 60000,\n    \"netIncome\": 40000,\n    \"taxClass\": \"Class 1\",\n    \"taxId\": \"123456789\",\n    \"numberOfSalaries\": 12,\n    \"childBenefit\": 0,\n    \"otherIncome\": 0,\n    \"incomeTradeBusiness\": 0,\n    \"incomeSelfEmployedWork\": 0,\n    \"incomeSideJob\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/income",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "income"]
+            },
+            "description": "Create income details for a user"
+          }
+        },
+        {
+          "name": "Get Income Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/income/{{personalId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "income", "{{personalId}}"]
+            },
+            "description": "Get income details for a user"
+          }
+        },
+        {
+          "name": "Update Income Details",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"grossIncome\": 65000,\n    \"netIncome\": 42000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/income/{{incomeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "income", "{{incomeId}}"]
+            },
+            "description": "Update income details by ID"
+          }
+        },
+        {
+          "name": "Delete Income Details",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/income/{{incomeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "income", "{{incomeId}}"]
+            },
+            "description": "Delete income details by ID"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Client Data - Goals and Wishes",
+      "description": "Goals and wishes endpoints",
+      "item": [
+        {
+          "name": "Create Goals and Wishes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "if (jsonData && jsonData.goalsAndWishesId) {",
+                  "    pm.environment.set(\"goalsAndWishesId\", jsonData.goalsAndWishesId);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"retirementPlanning\": \"Planning to retire at 65\",\n    \"capitalFormation\": \"Monthly savings of 500 EUR\",\n    \"realEstateGoals\": \"Purchase a house in 5 years\",\n    \"financing\": \"Need financing for house purchase\",\n    \"protection\": \"Life insurance and health insurance\",\n    \"healthcareProvision\": \"Private health insurance\",\n    \"otherGoals\": \"Travel around the world\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/goals-wishes",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "goals-wishes"]
+            },
+            "description": "Create goals and wishes for a user"
+          }
+        },
+        {
+          "name": "Get Goals and Wishes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/goals-wishes/{{personalId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "goals-wishes", "{{personalId}}"]
+            },
+            "description": "Get goals and wishes for a user"
+          }
+        },
+        {
+          "name": "Update Goals and Wishes",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"retirementPlanning\": \"Planning to retire at 60\",\n    \"otherGoals\": \"Travel around the world and write a book\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/goals-wishes/{{goalsAndWishesId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "goals-wishes", "{{goalsAndWishesId}}"]
+            },
+            "description": "Update goals and wishes by ID"
+          }
+        },
+        {
+          "name": "Delete Goals and Wishes",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/goals-wishes/{{goalsAndWishesId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "goals-wishes", "{{goalsAndWishesId}}"]
+            },
+            "description": "Delete goals and wishes by ID"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Client Data - Risk Appetite",
+      "description": "Risk appetite endpoints",
+      "item": [
+        {
+          "name": "Create Risk Appetite",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "if (jsonData && jsonData.riskAppetiteId) {",
+                  "    pm.environment.set(\"riskAppetiteId\", jsonData.riskAppetiteId);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"personalId\": \"{{personalId}}\",\n    \"riskAppetite\": \"Medium\",\n    \"investmentHorizon\": \"10 years\",\n    \"knowledgeExperience\": \"Moderate experience with investments\",\n    \"healthInsurance\": \"TK\",\n    \"healthInsuranceNumber\": \"A123456789\",\n    \"healthInsuranceProof\": \"Uploaded\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/risk-appetite",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "risk-appetite"]
+            },
+            "description": "Create risk appetite for a user"
+          }
+        },
+        {
+          "name": "Get Risk Appetite",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/risk-appetite/{{personalId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "risk-appetite", "{{personalId}}"]
+            },
+            "description": "Get risk appetite for a user"
+          }
+        },
+        {
+          "name": "Update Risk Appetite",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"riskAppetite\": \"High\",\n    \"investmentHorizon\": \"15 years\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-data/risk-appetite/{{riskAppetiteId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "risk-appetite", "{{riskAppetiteId}}"]
+            },
+            "description": "Update risk appetite by ID"
+          }
+        },
+        {
+          "name": "Delete Risk Appetite",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/client-data/risk-appetite/{{riskAppetiteId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["client-data", "risk-appetite", "{{riskAppetiteId}}"]
+            },
+            "description": "Delete risk appetite by ID"
+          }
+        }
+      ]
+    }
+  ]
+} 

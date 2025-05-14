@@ -14,7 +14,8 @@ export class PersonalDetailsService {
     return this.prisma.personalDetails.create({
       data: {
         ...rest,
-        birthDate: new Date(birthDate)
+        birthDate: new Date(birthDate),
+        userId: rest.userId || rest.coachId
       }
     });
   }
@@ -32,16 +33,32 @@ export class PersonalDetailsService {
             displayName: true,
             roleId: true
           }
+        },
+        user: {
+          select: {
+            id: true,
+            email: true,
+            displayName: true,
+            roleId: true
+          }
         }
       }
     });
   }
 
-  async findOne(personalId: string): Promise<PersonalDetails | null> {
+  async findOne(userId: string): Promise<PersonalDetails | null> {
     return this.prisma.personalDetails.findUnique({
-      where: { personalId },
+      where: { userId },
       include: {
         coach: {
+          select: {
+            id: true,
+            email: true,
+            displayName: true,
+            roleId: true
+          }
+        },
+        user: {
           select: {
             id: true,
             email: true,
@@ -60,7 +77,7 @@ export class PersonalDetailsService {
     });
   }
 
-  async update(personalId: string, data: Partial<PersonalDetailsInput>): Promise<PersonalDetails> {
+  async update(userId: string, data: Partial<PersonalDetailsInput>): Promise<PersonalDetails> {
     const { birthDate, ...rest } = data;
     
     const updateData: any = { ...rest };
@@ -69,14 +86,14 @@ export class PersonalDetailsService {
     }
     
     return this.prisma.personalDetails.update({
-      where: { personalId },
+      where: { userId },
       data: updateData
     });
   }
 
-  async delete(personalId: string): Promise<PersonalDetails> {
+  async delete(userId: string): Promise<PersonalDetails> {
     return this.prisma.personalDetails.delete({
-      where: { personalId }
+      where: { userId }
     });
   }
 } 

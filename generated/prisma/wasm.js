@@ -273,7 +273,7 @@ exports.Prisma.AnalysisFormScalarFieldEnum = {
 
 exports.Prisma.PersonalDetailsScalarFieldEnum = {
   id: 'id',
-  personalId: 'personalId',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   coachId: 'coachId',

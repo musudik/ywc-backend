@@ -6,6 +6,7 @@ import { z } from 'zod';
 // Validation schema
 const personalDetailsSchema = z.object({
   coachId: z.string(),
+  userId: z.string().optional(),
   applicantType: z.enum(['PrimaryApplicant', 'SecondaryApplicant']),
   firstName: z.string(),
   lastName: z.string(),
@@ -46,7 +47,13 @@ export class PersonalDetailsController {
         });
       }
       
-      const personalDetails = await this.service.create(req.body as PersonalDetailsInput);
+      // Set the userId to the current user's ID if not provided
+      const data = {
+        ...req.body,
+        userId: req.body.userId || req.currentUser.id
+      };
+      
+      const personalDetails = await this.service.create(data as PersonalDetailsInput);
       return res.status(201).json(personalDetails);
     } catch (error) {
       console.error('Error creating personal details:', error);
@@ -59,18 +66,39 @@ export class PersonalDetailsController {
     try {
       // Ensure user is authenticated
       if (!req.currentUser) {
+        console.log('User not authenticated');
         return res.status(401).json({ message: 'Not authenticated' });
       }
       
+      console.log('Current user:', JSON.stringify(req.currentUser, null, 2));
+      
       // Get coach ID from query params or use the current user's ID
       let coachId = req.query.coachId as string;
+      console.log('Query coachId:', coachId);
       
       // If user is not ADMIN or COACH, they can only view their own data
       if (req.currentUser.role !== 'ADMIN' && req.currentUser.role !== 'COACH') {
+        console.log('User is not ADMIN or COACH, using currentUser.id');
         coachId = req.currentUser.id;
       }
       
+      console.log('Using coachId for query:', coachId);
+      
+      // For clients, we should look for personal details where userId matches their ID
+      if (req.currentUser.role === 'CLIENT') {
+        console.log('User is CLIENT, looking for personal details with userId:', req.currentUser.id);
+        const personalDetails = await this.service.findOne(req.currentUser.id);
+        console.log('Found personal details:', personalDetails ? 'Yes' : 'No');
+        
+        if (personalDetails) {
+          return res.json([personalDetails]);
+        } else {
+          return res.json([]);
+        }
+      }
+      
       const personalDetails = await this.service.findAll(coachId);
+      console.log('Found personal details count:', personalDetails.length);
       return res.json(personalDetails);
     } catch (error) {
       console.error('Error getting personal details:', error);
@@ -87,6 +115,7 @@ export class PersonalDetailsController {
       }
       
       const { id } = req.params;
+      console.log('getOne:: id', id);
       const personalDetails = await this.service.findOne(id);
       
       if (!personalDetails) {
@@ -95,7 +124,7 @@ export class PersonalDetailsController {
       
       // Check permissions: ADMIN or COACH can access any record, others only their own
       if (req.currentUser.role !== 'ADMIN' && req.currentUser.role !== 'COACH' && 
-          personalDetails.coachId !== req.currentUser.id) {
+          personalDetails.userId !== req.currentUser.id && personalDetails.coachId !== req.currentUser.id) {
         return res.status(403).json({ message: 'Access denied' });
       }
       
@@ -124,7 +153,7 @@ export class PersonalDetailsController {
       
       // Check permissions: ADMIN or COACH can update any record, others only their own
       if (req.currentUser.role !== 'ADMIN' && req.currentUser.role !== 'COACH' && 
-          existingDetails.coachId !== req.currentUser.id) {
+          existingDetails.userId !== req.currentUser.id) {
         return res.status(403).json({ message: 'Access denied' });
       }
       

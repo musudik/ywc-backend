@@ -2594,13 +2594,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     analysisForms: number
     immobillionForms: number
-    personalDetails: number
+    clientsAsCoach: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     analysisForms?: boolean | UserCountOutputTypeCountAnalysisFormsArgs
     immobillionForms?: boolean | UserCountOutputTypeCountImmobillionFormsArgs
-    personalDetails?: boolean | UserCountOutputTypeCountPersonalDetailsArgs
+    clientsAsCoach?: boolean | UserCountOutputTypeCountClientsAsCoachArgs
   }
 
   // Custom InputTypes
@@ -2631,7 +2631,7 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountPersonalDetailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountClientsAsCoachArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PersonalDetailsWhereInput
   }
 
@@ -3077,6 +3077,7 @@ export namespace Prisma {
     analysisForms?: boolean | User$analysisFormsArgs<ExtArgs>
     immobillionForms?: boolean | User$immobillionFormsArgs<ExtArgs>
     personalDetails?: boolean | User$personalDetailsArgs<ExtArgs>
+    clientsAsCoach?: boolean | User$clientsAsCoachArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3136,6 +3137,7 @@ export namespace Prisma {
     analysisForms?: boolean | User$analysisFormsArgs<ExtArgs>
     immobillionForms?: boolean | User$immobillionFormsArgs<ExtArgs>
     personalDetails?: boolean | User$personalDetailsArgs<ExtArgs>
+    clientsAsCoach?: boolean | User$clientsAsCoachArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3151,7 +3153,8 @@ export namespace Prisma {
       role: Prisma.$RolePayload<ExtArgs>
       analysisForms: Prisma.$AnalysisFormPayload<ExtArgs>[]
       immobillionForms: Prisma.$ImmobillionFormPayload<ExtArgs>[]
-      personalDetails: Prisma.$PersonalDetailsPayload<ExtArgs>[]
+      personalDetails: Prisma.$PersonalDetailsPayload<ExtArgs> | null
+      clientsAsCoach: Prisma.$PersonalDetailsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3564,7 +3567,8 @@ export namespace Prisma {
     role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     analysisForms<T extends User$analysisFormsArgs<ExtArgs> = {}>(args?: Subset<T, User$analysisFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnalysisFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     immobillionForms<T extends User$immobillionFormsArgs<ExtArgs> = {}>(args?: Subset<T, User$immobillionFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImmobillionFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    personalDetails<T extends User$personalDetailsArgs<ExtArgs> = {}>(args?: Subset<T, User$personalDetailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonalDetailsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    personalDetails<T extends User$personalDetailsArgs<ExtArgs> = {}>(args?: Subset<T, User$personalDetailsArgs<ExtArgs>>): Prisma__PersonalDetailsClient<$Result.GetResult<Prisma.$PersonalDetailsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    clientsAsCoach<T extends User$clientsAsCoachArgs<ExtArgs> = {}>(args?: Subset<T, User$clientsAsCoachArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonalDetailsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4054,6 +4058,25 @@ export namespace Prisma {
    * User.personalDetails
    */
   export type User$personalDetailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonalDetails
+     */
+    select?: PersonalDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonalDetails
+     */
+    omit?: PersonalDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonalDetailsInclude<ExtArgs> | null
+    where?: PersonalDetailsWhereInput
+  }
+
+  /**
+   * User.clientsAsCoach
+   */
+  export type User$clientsAsCoachArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the PersonalDetails
      */
@@ -11899,7 +11922,7 @@ export namespace Prisma {
 
   export type PersonalDetailsMinAggregateOutputType = {
     id: string | null
-    personalId: string | null
+    userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     coachId: string | null
@@ -11920,7 +11943,7 @@ export namespace Prisma {
 
   export type PersonalDetailsMaxAggregateOutputType = {
     id: string | null
-    personalId: string | null
+    userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     coachId: string | null
@@ -11941,7 +11964,7 @@ export namespace Prisma {
 
   export type PersonalDetailsCountAggregateOutputType = {
     id: number
-    personalId: number
+    userId: number
     createdAt: number
     updatedAt: number
     coachId: number
@@ -11964,7 +11987,7 @@ export namespace Prisma {
 
   export type PersonalDetailsMinAggregateInputType = {
     id?: true
-    personalId?: true
+    userId?: true
     createdAt?: true
     updatedAt?: true
     coachId?: true
@@ -11985,7 +12008,7 @@ export namespace Prisma {
 
   export type PersonalDetailsMaxAggregateInputType = {
     id?: true
-    personalId?: true
+    userId?: true
     createdAt?: true
     updatedAt?: true
     coachId?: true
@@ -12006,7 +12029,7 @@ export namespace Prisma {
 
   export type PersonalDetailsCountAggregateInputType = {
     id?: true
-    personalId?: true
+    userId?: true
     createdAt?: true
     updatedAt?: true
     coachId?: true
@@ -12100,7 +12123,7 @@ export namespace Prisma {
 
   export type PersonalDetailsGroupByOutputType = {
     id: string
-    personalId: string
+    userId: string
     createdAt: Date
     updatedAt: Date
     coachId: string
@@ -12138,7 +12161,7 @@ export namespace Prisma {
 
   export type PersonalDetailsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    personalId?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     coachId?: boolean
@@ -12155,6 +12178,7 @@ export namespace Prisma {
     maritalStatus?: boolean
     nationality?: boolean
     housing?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
     coach?: boolean | UserDefaultArgs<ExtArgs>
     employmentDetails?: boolean | PersonalDetails$employmentDetailsArgs<ExtArgs>
     incomeDetails?: boolean | PersonalDetails$incomeDetailsArgs<ExtArgs>
@@ -12172,7 +12196,7 @@ export namespace Prisma {
 
   export type PersonalDetailsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    personalId?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     coachId?: boolean
@@ -12189,12 +12213,13 @@ export namespace Prisma {
     maritalStatus?: boolean
     nationality?: boolean
     housing?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
     coach?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["personalDetails"]>
 
   export type PersonalDetailsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    personalId?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     coachId?: boolean
@@ -12211,12 +12236,13 @@ export namespace Prisma {
     maritalStatus?: boolean
     nationality?: boolean
     housing?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
     coach?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["personalDetails"]>
 
   export type PersonalDetailsSelectScalar = {
     id?: boolean
-    personalId?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     coachId?: boolean
@@ -12235,8 +12261,9 @@ export namespace Prisma {
     housing?: boolean
   }
 
-  export type PersonalDetailsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personalId" | "createdAt" | "updatedAt" | "coachId" | "applicantType" | "firstName" | "lastName" | "streetAddress" | "postalCode" | "city" | "phone" | "email" | "birthDate" | "birthPlace" | "maritalStatus" | "nationality" | "housing", ExtArgs["result"]["personalDetails"]>
+  export type PersonalDetailsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "createdAt" | "updatedAt" | "coachId" | "applicantType" | "firstName" | "lastName" | "streetAddress" | "postalCode" | "city" | "phone" | "email" | "birthDate" | "birthPlace" | "maritalStatus" | "nationality" | "housing", ExtArgs["result"]["personalDetails"]>
   export type PersonalDetailsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
     coach?: boolean | UserDefaultArgs<ExtArgs>
     employmentDetails?: boolean | PersonalDetails$employmentDetailsArgs<ExtArgs>
     incomeDetails?: boolean | PersonalDetails$incomeDetailsArgs<ExtArgs>
@@ -12252,15 +12279,18 @@ export namespace Prisma {
     _count?: boolean | PersonalDetailsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PersonalDetailsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
     coach?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type PersonalDetailsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
     coach?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $PersonalDetailsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PersonalDetails"
     objects: {
+      user: Prisma.$UserPayload<ExtArgs>
       coach: Prisma.$UserPayload<ExtArgs>
       employmentDetails: Prisma.$EmploymentDetailsPayload<ExtArgs>[]
       incomeDetails: Prisma.$IncomeDetailsPayload<ExtArgs>[]
@@ -12276,7 +12306,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      personalId: string
+      userId: string
       createdAt: Date
       updatedAt: Date
       coachId: string
@@ -12687,6 +12717,7 @@ export namespace Prisma {
    */
   export interface Prisma__PersonalDetailsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     coach<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     employmentDetails<T extends PersonalDetails$employmentDetailsArgs<ExtArgs> = {}>(args?: Subset<T, PersonalDetails$employmentDetailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmploymentDetailsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     incomeDetails<T extends PersonalDetails$incomeDetailsArgs<ExtArgs> = {}>(args?: Subset<T, PersonalDetails$incomeDetailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IncomeDetailsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -12729,7 +12760,7 @@ export namespace Prisma {
    */
   interface PersonalDetailsFieldRefs {
     readonly id: FieldRef<"PersonalDetails", 'String'>
-    readonly personalId: FieldRef<"PersonalDetails", 'String'>
+    readonly userId: FieldRef<"PersonalDetails", 'String'>
     readonly createdAt: FieldRef<"PersonalDetails", 'DateTime'>
     readonly updatedAt: FieldRef<"PersonalDetails", 'DateTime'>
     readonly coachId: FieldRef<"PersonalDetails", 'String'>
@@ -26335,7 +26366,7 @@ export namespace Prisma {
 
   export const PersonalDetailsScalarFieldEnum: {
     id: 'id',
-    personalId: 'personalId',
+    userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     coachId: 'coachId',
@@ -26782,7 +26813,8 @@ export namespace Prisma {
     role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
     analysisForms?: AnalysisFormListRelationFilter
     immobillionForms?: ImmobillionFormListRelationFilter
-    personalDetails?: PersonalDetailsListRelationFilter
+    personalDetails?: XOR<PersonalDetailsNullableScalarRelationFilter, PersonalDetailsWhereInput> | null
+    clientsAsCoach?: PersonalDetailsListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -26802,7 +26834,8 @@ export namespace Prisma {
     role?: RoleOrderByWithRelationInput
     analysisForms?: AnalysisFormOrderByRelationAggregateInput
     immobillionForms?: ImmobillionFormOrderByRelationAggregateInput
-    personalDetails?: PersonalDetailsOrderByRelationAggregateInput
+    personalDetails?: PersonalDetailsOrderByWithRelationInput
+    clientsAsCoach?: PersonalDetailsOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -26825,7 +26858,8 @@ export namespace Prisma {
     role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
     analysisForms?: AnalysisFormListRelationFilter
     immobillionForms?: ImmobillionFormListRelationFilter
-    personalDetails?: PersonalDetailsListRelationFilter
+    personalDetails?: XOR<PersonalDetailsNullableScalarRelationFilter, PersonalDetailsWhereInput> | null
+    clientsAsCoach?: PersonalDetailsListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -27657,7 +27691,7 @@ export namespace Prisma {
     OR?: PersonalDetailsWhereInput[]
     NOT?: PersonalDetailsWhereInput | PersonalDetailsWhereInput[]
     id?: StringFilter<"PersonalDetails"> | string
-    personalId?: StringFilter<"PersonalDetails"> | string
+    userId?: StringFilter<"PersonalDetails"> | string
     createdAt?: DateTimeFilter<"PersonalDetails"> | Date | string
     updatedAt?: DateTimeFilter<"PersonalDetails"> | Date | string
     coachId?: StringFilter<"PersonalDetails"> | string
@@ -27674,6 +27708,7 @@ export namespace Prisma {
     maritalStatus?: StringFilter<"PersonalDetails"> | string
     nationality?: StringFilter<"PersonalDetails"> | string
     housing?: StringFilter<"PersonalDetails"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     coach?: XOR<UserScalarRelationFilter, UserWhereInput>
     employmentDetails?: EmploymentDetailsListRelationFilter
     incomeDetails?: IncomeDetailsListRelationFilter
@@ -27690,7 +27725,7 @@ export namespace Prisma {
 
   export type PersonalDetailsOrderByWithRelationInput = {
     id?: SortOrder
-    personalId?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     coachId?: SortOrder
@@ -27707,6 +27742,7 @@ export namespace Prisma {
     maritalStatus?: SortOrder
     nationality?: SortOrder
     housing?: SortOrder
+    user?: UserOrderByWithRelationInput
     coach?: UserOrderByWithRelationInput
     employmentDetails?: EmploymentDetailsOrderByRelationAggregateInput
     incomeDetails?: IncomeDetailsOrderByRelationAggregateInput
@@ -27723,7 +27759,7 @@ export namespace Prisma {
 
   export type PersonalDetailsWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    personalId?: string
+    userId?: string
     AND?: PersonalDetailsWhereInput | PersonalDetailsWhereInput[]
     OR?: PersonalDetailsWhereInput[]
     NOT?: PersonalDetailsWhereInput | PersonalDetailsWhereInput[]
@@ -27743,6 +27779,7 @@ export namespace Prisma {
     maritalStatus?: StringFilter<"PersonalDetails"> | string
     nationality?: StringFilter<"PersonalDetails"> | string
     housing?: StringFilter<"PersonalDetails"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     coach?: XOR<UserScalarRelationFilter, UserWhereInput>
     employmentDetails?: EmploymentDetailsListRelationFilter
     incomeDetails?: IncomeDetailsListRelationFilter
@@ -27755,11 +27792,11 @@ export namespace Prisma {
     documents?: DocumentListRelationFilter
     forms?: FormListRelationFilter
     customForms?: CustomFormListRelationFilter
-  }, "id" | "personalId">
+  }, "id" | "userId">
 
   export type PersonalDetailsOrderByWithAggregationInput = {
     id?: SortOrder
-    personalId?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     coachId?: SortOrder
@@ -27786,7 +27823,7 @@ export namespace Prisma {
     OR?: PersonalDetailsScalarWhereWithAggregatesInput[]
     NOT?: PersonalDetailsScalarWhereWithAggregatesInput | PersonalDetailsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PersonalDetails"> | string
-    personalId?: StringWithAggregatesFilter<"PersonalDetails"> | string
+    userId?: StringWithAggregatesFilter<"PersonalDetails"> | string
     createdAt?: DateTimeWithAggregatesFilter<"PersonalDetails"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PersonalDetails"> | Date | string
     coachId?: StringWithAggregatesFilter<"PersonalDetails"> | string
@@ -28769,7 +28806,8 @@ export namespace Prisma {
     role: RoleCreateNestedOneWithoutUsersInput
     analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
-    personalDetails?: PersonalDetailsCreateNestedManyWithoutCoachInput
+    personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+    clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -28788,7 +28826,8 @@ export namespace Prisma {
     resetTokenExpiry?: Date | string | null
     analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
-    personalDetails?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
+    personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+    clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
   }
 
   export type UserUpdateInput = {
@@ -28807,7 +28846,8 @@ export namespace Prisma {
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
-    personalDetails?: PersonalDetailsUpdateManyWithoutCoachNestedInput
+    personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -28826,7 +28866,8 @@ export namespace Prisma {
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
-    personalDetails?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
+    personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -29837,7 +29878,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -29853,7 +29893,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
@@ -29869,7 +29910,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -29901,7 +29942,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -29917,7 +29957,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
@@ -29933,7 +29974,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -29965,7 +30006,7 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateManyInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -29986,7 +30027,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -30006,7 +30046,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -31173,6 +31213,11 @@ export namespace Prisma {
     none?: ImmobillionFormWhereInput
   }
 
+  export type PersonalDetailsNullableScalarRelationFilter = {
+    is?: PersonalDetailsWhereInput | null
+    isNot?: PersonalDetailsWhereInput | null
+  }
+
   export type PersonalDetailsListRelationFilter = {
     every?: PersonalDetailsWhereInput
     some?: PersonalDetailsWhereInput
@@ -32144,7 +32189,7 @@ export namespace Prisma {
 
   export type PersonalDetailsCountOrderByAggregateInput = {
     id?: SortOrder
-    personalId?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     coachId?: SortOrder
@@ -32165,7 +32210,7 @@ export namespace Prisma {
 
   export type PersonalDetailsMaxOrderByAggregateInput = {
     id?: SortOrder
-    personalId?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     coachId?: SortOrder
@@ -32186,7 +32231,7 @@ export namespace Prisma {
 
   export type PersonalDetailsMinOrderByAggregateInput = {
     id?: SortOrder
-    personalId?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     coachId?: SortOrder
@@ -32849,6 +32894,12 @@ export namespace Prisma {
     connect?: ImmobillionFormWhereUniqueInput | ImmobillionFormWhereUniqueInput[]
   }
 
+  export type PersonalDetailsCreateNestedOneWithoutUserInput = {
+    create?: XOR<PersonalDetailsCreateWithoutUserInput, PersonalDetailsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: PersonalDetailsCreateOrConnectWithoutUserInput
+    connect?: PersonalDetailsWhereUniqueInput
+  }
+
   export type PersonalDetailsCreateNestedManyWithoutCoachInput = {
     create?: XOR<PersonalDetailsCreateWithoutCoachInput, PersonalDetailsUncheckedCreateWithoutCoachInput> | PersonalDetailsCreateWithoutCoachInput[] | PersonalDetailsUncheckedCreateWithoutCoachInput[]
     connectOrCreate?: PersonalDetailsCreateOrConnectWithoutCoachInput | PersonalDetailsCreateOrConnectWithoutCoachInput[]
@@ -32868,6 +32919,12 @@ export namespace Prisma {
     connectOrCreate?: ImmobillionFormCreateOrConnectWithoutUserInput | ImmobillionFormCreateOrConnectWithoutUserInput[]
     createMany?: ImmobillionFormCreateManyUserInputEnvelope
     connect?: ImmobillionFormWhereUniqueInput | ImmobillionFormWhereUniqueInput[]
+  }
+
+  export type PersonalDetailsUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<PersonalDetailsCreateWithoutUserInput, PersonalDetailsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: PersonalDetailsCreateOrConnectWithoutUserInput
+    connect?: PersonalDetailsWhereUniqueInput
   }
 
   export type PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput = {
@@ -32933,6 +32990,16 @@ export namespace Prisma {
     deleteMany?: ImmobillionFormScalarWhereInput | ImmobillionFormScalarWhereInput[]
   }
 
+  export type PersonalDetailsUpdateOneWithoutUserNestedInput = {
+    create?: XOR<PersonalDetailsCreateWithoutUserInput, PersonalDetailsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: PersonalDetailsCreateOrConnectWithoutUserInput
+    upsert?: PersonalDetailsUpsertWithoutUserInput
+    disconnect?: PersonalDetailsWhereInput | boolean
+    delete?: PersonalDetailsWhereInput | boolean
+    connect?: PersonalDetailsWhereUniqueInput
+    update?: XOR<XOR<PersonalDetailsUpdateToOneWithWhereWithoutUserInput, PersonalDetailsUpdateWithoutUserInput>, PersonalDetailsUncheckedUpdateWithoutUserInput>
+  }
+
   export type PersonalDetailsUpdateManyWithoutCoachNestedInput = {
     create?: XOR<PersonalDetailsCreateWithoutCoachInput, PersonalDetailsUncheckedCreateWithoutCoachInput> | PersonalDetailsCreateWithoutCoachInput[] | PersonalDetailsUncheckedCreateWithoutCoachInput[]
     connectOrCreate?: PersonalDetailsCreateOrConnectWithoutCoachInput | PersonalDetailsCreateOrConnectWithoutCoachInput[]
@@ -32973,6 +33040,16 @@ export namespace Prisma {
     update?: ImmobillionFormUpdateWithWhereUniqueWithoutUserInput | ImmobillionFormUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ImmobillionFormUpdateManyWithWhereWithoutUserInput | ImmobillionFormUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ImmobillionFormScalarWhereInput | ImmobillionFormScalarWhereInput[]
+  }
+
+  export type PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<PersonalDetailsCreateWithoutUserInput, PersonalDetailsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: PersonalDetailsCreateOrConnectWithoutUserInput
+    upsert?: PersonalDetailsUpsertWithoutUserInput
+    disconnect?: PersonalDetailsWhereInput | boolean
+    delete?: PersonalDetailsWhereInput | boolean
+    connect?: PersonalDetailsWhereUniqueInput
+    update?: XOR<XOR<PersonalDetailsUpdateToOneWithWhereWithoutUserInput, PersonalDetailsUpdateWithoutUserInput>, PersonalDetailsUncheckedUpdateWithoutUserInput>
   }
 
   export type PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput = {
@@ -33329,6 +33406,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutClientsAsCoachInput = {
+    create?: XOR<UserCreateWithoutClientsAsCoachInput, UserUncheckedCreateWithoutClientsAsCoachInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClientsAsCoachInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput = {
     create?: XOR<EmploymentDetailsCreateWithoutPersonalDetailsInput, EmploymentDetailsUncheckedCreateWithoutPersonalDetailsInput> | EmploymentDetailsCreateWithoutPersonalDetailsInput[] | EmploymentDetailsUncheckedCreateWithoutPersonalDetailsInput[]
     connectOrCreate?: EmploymentDetailsCreateOrConnectWithoutPersonalDetailsInput | EmploymentDetailsCreateOrConnectWithoutPersonalDetailsInput[]
@@ -33489,6 +33572,14 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutPersonalDetailsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPersonalDetailsInput, UserUpdateWithoutPersonalDetailsInput>, UserUncheckedUpdateWithoutPersonalDetailsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutClientsAsCoachNestedInput = {
+    create?: XOR<UserCreateWithoutClientsAsCoachInput, UserUncheckedCreateWithoutClientsAsCoachInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClientsAsCoachInput
+    upsert?: UserUpsertWithoutClientsAsCoachInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutClientsAsCoachInput, UserUpdateWithoutClientsAsCoachInput>, UserUncheckedUpdateWithoutClientsAsCoachInput>
   }
 
   export type EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput = {
@@ -34450,9 +34541,8 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PersonalDetailsCreateWithoutCoachInput = {
+  export type PersonalDetailsCreateWithoutUserInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -34468,6 +34558,74 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
+    employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
+    incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
+    expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
+    assets?: AssetCreateNestedManyWithoutPersonalDetailsInput
+    liabilities?: LiabilityCreateNestedManyWithoutPersonalDetailsInput
+    goalsAndWishes?: GoalsAndWishesCreateNestedOneWithoutPersonalDetailsInput
+    riskAppetite?: RiskAppetiteCreateNestedOneWithoutPersonalDetailsInput
+    consents?: ConsentCreateNestedManyWithoutPersonalDetailsInput
+    documents?: DocumentCreateNestedManyWithoutPersonalDetailsInput
+    forms?: FormCreateNestedManyWithoutPersonalDetailsInput
+    customForms?: CustomFormCreateNestedManyWithoutPersonalDetailsInput
+  }
+
+  export type PersonalDetailsUncheckedCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    coachId: string
+    applicantType: $Enums.ApplicantType
+    firstName: string
+    lastName: string
+    streetAddress: string
+    postalCode: string
+    city: string
+    phone: string
+    email: string
+    birthDate: Date | string
+    birthPlace: string
+    maritalStatus: string
+    nationality: string
+    housing: string
+    employmentDetails?: EmploymentDetailsUncheckedCreateNestedManyWithoutPersonalDetailsInput
+    incomeDetails?: IncomeDetailsUncheckedCreateNestedManyWithoutPersonalDetailsInput
+    expensesDetails?: ExpensesDetailsUncheckedCreateNestedManyWithoutPersonalDetailsInput
+    assets?: AssetUncheckedCreateNestedManyWithoutPersonalDetailsInput
+    liabilities?: LiabilityUncheckedCreateNestedManyWithoutPersonalDetailsInput
+    goalsAndWishes?: GoalsAndWishesUncheckedCreateNestedOneWithoutPersonalDetailsInput
+    riskAppetite?: RiskAppetiteUncheckedCreateNestedOneWithoutPersonalDetailsInput
+    consents?: ConsentUncheckedCreateNestedManyWithoutPersonalDetailsInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutPersonalDetailsInput
+    forms?: FormUncheckedCreateNestedManyWithoutPersonalDetailsInput
+    customForms?: CustomFormUncheckedCreateNestedManyWithoutPersonalDetailsInput
+  }
+
+  export type PersonalDetailsCreateOrConnectWithoutUserInput = {
+    where: PersonalDetailsWhereUniqueInput
+    create: XOR<PersonalDetailsCreateWithoutUserInput, PersonalDetailsUncheckedCreateWithoutUserInput>
+  }
+
+  export type PersonalDetailsCreateWithoutCoachInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    applicantType: $Enums.ApplicantType
+    firstName: string
+    lastName: string
+    streetAddress: string
+    postalCode: string
+    city: string
+    phone: string
+    email: string
+    birthDate: Date | string
+    birthPlace: string
+    maritalStatus: string
+    nationality: string
+    housing: string
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
@@ -34483,7 +34641,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutCoachInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -34629,6 +34787,79 @@ export namespace Prisma {
     formVersion?: StringFilter<"ImmobillionForm"> | string
   }
 
+  export type PersonalDetailsUpsertWithoutUserInput = {
+    update: XOR<PersonalDetailsUpdateWithoutUserInput, PersonalDetailsUncheckedUpdateWithoutUserInput>
+    create: XOR<PersonalDetailsCreateWithoutUserInput, PersonalDetailsUncheckedCreateWithoutUserInput>
+    where?: PersonalDetailsWhereInput
+  }
+
+  export type PersonalDetailsUpdateToOneWithWhereWithoutUserInput = {
+    where?: PersonalDetailsWhereInput
+    data: XOR<PersonalDetailsUpdateWithoutUserInput, PersonalDetailsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PersonalDetailsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthPlace?: StringFieldUpdateOperationsInput | string
+    maritalStatus?: StringFieldUpdateOperationsInput | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    housing?: StringFieldUpdateOperationsInput | string
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
+    employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
+    incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
+    expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
+    assets?: AssetUpdateManyWithoutPersonalDetailsNestedInput
+    liabilities?: LiabilityUpdateManyWithoutPersonalDetailsNestedInput
+    goalsAndWishes?: GoalsAndWishesUpdateOneWithoutPersonalDetailsNestedInput
+    riskAppetite?: RiskAppetiteUpdateOneWithoutPersonalDetailsNestedInput
+    consents?: ConsentUpdateManyWithoutPersonalDetailsNestedInput
+    documents?: DocumentUpdateManyWithoutPersonalDetailsNestedInput
+    forms?: FormUpdateManyWithoutPersonalDetailsNestedInput
+    customForms?: CustomFormUpdateManyWithoutPersonalDetailsNestedInput
+  }
+
+  export type PersonalDetailsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coachId?: StringFieldUpdateOperationsInput | string
+    applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthPlace?: StringFieldUpdateOperationsInput | string
+    maritalStatus?: StringFieldUpdateOperationsInput | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    housing?: StringFieldUpdateOperationsInput | string
+    employmentDetails?: EmploymentDetailsUncheckedUpdateManyWithoutPersonalDetailsNestedInput
+    incomeDetails?: IncomeDetailsUncheckedUpdateManyWithoutPersonalDetailsNestedInput
+    expensesDetails?: ExpensesDetailsUncheckedUpdateManyWithoutPersonalDetailsNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutPersonalDetailsNestedInput
+    liabilities?: LiabilityUncheckedUpdateManyWithoutPersonalDetailsNestedInput
+    goalsAndWishes?: GoalsAndWishesUncheckedUpdateOneWithoutPersonalDetailsNestedInput
+    riskAppetite?: RiskAppetiteUncheckedUpdateOneWithoutPersonalDetailsNestedInput
+    consents?: ConsentUncheckedUpdateManyWithoutPersonalDetailsNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutPersonalDetailsNestedInput
+    forms?: FormUncheckedUpdateManyWithoutPersonalDetailsNestedInput
+    customForms?: CustomFormUncheckedUpdateManyWithoutPersonalDetailsNestedInput
+  }
+
   export type PersonalDetailsUpsertWithWhereUniqueWithoutCoachInput = {
     where: PersonalDetailsWhereUniqueInput
     update: XOR<PersonalDetailsUpdateWithoutCoachInput, PersonalDetailsUncheckedUpdateWithoutCoachInput>
@@ -34650,7 +34881,7 @@ export namespace Prisma {
     OR?: PersonalDetailsScalarWhereInput[]
     NOT?: PersonalDetailsScalarWhereInput | PersonalDetailsScalarWhereInput[]
     id?: StringFilter<"PersonalDetails"> | string
-    personalId?: StringFilter<"PersonalDetails"> | string
+    userId?: StringFilter<"PersonalDetails"> | string
     createdAt?: DateTimeFilter<"PersonalDetails"> | Date | string
     updatedAt?: DateTimeFilter<"PersonalDetails"> | Date | string
     coachId?: StringFilter<"PersonalDetails"> | string
@@ -34684,7 +34915,8 @@ export namespace Prisma {
     resetTokenExpiry?: Date | string | null
     analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
-    personalDetails?: PersonalDetailsCreateNestedManyWithoutCoachInput
+    personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+    clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
   }
 
   export type UserUncheckedCreateWithoutRoleInput = {
@@ -34702,7 +34934,8 @@ export namespace Prisma {
     resetTokenExpiry?: Date | string | null
     analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
-    personalDetails?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
+    personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+    clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
   }
 
   export type UserCreateOrConnectWithoutRoleInput = {
@@ -35425,7 +35658,8 @@ export namespace Prisma {
     resetTokenExpiry?: Date | string | null
     role: RoleCreateNestedOneWithoutUsersInput
     analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
-    personalDetails?: PersonalDetailsCreateNestedManyWithoutCoachInput
+    personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+    clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
   }
 
   export type UserUncheckedCreateWithoutImmobillionFormsInput = {
@@ -35443,7 +35677,8 @@ export namespace Prisma {
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
-    personalDetails?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
+    personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+    clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
   }
 
   export type UserCreateOrConnectWithoutImmobillionFormsInput = {
@@ -35585,7 +35820,8 @@ export namespace Prisma {
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
-    personalDetails?: PersonalDetailsUpdateManyWithoutCoachNestedInput
+    personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
   }
 
   export type UserUncheckedUpdateWithoutImmobillionFormsInput = {
@@ -35603,7 +35839,8 @@ export namespace Prisma {
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
-    personalDetails?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
+    personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
   }
 
   export type ApplicantUpsertWithWhereUniqueWithoutImmobillionFormInput = {
@@ -35689,7 +35926,8 @@ export namespace Prisma {
     resetTokenExpiry?: Date | string | null
     role: RoleCreateNestedOneWithoutUsersInput
     immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
-    personalDetails?: PersonalDetailsCreateNestedManyWithoutCoachInput
+    personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+    clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
   }
 
   export type UserUncheckedCreateWithoutAnalysisFormsInput = {
@@ -35707,7 +35945,8 @@ export namespace Prisma {
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
-    personalDetails?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
+    personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+    clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
   }
 
   export type UserCreateOrConnectWithoutAnalysisFormsInput = {
@@ -35881,7 +36120,8 @@ export namespace Prisma {
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
-    personalDetails?: PersonalDetailsUpdateManyWithoutCoachNestedInput
+    personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAnalysisFormsInput = {
@@ -35899,7 +36139,8 @@ export namespace Prisma {
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
-    personalDetails?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
+    personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
   }
 
   export type ChildUpsertWithWhereUniqueWithoutAnalysisFormInput = {
@@ -35965,6 +36206,7 @@ export namespace Prisma {
     role: RoleCreateNestedOneWithoutUsersInput
     analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
+    clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
   }
 
   export type UserUncheckedCreateWithoutPersonalDetailsInput = {
@@ -35983,11 +36225,55 @@ export namespace Prisma {
     resetTokenExpiry?: Date | string | null
     analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
+    clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
   }
 
   export type UserCreateOrConnectWithoutPersonalDetailsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutPersonalDetailsInput, UserUncheckedCreateWithoutPersonalDetailsInput>
+  }
+
+  export type UserCreateWithoutClientsAsCoachInput = {
+    id?: string
+    email: string
+    password: string
+    displayName?: string | null
+    emailVerified?: boolean
+    profileImage?: string | null
+    phoneNumber?: string | null
+    firebaseUid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    role: RoleCreateNestedOneWithoutUsersInput
+    analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
+    immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
+    personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutClientsAsCoachInput = {
+    id?: string
+    email: string
+    password: string
+    displayName?: string | null
+    emailVerified?: boolean
+    profileImage?: string | null
+    phoneNumber?: string | null
+    firebaseUid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roleId: string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
+    immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
+    personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutClientsAsCoachInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutClientsAsCoachInput, UserUncheckedCreateWithoutClientsAsCoachInput>
   }
 
   export type EmploymentDetailsCreateWithoutPersonalDetailsInput = {
@@ -36405,6 +36691,7 @@ export namespace Prisma {
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPersonalDetailsInput = {
@@ -36423,6 +36710,56 @@ export namespace Prisma {
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
+  }
+
+  export type UserUpsertWithoutClientsAsCoachInput = {
+    update: XOR<UserUpdateWithoutClientsAsCoachInput, UserUncheckedUpdateWithoutClientsAsCoachInput>
+    create: XOR<UserCreateWithoutClientsAsCoachInput, UserUncheckedCreateWithoutClientsAsCoachInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutClientsAsCoachInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutClientsAsCoachInput, UserUncheckedUpdateWithoutClientsAsCoachInput>
+  }
+
+  export type UserUpdateWithoutClientsAsCoachInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
+    immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
+    personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutClientsAsCoachInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
+    immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
+    personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type EmploymentDetailsUpsertWithWhereUniqueWithoutPersonalDetailsInput = {
@@ -36800,7 +37137,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutEmploymentDetailsInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -36816,7 +37152,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
     assets?: AssetCreateNestedManyWithoutPersonalDetailsInput
@@ -36831,7 +37168,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutEmploymentDetailsInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -36878,7 +37215,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutEmploymentDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -36894,7 +37230,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
     assets?: AssetUpdateManyWithoutPersonalDetailsNestedInput
@@ -36909,7 +37246,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutEmploymentDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -36940,7 +37277,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutIncomeDetailsInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -36956,7 +37292,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
     assets?: AssetCreateNestedManyWithoutPersonalDetailsInput
@@ -36971,7 +37308,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutIncomeDetailsInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -37018,7 +37355,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutIncomeDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -37034,7 +37370,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
     assets?: AssetUpdateManyWithoutPersonalDetailsNestedInput
@@ -37049,7 +37386,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutIncomeDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -37080,7 +37417,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutExpensesDetailsInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -37096,7 +37432,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     assets?: AssetCreateNestedManyWithoutPersonalDetailsInput
@@ -37111,7 +37448,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutExpensesDetailsInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -37158,7 +37495,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutExpensesDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -37174,7 +37510,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     assets?: AssetUpdateManyWithoutPersonalDetailsNestedInput
@@ -37189,7 +37526,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutExpensesDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -37220,7 +37557,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutAssetsInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -37236,7 +37572,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
@@ -37251,7 +37588,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutAssetsInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -37298,7 +37635,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutAssetsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -37314,7 +37650,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
@@ -37329,7 +37666,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutAssetsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -37360,7 +37697,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutLiabilitiesInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -37376,7 +37712,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
@@ -37391,7 +37728,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutLiabilitiesInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -37438,7 +37775,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutLiabilitiesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -37454,7 +37790,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
@@ -37469,7 +37806,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutLiabilitiesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -37500,7 +37837,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutGoalsAndWishesInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -37516,7 +37852,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
@@ -37531,7 +37868,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutGoalsAndWishesInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -37578,7 +37915,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutGoalsAndWishesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -37594,7 +37930,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
@@ -37609,7 +37946,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutGoalsAndWishesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -37640,7 +37977,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutRiskAppetiteInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -37656,7 +37992,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
@@ -37671,7 +38008,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutRiskAppetiteInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -37718,7 +38055,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutRiskAppetiteInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -37734,7 +38070,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
@@ -37749,7 +38086,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutRiskAppetiteInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -37780,7 +38117,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutConsentsInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -37796,7 +38132,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
@@ -37811,7 +38148,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutConsentsInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -37858,7 +38195,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutConsentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -37874,7 +38210,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
@@ -37889,7 +38226,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutConsentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -37920,7 +38257,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutDocumentsInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -37936,7 +38272,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
@@ -37951,7 +38288,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutDocumentsInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -37998,7 +38335,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutDocumentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -38014,7 +38350,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
@@ -38029,7 +38366,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutDocumentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -38060,7 +38397,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutFormsInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -38076,7 +38412,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
@@ -38091,7 +38428,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutFormsInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -38138,7 +38475,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutFormsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -38154,7 +38490,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
@@ -38169,7 +38506,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutFormsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -38200,7 +38537,6 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateWithoutCustomFormsInput = {
     id?: string
-    personalId?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -38216,7 +38552,8 @@ export namespace Prisma {
     maritalStatus: string
     nationality: string
     housing: string
-    coach: UserCreateNestedOneWithoutPersonalDetailsInput
+    user: UserCreateNestedOneWithoutPersonalDetailsInput
+    coach: UserCreateNestedOneWithoutClientsAsCoachInput
     employmentDetails?: EmploymentDetailsCreateNestedManyWithoutPersonalDetailsInput
     incomeDetails?: IncomeDetailsCreateNestedManyWithoutPersonalDetailsInput
     expensesDetails?: ExpensesDetailsCreateNestedManyWithoutPersonalDetailsInput
@@ -38231,7 +38568,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedCreateWithoutCustomFormsInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     coachId: string
@@ -38278,7 +38615,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutCustomFormsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -38294,7 +38630,8 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
-    coach?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
+    coach?: UserUpdateOneRequiredWithoutClientsAsCoachNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
@@ -38309,7 +38646,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutCustomFormsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     coachId?: StringFieldUpdateOperationsInput | string
@@ -38378,7 +38715,7 @@ export namespace Prisma {
 
   export type PersonalDetailsCreateManyCoachInput = {
     id?: string
-    personalId?: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     applicantType: $Enums.ApplicantType
@@ -38518,7 +38855,6 @@ export namespace Prisma {
 
   export type PersonalDetailsUpdateWithoutCoachInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -38534,6 +38870,7 @@ export namespace Prisma {
     maritalStatus?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     housing?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutPersonalDetailsNestedInput
     employmentDetails?: EmploymentDetailsUpdateManyWithoutPersonalDetailsNestedInput
     incomeDetails?: IncomeDetailsUpdateManyWithoutPersonalDetailsNestedInput
     expensesDetails?: ExpensesDetailsUpdateManyWithoutPersonalDetailsNestedInput
@@ -38549,7 +38886,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateWithoutCoachInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -38580,7 +38917,7 @@ export namespace Prisma {
 
   export type PersonalDetailsUncheckedUpdateManyWithoutCoachInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicantType?: EnumApplicantTypeFieldUpdateOperationsInput | $Enums.ApplicantType
@@ -38628,7 +38965,8 @@ export namespace Prisma {
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
-    personalDetails?: PersonalDetailsUpdateManyWithoutCoachNestedInput
+    personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleInput = {
@@ -38646,7 +38984,8 @@ export namespace Prisma {
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
-    personalDetails?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
+    personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRoleInput = {
