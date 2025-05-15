@@ -41,6 +41,17 @@ const incomeDetailsSchema = z.object({
   incomeSideJob: z.number()
 });
 
+// Asset validation schema
+const assetSchema = z.object({
+  personalId: z.string(),
+  realEstate: z.number().or(z.string().transform(val => parseFloat(val))),
+  securities: z.number().or(z.string().transform(val => parseFloat(val))),
+  bankDeposits: z.number().or(z.string().transform(val => parseFloat(val))),
+  buildingSavings: z.number().or(z.string().transform(val => parseFloat(val))),
+  insuranceValues: z.number().or(z.string().transform(val => parseFloat(val))),
+  otherAssets: z.number().or(z.string().transform(val => parseFloat(val)))
+});
+
 // Other schemas can be defined as needed...
 
 export class ClientDataController {
@@ -95,7 +106,7 @@ export class ClientDataController {
     }
 
     // Clients have access to their own data
-    return personalDetails.coachId === req.currentUser.id;
+    return personalDetails.userId === req.currentUser.id;
   }
 
   // Employment Details
@@ -422,13 +433,40 @@ export class ClientDataController {
         return res.status(401).json({ message: 'Not authenticated' });
       }
 
+      console.log('createAsset:: request body', JSON.stringify(req.body, null, 2));
+
+      // Validate request body
+      try {
+        assetSchema.parse(req.body);
+      } catch (error) {
+        console.error('Asset validation error:', error);
+        return res.status(400).json({
+          message: 'Validation error',
+          errors: error instanceof z.ZodError ? error.errors : undefined
+        });
+      }
+
       // Check if the user has access to the personal details
       const hasAccess = await this.checkAccess(req, req.body.personalId);
+      console.log('createAsset:: hasAccess', hasAccess);
       if (!hasAccess) {
         return res.status(403).json({ message: 'Access denied' });
       }
 
-      const asset = await this.assetService.create(req.body);
+      // Convert string values to numbers if needed
+      const assetData = {
+        ...req.body,
+        realEstate: parseFloat(req.body.realEstate),
+        securities: parseFloat(req.body.securities),
+        bankDeposits: parseFloat(req.body.bankDeposits),
+        buildingSavings: parseFloat(req.body.buildingSavings),
+        insuranceValues: parseFloat(req.body.insuranceValues),
+        otherAssets: parseFloat(req.body.otherAssets)
+      };
+
+      console.log('createAsset:: processed data', JSON.stringify(assetData, null, 2));
+      
+      const asset = await this.assetService.create(assetData);
       return res.status(201).json(asset);
     } catch (error) {
       console.error('Error creating asset:', error);

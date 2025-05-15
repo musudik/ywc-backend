@@ -22,6 +22,29 @@ const personalDetailsSchema = z.object({
   housing: z.string()
 });
 
+// Update validation schema - all fields are optional for updates
+const personalDetailsUpdateSchema = personalDetailsSchema.partial().extend({
+  id: z.string().optional(),
+  userId: z.string().optional(),
+  personalId: z.string().optional(),
+  createdAt: z.string().or(z.date()).optional(),
+  updatedAt: z.string().or(z.date()).optional(),
+  coach: z.string().optional(),
+  user: z.object({
+    id: z.string(),
+    email: z.string(),
+    displayName: z.string(),
+    roleId: z.string()
+  }).optional(),
+  employmentDetails: z.array(z.any()).optional(),
+  incomeDetails: z.array(z.any()).optional(),
+  expensesDetails: z.array(z.any()).optional(),
+  assets: z.array(z.any()).optional(),
+  liabilities: z.array(z.any()).optional(),
+  goalsAndWishes: z.any().nullable().optional(),
+  riskAppetite: z.any().nullable().optional()
+});
+
 export class PersonalDetailsController {
   private service: PersonalDetailsService;
 
@@ -144,6 +167,8 @@ export class PersonalDetailsController {
       }
       
       const { id } = req.params;
+      console.log('update:: id', id);
+      console.log('update:: request body', JSON.stringify(req.body, null, 2));
       
       // Find the personal details to check permissions
       const existingDetails = await this.service.findOne(id);
@@ -157,8 +182,44 @@ export class PersonalDetailsController {
         return res.status(403).json({ message: 'Access denied' });
       }
       
+      // Validate request body
+      try {
+        personalDetailsUpdateSchema.parse(req.body);
+      } catch (error) {
+        console.error('Validation error:', error);
+        return res.status(400).json({ 
+          message: 'Validation error', 
+          errors: error instanceof z.ZodError ? error.errors : undefined 
+        });
+      }
+      
+      // Extract only the updatable fields from the request body
+      const updateData = {
+        coachId: req.body.coachId,
+        applicantType: req.body.applicantType,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        streetAddress: req.body.streetAddress,
+        postalCode: req.body.postalCode,
+        city: req.body.city,
+        phone: req.body.phone,
+        email: req.body.email,
+        birthDate: req.body.birthDate ? new Date(req.body.birthDate) : undefined,
+        birthPlace: req.body.birthPlace,
+        maritalStatus: req.body.maritalStatus,
+        nationality: req.body.nationality,
+        housing: req.body.housing
+      };
+      
+      // Filter out undefined values
+      const filteredUpdateData = Object.fromEntries(
+        Object.entries(updateData).filter(([_, v]) => v !== undefined)
+      );
+      
+      console.log('update:: filtered data', JSON.stringify(filteredUpdateData, null, 2));
+      
       // Update the record
-      const updatedDetails = await this.service.update(id, req.body);
+      const updatedDetails = await this.service.update(id, filteredUpdateData);
       return res.json(updatedDetails);
     } catch (error) {
       console.error('Error updating personal details:', error);
