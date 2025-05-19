@@ -1,0 +1,759 @@
+{
+  "info": {
+    "name": "YWC Forms API",
+    "description": "API collection for managing different form types in the YWC backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Immobilien Forms",
+      "description": "Endpoints for managing real estate forms",
+      "item": [
+        {
+          "name": "Create Immobilien Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyType\": \"Apartment\",\n  \"address\": \"123 Sample Street\",\n  \"postalCode\": \"12345\",\n  \"city\": \"Berlin\",\n  \"constructionYear\": 2010,\n  \"livingArea\": 80,\n  \"plotArea\": 0,\n  \"rooms\": 3,\n  \"purchasePrice\": 250000,\n  \"additionalCosts\": 20000,\n  \"monthlyPayment\": 800,\n  \"interestRate\": 2.5,\n  \"loanTerm\": 25,\n  \"energyEfficiencyClass\": \"B\",\n  \"heatingType\": \"Gas\",\n  \"condition\": \"Good\",\n  \"notes\": \"Recently renovated apartment in central location.\",\n  \"documents\": [\"floor_plan.pdf\", \"energy_certificate.pdf\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/immobilien",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "immobilien"]
+            },
+            "description": "Creates a new immobilien (real estate) form"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Immobilien Forms",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/immobilien",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "immobilien"]
+            },
+            "description": "Retrieves all immobilien forms for the current user"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Immobilien Form by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/immobilien/{{immobilienFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "immobilien", "{{immobilienFormId}}"]
+            },
+            "description": "Retrieves a specific immobilien form by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Immobilien Form",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyType\": \"Apartment\",\n  \"address\": \"123 Sample Street\",\n  \"postalCode\": \"12345\",\n  \"city\": \"Berlin\",\n  \"constructionYear\": 2010,\n  \"livingArea\": 85,\n  \"plotArea\": 0,\n  \"rooms\": 3,\n  \"purchasePrice\": 250000,\n  \"additionalCosts\": 20000,\n  \"monthlyPayment\": 800,\n  \"interestRate\": 2.5,\n  \"loanTerm\": 25,\n  \"energyEfficiencyClass\": \"B\",\n  \"heatingType\": \"Gas\",\n  \"condition\": \"Excellent\",\n  \"notes\": \"Recently renovated apartment in central location with new kitchen.\",\n  \"documents\": [\"floor_plan.pdf\", \"energy_certificate.pdf\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/immobilien/{{immobilienFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "immobilien", "{{immobilienFormId}}"]
+            },
+            "description": "Updates an existing immobilien form"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Immobilien Form",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/immobilien/{{immobilienFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "immobilien", "{{immobilienFormId}}"]
+            },
+            "description": "Deletes an immobilien form"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Immobilien Form Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Approved\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/immobilien/{{immobilienFormId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "immobilien", "{{immobilienFormId}}", "status"]
+            },
+            "description": "Updates the status of an immobilien form"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Private Health Insurance Forms",
+      "description": "Endpoints for managing private health insurance forms",
+      "item": [
+        {
+          "name": "Create Private Health Insurance Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"insuranceCompany\": \"Allianz Health\",\n  \"policyNumber\": \"PHI-12345678\",\n  \"startDate\": \"2023-01-01\",\n  \"monthlyPremium\": 150.50,\n  \"coverageType\": \"Comprehensive\",\n  \"deductible\": 500,\n  \"beneficiaries\": [\"Spouse\", \"Children\"],\n  \"additionalCoverage\": [\"Dental\", \"Vision\", \"International\"],\n  \"documents\": [\"policy_document.pdf\", \"terms_conditions.pdf\"],\n  \"notes\": \"Premium increases by 3% annually\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/privateHealthInsurance",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "privateHealthInsurance"]
+            },
+            "description": "Creates a new private health insurance form"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Private Health Insurance Forms",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/privateHealthInsurance",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "privateHealthInsurance"]
+            },
+            "description": "Retrieves all private health insurance forms for the current user"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Private Health Insurance Form by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/privateHealthInsurance/{{privateHealthInsuranceFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "privateHealthInsurance", "{{privateHealthInsuranceFormId}}"]
+            },
+            "description": "Retrieves a specific private health insurance form by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Private Health Insurance Form",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"insuranceCompany\": \"Allianz Health\",\n  \"policyNumber\": \"PHI-12345678\",\n  \"startDate\": \"2023-01-01\",\n  \"monthlyPremium\": 155.50,\n  \"coverageType\": \"Comprehensive Plus\",\n  \"deductible\": 400,\n  \"beneficiaries\": [\"Spouse\", \"Children\"],\n  \"additionalCoverage\": [\"Dental\", \"Vision\", \"International\", \"Alternative Medicine\"],\n  \"documents\": [\"policy_document.pdf\", \"terms_conditions.pdf\", \"amendment.pdf\"],\n  \"notes\": \"Premium increases by 3% annually. Coverage upgraded on 2023-06-01.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/privateHealthInsurance/{{privateHealthInsuranceFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "privateHealthInsurance", "{{privateHealthInsuranceFormId}}"]
+            },
+            "description": "Updates an existing private health insurance form"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Private Health Insurance Form",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/privateHealthInsurance/{{privateHealthInsuranceFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "privateHealthInsurance", "{{privateHealthInsuranceFormId}}"]
+            },
+            "description": "Deletes a private health insurance form"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Private Health Insurance Form Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Approved\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/privateHealthInsurance/{{privateHealthInsuranceFormId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "privateHealthInsurance", "{{privateHealthInsuranceFormId}}", "status"]
+            },
+            "description": "Updates the status of a private health insurance form"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "State Health Insurance Forms",
+      "description": "Endpoints for managing state health insurance forms",
+      "item": [
+        {
+          "name": "Create State Health Insurance Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"insuranceProvider\": \"AOK\",\n  \"memberNumber\": \"SHI-87654321\",\n  \"startDate\": \"2023-01-01\",\n  \"insuranceClass\": \"Standard\",\n  \"additionalContributions\": 25.75,\n  \"familyInsured\": true,\n  \"familyMembers\": [\n    {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"birthDate\": \"1990-05-15\",\n      \"relationship\": \"Spouse\"\n    },\n    {\n      \"firstName\": \"John Jr.\",\n      \"lastName\": \"Doe\",\n      \"birthDate\": \"2015-03-10\",\n      \"relationship\": \"Child\"\n    }\n  ],\n  \"documents\": [\"membership_card.pdf\", \"family_insurance_certificate.pdf\"],\n  \"notes\": \"Family insurance coverage for spouse and one child\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/stateHealthInsurance",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "stateHealthInsurance"]
+            },
+            "description": "Creates a new state health insurance form"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All State Health Insurance Forms",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/stateHealthInsurance",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "stateHealthInsurance"]
+            },
+            "description": "Retrieves all state health insurance forms for the current user"
+          },
+          "response": []
+        },
+        {
+          "name": "Get State Health Insurance Form by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/stateHealthInsurance/{{stateHealthInsuranceFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "stateHealthInsurance", "{{stateHealthInsuranceFormId}}"]
+            },
+            "description": "Retrieves a specific state health insurance form by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update State Health Insurance Form",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"insuranceProvider\": \"AOK Plus\",\n  \"memberNumber\": \"SHI-87654321\",\n  \"startDate\": \"2023-01-01\",\n  \"insuranceClass\": \"Premium\",\n  \"additionalContributions\": 30.50,\n  \"familyInsured\": true,\n  \"familyMembers\": [\n    {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"birthDate\": \"1990-05-15\",\n      \"relationship\": \"Spouse\"\n    },\n    {\n      \"firstName\": \"John Jr.\",\n      \"lastName\": \"Doe\",\n      \"birthDate\": \"2015-03-10\",\n      \"relationship\": \"Child\"\n    },\n    {\n      \"firstName\": \"Emma\",\n      \"lastName\": \"Doe\",\n      \"birthDate\": \"2018-07-22\",\n      \"relationship\": \"Child\"\n    }\n  ],\n  \"documents\": [\"membership_card.pdf\", \"family_insurance_certificate.pdf\", \"updated_coverage.pdf\"],\n  \"notes\": \"Family insurance coverage for spouse and two children. Upgraded to Premium plan on 2023-06-01.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/stateHealthInsurance/{{stateHealthInsuranceFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "stateHealthInsurance", "{{stateHealthInsuranceFormId}}"]
+            },
+            "description": "Updates an existing state health insurance form"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete State Health Insurance Form",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/stateHealthInsurance/{{stateHealthInsuranceFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "stateHealthInsurance", "{{stateHealthInsuranceFormId}}"]
+            },
+            "description": "Deletes a state health insurance form"
+          },
+          "response": []
+        },
+        {
+          "name": "Update State Health Insurance Form Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Approved\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/stateHealthInsurance/{{stateHealthInsuranceFormId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "stateHealthInsurance", "{{stateHealthInsuranceFormId}}", "status"]
+            },
+            "description": "Updates the status of a state health insurance form"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "KFZ Forms",
+      "description": "Endpoints for managing auto insurance (KFZ) forms",
+      "item": [
+        {
+          "name": "Create KFZ Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"insuranceCompany\": \"HUK-Coburg\",\n  \"policyNumber\": \"KFZ-24680\",\n  \"startDate\": \"2023-01-01\",\n  \"endDate\": \"2024-01-01\",\n  \"vehicleMake\": \"Volkswagen\",\n  \"vehicleModel\": \"Golf\",\n  \"licensePlate\": \"B-AB 1234\",\n  \"vinNumber\": \"WVWZZZ1KZ5M123456\",\n  \"yearOfManufacture\": 2018,\n  \"insuranceType\": \"Comprehensive\",\n  \"coverageAmount\": 100000000,\n  \"deductible\": 500,\n  \"monthlyPremium\": 95.50,\n  \"paymentFrequency\": \"Monthly\",\n  \"additionalDrivers\": [\n    {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"birthDate\": \"1990-05-15\",\n      \"licenseNumber\": \"ABC123456789\"\n    }\n  ],\n  \"documents\": [\"insurance_policy.pdf\", \"vehicle_registration.pdf\"],\n  \"notes\": \"Includes coverage for protection against uninsured motorists.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/kfz",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "kfz"]
+            },
+            "description": "Creates a new KFZ (auto insurance) form"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All KFZ Forms",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/kfz",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "kfz"]
+            },
+            "description": "Retrieves all KFZ forms for the current user"
+          },
+          "response": []
+        },
+        {
+          "name": "Get KFZ Form by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/kfz/{{kfzFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "kfz", "{{kfzFormId}}"]
+            },
+            "description": "Retrieves a specific KFZ form by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update KFZ Form",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"insuranceCompany\": \"HUK-Coburg\",\n  \"policyNumber\": \"KFZ-24680\",\n  \"startDate\": \"2023-01-01\",\n  \"endDate\": \"2024-01-01\",\n  \"vehicleMake\": \"Volkswagen\",\n  \"vehicleModel\": \"Golf\",\n  \"licensePlate\": \"B-AB 1234\",\n  \"vinNumber\": \"WVWZZZ1KZ5M123456\",\n  \"yearOfManufacture\": 2018,\n  \"insuranceType\": \"Comprehensive\",\n  \"coverageAmount\": 150000000,\n  \"deductible\": 300,\n  \"monthlyPremium\": 105.75,\n  \"paymentFrequency\": \"Monthly\",\n  \"additionalDrivers\": [\n    {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"birthDate\": \"1990-05-15\",\n      \"licenseNumber\": \"ABC123456789\"\n    },\n    {\n      \"firstName\": \"Bob\",\n      \"lastName\": \"Smith\",\n      \"birthDate\": \"1992-08-20\",\n      \"licenseNumber\": \"DEF987654321\"\n    }\n  ],\n  \"documents\": [\"insurance_policy.pdf\", \"vehicle_registration.pdf\", \"policy_amendment.pdf\"],\n  \"notes\": \"Includes coverage for protection against uninsured motorists. Coverage increased on 2023-06-15.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/kfz/{{kfzFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "kfz", "{{kfzFormId}}"]
+            },
+            "description": "Updates an existing KFZ form"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete KFZ Form",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/kfz/{{kfzFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "kfz", "{{kfzFormId}}"]
+            },
+            "description": "Deletes a KFZ form"
+          },
+          "response": []
+        },
+        {
+          "name": "Update KFZ Form Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Approved\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/kfz/{{kfzFormId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "kfz", "{{kfzFormId}}", "status"]
+            },
+            "description": "Updates the status of a KFZ form"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Loans Forms",
+      "description": "Endpoints for managing loans forms",
+      "item": [
+        {
+          "name": "Create Loans Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lender\": \"Deutsche Bank\",\n  \"loanType\": \"Mortgage\",\n  \"accountNumber\": \"LOAN-135790\",\n  \"startDate\": \"2023-01-15\",\n  \"endDate\": \"2048-01-15\",\n  \"loanAmount\": 250000,\n  \"interestRate\": 3.25,\n  \"monthlyPayment\": 1087.65,\n  \"remainingBalance\": 245000.75,\n  \"collateral\": \"Property at 123 Sample Street, Berlin\",\n  \"purpose\": \"Home purchase\",\n  \"coBorrowers\": [\n    {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"relationship\": \"Spouse\"\n    }\n  ],\n  \"documents\": [\"loan_agreement.pdf\", \"property_deed.pdf\"],\n  \"notes\": \"25-year fixed rate mortgage.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/loans",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "loans"]
+            },
+            "description": "Creates a new loans form"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Loans Forms",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/loans",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "loans"]
+            },
+            "description": "Retrieves all loans forms for the current user"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Loans Form by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/loans/{{loansFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "loans", "{{loansFormId}}"]
+            },
+            "description": "Retrieves a specific loans form by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Loans Form",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lender\": \"Deutsche Bank\",\n  \"loanType\": \"Mortgage\",\n  \"accountNumber\": \"LOAN-135790\",\n  \"startDate\": \"2023-01-15\",\n  \"endDate\": \"2048-01-15\",\n  \"loanAmount\": 250000,\n  \"interestRate\": 3.1,\n  \"monthlyPayment\": 1065.25,\n  \"remainingBalance\": 240000.50,\n  \"collateral\": \"Property at 123 Sample Street, Berlin\",\n  \"purpose\": \"Home purchase\",\n  \"coBorrowers\": [\n    {\n      \"firstName\": \"Jane\",\n      \"lastName\": \"Doe\",\n      \"relationship\": \"Spouse\"\n    }\n  ],\n  \"documents\": [\"loan_agreement.pdf\", \"property_deed.pdf\", \"refinance_agreement.pdf\"],\n  \"notes\": \"25-year fixed rate mortgage. Refinanced on 2023-07-01 to lower interest rate.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/loans/{{loansFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "loans", "{{loansFormId}}"]
+            },
+            "description": "Updates an existing loans form"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Loans Form",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/loans/{{loansFormId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "loans", "{{loansFormId}}"]
+            },
+            "description": "Deletes a loans form"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Loans Form Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Approved\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/loans/{{loansFormId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "loans", "{{loansFormId}}", "status"]
+            },
+            "description": "Updates the status of a loans form"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+} 

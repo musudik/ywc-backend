@@ -2,7 +2,7 @@
 CREATE TYPE "ApplicantType" AS ENUM ('PrimaryApplicant', 'SecondaryApplicant');
 
 -- CreateEnum
-CREATE TYPE "EmploymentType" AS ENUM ('PrimaryEmployment', 'SecondaryEmployment');
+CREATE TYPE "EmploymentType" AS ENUM ("Employed", "SelfEmployed", "Unemployed", "Retired", "Student", "Other");
 
 -- CreateEnum
 CREATE TYPE "LoanType" AS ENUM ('PersonalLoan', 'HomeLoan', 'CarLoan', 'BusinessLoan', 'EducationLoan', 'OtherLoan');

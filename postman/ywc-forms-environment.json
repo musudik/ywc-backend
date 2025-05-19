@@ -1,0 +1,51 @@
+{
+  "id": "ywc-forms-env",
+  "name": "YWC Forms API Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "immobilienFormId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "privateHealthInsuranceFormId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "stateHealthInsuranceFormId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "kfzFormId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "loanFormId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2023-11-10T12:00:00.000Z",
+  "_postman_exported_using": "Postman/10.18.9"
+} 
