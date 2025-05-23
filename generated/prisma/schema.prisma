@@ -525,8 +525,12 @@ enum ApplicantType {
 }
 
 enum EmploymentType {
-  PrimaryEmployment
-  SecondaryEmployment
+  Employed
+  SelfEmployed
+  Unemployed
+  Retired
+  Student
+  Other
 }
 
 enum LoanType {

@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "YWC Backend - Client Forms API",
+    "description": "Collection for testing Your Wealth Coach client forms API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Client Form",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"formType\": \"Immobillion\",\n  \"formName\": \"Sample Immobilien Form\",\n  \"formData\": {\n    \"personal\": {\n      \"coachId\": \"15116e54-545d-4546-a7d1-b25bff4e3dea\",\n      \"applicantType\": \"PrimaryApplicant\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"streetAddress\": \"123 Main St\",\n      \"postalCode\": \"12345\",\n      \"city\": \"Berlin\",\n      \"phone\": \"+49123456789\",\n      \"email\": \"john.doe@example.com\",\n      \"birthDate\": \"1985-05-15\",\n      \"birthPlace\": \"Berlin\",\n      \"maritalStatus\": \"Single\",\n      \"nationality\": \"German\",\n      \"housing\": \"Rented\"\n    },\n    \"employment\": {\n      \"personalId\": \"3142fc27-f96b-4984-bae1-5d76a9413df4\",\n      \"employmentType\": \"employed\",\n      \"occupation\": \"Software Engineer\",\n      \"contractType\": \"Permanent\",\n      \"contractDuration\": \"Indefinite\",\n      \"employerName\": \"Tech Company GmbH\",\n      \"employedSince\": \"2018-01-15\"\n    },\n    \"income\": {\n      \"personalId\": \"3142fc27-f96b-4984-bae1-5d76a9413df4\",\n      \"grossIncome\": 75000,\n      \"netIncome\": 45000,\n      \"taxClass\": \"1\",\n      \"taxId\": \"12345678901\",\n      \"numberOfSalaries\": 12,\n      \"childBenefit\": 0,\n      \"otherIncome\": 0,\n      \"incomeTradeBusiness\": 0,\n      \"incomeSelfEmployedWork\": 0,\n      \"incomeSideJob\": 0\n    },\n    \"expenses\": {\n      \"personalId\": \"3142fc27-f96b-4984-bae1-5d76a9413df4\",\n      \"coldRent\": 1200,\n      \"electricity\": 80,\n      \"livingExpenses\": 600,\n      \"gas\": 60,\n      \"telecommunication\": 50,\n      \"accountMaintenanceFee\": 10,\n      \"alimony\": 0,\n      \"subscriptions\": 50,\n      \"otherExpenses\": 100\n    },\n    \"assets\": {\n      \"personalId\": \"3142fc27-f96b-4984-bae1-5d76a9413df4\",\n      \"realEstate\": 0,\n      \"securities\": 50000,\n      \"bankDeposits\": 25000,\n      \"buildingSavings\": 10000,\n      \"insuranceValues\": 15000,\n      \"otherAssets\": 5000\n    },\n    \"liabilities\": {\n      \"personalId\": \"3142fc27-f96b-4984-bae1-5d76a9413df4\",\n      \"loanType\": \"PersonalLoan\",\n      \"loanBank\": \"Sample Bank\",\n      \"loanAmount\": 20000,\n      \"loanMonthlyRate\": 500,\n      \"loanInterest\": 3.5\n    },\n    \"consent\": {\n      \"personalId\": \"3142fc27-f96b-4984-bae1-5d76a9413df4\",\n      \"consentType\": \"Immobillion\",\n      \"consent\": true,\n      \"consentText\": \"I consent to the processing of my data\",\n      \"consentSignature\": \"John Doe\",\n      \"consentDate\": \"2023-05-15\",\n      \"location\": \"Berlin\"\n    }\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/client-forms",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "client-forms"]
+        }
+      }
+    },
+    {
+      "name": "Get All Client Forms",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/client-forms",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "client-forms"]
+        }
+      }
+    },
+    {
+      "name": "Get Client Form By ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/client-forms/{{clientFormId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "client-forms", "{{clientFormId}}"]
+        }
+      }
+    },
+    {
+      "name": "Update Client Form",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"formType\": \"Immobillion\",\n  \"formName\": \"Updated Immobilien Form\",\n  \"formData\": {\n    \"personal\": {\n      \"coachId\": \"15116e54-545d-4546-a7d1-b25bff4e3dea\",\n      \"applicantType\": \"PrimaryApplicant\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"streetAddress\": \"456 New St\",\n      \"postalCode\": \"54321\",\n      \"city\": \"Munich\",\n      \"phone\": \"+49987654321\",\n      \"email\": \"john.doe@example.com\",\n      \"birthDate\": \"1985-05-15\",\n      \"birthPlace\": \"Berlin\",\n      \"maritalStatus\": \"Married\",\n      \"nationality\": \"German\",\n      \"housing\": \"Owned\"\n    },\n    \"employment\": {\n      \"personalId\": \"3142fc27-f96b-4984-bae1-5d76a9413df4\",\n      \"employmentType\": \"employed\",\n      \"occupation\": \"Senior Software Engineer\",\n      \"contractType\": \"Permanent\",\n      \"contractDuration\": \"Indefinite\",\n      \"employerName\": \"New Tech Company GmbH\",\n      \"employedSince\": \"2021-01-15\"\n    },\n    \"income\": {\n      \"personalId\": \"3142fc27-f96b-4984-bae1-5d76a9413df4\",\n      \"grossIncome\": 95000,\n      \"netIncome\": 55000,\n      \"taxClass\": \"3\",\n      \"taxId\": \"12345678901\",\n      \"numberOfSalaries\": 12,\n      \"childBenefit\": 219,\n      \"otherIncome\": 0,\n      \"incomeTradeBusiness\": 0,\n      \"incomeSelfEmployedWork\": 0,\n      \"incomeSideJob\": 0\n    }\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/client-forms/{{clientFormId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "client-forms", "{{clientFormId}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Client Form",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/client-forms/{{clientFormId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "client-forms", "{{clientFormId}}"]
+        }
+      }
+    },
+    {
+      "name": "Update Client Form Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Approved\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/client-forms/{{clientFormId}}/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "client-forms", "{{clientFormId}}", "status"]
+        }
+      }
+    }
+  ]
+} 

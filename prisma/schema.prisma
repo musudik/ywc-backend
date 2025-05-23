@@ -32,6 +32,7 @@ model User {
   analysisForms AnalysisForm[] // Relation to analysis forms
   immobillionForms ImmobillionForm[] // Relation to immobillion forms
   personalDetails PersonalDetails? // One-to-one relation with personal details
+  clientForms   ClientForm[]     // Relation to client forms
   
   // Coach's clients (if user is a coach)
   clientsAsCoach PersonalDetails[] @relation("CoachToClient")
@@ -516,6 +517,28 @@ model CustomForm {
   updatedDate      DateTime
   
   @@map("custom_forms")
+}
+
+// Client Forms model for storing form data as JSON
+model ClientForm {
+  id              String    @id @default(uuid())
+  formId          String    @unique @default(uuid())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  // User relation
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Form information
+  formType        FormType
+  formName        String
+  formData        Json      // Stores all form data as JSON
+  status          String    @default("Submitted") // No-Form, Submitted, Pending, Approved
+  lastEditedBy    String?   // ID of the user who last edited the form
+  
+  @@unique([userId, formType])
+  @@map("client_forms")
 }
 
 // Enum definitions

@@ -108,6 +108,11 @@ export type Form = $Result.DefaultSelection<Prisma.$FormPayload>
  * 
  */
 export type CustomForm = $Result.DefaultSelection<Prisma.$CustomFormPayload>
+/**
+ * Model ClientForm
+ * 
+ */
+export type ClientForm = $Result.DefaultSelection<Prisma.$ClientFormPayload>
 
 /**
  * Enums
@@ -122,8 +127,12 @@ export type ApplicantType = (typeof ApplicantType)[keyof typeof ApplicantType]
 
 
 export const EmploymentType: {
-  PrimaryEmployment: 'PrimaryEmployment',
-  SecondaryEmployment: 'SecondaryEmployment'
+  Employed: 'Employed',
+  SelfEmployed: 'SelfEmployed',
+  Unemployed: 'Unemployed',
+  Retired: 'Retired',
+  Student: 'Student',
+  Other: 'Other'
 };
 
 export type EmploymentType = (typeof EmploymentType)[keyof typeof EmploymentType]
@@ -508,6 +517,16 @@ export class PrismaClient<
     * ```
     */
   get customForm(): Prisma.CustomFormDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.clientForm`: Exposes CRUD operations for the **ClientForm** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ClientForms
+    * const clientForms = await prisma.clientForm.findMany()
+    * ```
+    */
+  get clientForm(): Prisma.ClientFormDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -966,7 +985,8 @@ export namespace Prisma {
     Consent: 'Consent',
     Document: 'Document',
     Form: 'Form',
-    CustomForm: 'CustomForm'
+    CustomForm: 'CustomForm',
+    ClientForm: 'ClientForm'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -985,7 +1005,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "child" | "applicant" | "immobillionApplicantDetails" | "immobillionForm" | "analysisForm" | "personalDetails" | "employmentDetails" | "incomeDetails" | "expensesDetails" | "asset" | "liability" | "goalsAndWishes" | "riskAppetite" | "consent" | "document" | "form" | "customForm"
+      modelProps: "user" | "role" | "child" | "applicant" | "immobillionApplicantDetails" | "immobillionForm" | "analysisForm" | "personalDetails" | "employmentDetails" | "incomeDetails" | "expensesDetails" | "asset" | "liability" | "goalsAndWishes" | "riskAppetite" | "consent" | "document" | "form" | "customForm" | "clientForm"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2395,6 +2415,80 @@ export namespace Prisma {
           }
         }
       }
+      ClientForm: {
+        payload: Prisma.$ClientFormPayload<ExtArgs>
+        fields: Prisma.ClientFormFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ClientFormFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ClientFormFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload>
+          }
+          findFirst: {
+            args: Prisma.ClientFormFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ClientFormFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload>
+          }
+          findMany: {
+            args: Prisma.ClientFormFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload>[]
+          }
+          create: {
+            args: Prisma.ClientFormCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload>
+          }
+          createMany: {
+            args: Prisma.ClientFormCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ClientFormCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload>[]
+          }
+          delete: {
+            args: Prisma.ClientFormDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload>
+          }
+          update: {
+            args: Prisma.ClientFormUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload>
+          }
+          deleteMany: {
+            args: Prisma.ClientFormDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ClientFormUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ClientFormUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload>[]
+          }
+          upsert: {
+            args: Prisma.ClientFormUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientFormPayload>
+          }
+          aggregate: {
+            args: Prisma.ClientFormAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClientForm>
+          }
+          groupBy: {
+            args: Prisma.ClientFormGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClientFormGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ClientFormCountArgs<ExtArgs>
+            result: $Utils.Optional<ClientFormCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2498,6 +2592,7 @@ export namespace Prisma {
     document?: DocumentOmit
     form?: FormOmit
     customForm?: CustomFormOmit
+    clientForm?: ClientFormOmit
   }
 
   /* Types for Logging */
@@ -2594,12 +2689,14 @@ export namespace Prisma {
   export type UserCountOutputType = {
     analysisForms: number
     immobillionForms: number
+    clientForms: number
     clientsAsCoach: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     analysisForms?: boolean | UserCountOutputTypeCountAnalysisFormsArgs
     immobillionForms?: boolean | UserCountOutputTypeCountImmobillionFormsArgs
+    clientForms?: boolean | UserCountOutputTypeCountClientFormsArgs
     clientsAsCoach?: boolean | UserCountOutputTypeCountClientsAsCoachArgs
   }
 
@@ -2626,6 +2723,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountImmobillionFormsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ImmobillionFormWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountClientFormsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClientFormWhereInput
   }
 
   /**
@@ -3077,6 +3181,7 @@ export namespace Prisma {
     analysisForms?: boolean | User$analysisFormsArgs<ExtArgs>
     immobillionForms?: boolean | User$immobillionFormsArgs<ExtArgs>
     personalDetails?: boolean | User$personalDetailsArgs<ExtArgs>
+    clientForms?: boolean | User$clientFormsArgs<ExtArgs>
     clientsAsCoach?: boolean | User$clientsAsCoachArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -3137,6 +3242,7 @@ export namespace Prisma {
     analysisForms?: boolean | User$analysisFormsArgs<ExtArgs>
     immobillionForms?: boolean | User$immobillionFormsArgs<ExtArgs>
     personalDetails?: boolean | User$personalDetailsArgs<ExtArgs>
+    clientForms?: boolean | User$clientFormsArgs<ExtArgs>
     clientsAsCoach?: boolean | User$clientsAsCoachArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3154,6 +3260,7 @@ export namespace Prisma {
       analysisForms: Prisma.$AnalysisFormPayload<ExtArgs>[]
       immobillionForms: Prisma.$ImmobillionFormPayload<ExtArgs>[]
       personalDetails: Prisma.$PersonalDetailsPayload<ExtArgs> | null
+      clientForms: Prisma.$ClientFormPayload<ExtArgs>[]
       clientsAsCoach: Prisma.$PersonalDetailsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3568,6 +3675,7 @@ export namespace Prisma {
     analysisForms<T extends User$analysisFormsArgs<ExtArgs> = {}>(args?: Subset<T, User$analysisFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnalysisFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     immobillionForms<T extends User$immobillionFormsArgs<ExtArgs> = {}>(args?: Subset<T, User$immobillionFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImmobillionFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     personalDetails<T extends User$personalDetailsArgs<ExtArgs> = {}>(args?: Subset<T, User$personalDetailsArgs<ExtArgs>>): Prisma__PersonalDetailsClient<$Result.GetResult<Prisma.$PersonalDetailsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    clientForms<T extends User$clientFormsArgs<ExtArgs> = {}>(args?: Subset<T, User$clientFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     clientsAsCoach<T extends User$clientsAsCoachArgs<ExtArgs> = {}>(args?: Subset<T, User$clientsAsCoachArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonalDetailsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4071,6 +4179,30 @@ export namespace Prisma {
      */
     include?: PersonalDetailsInclude<ExtArgs> | null
     where?: PersonalDetailsWhereInput
+  }
+
+  /**
+   * User.clientForms
+   */
+  export type User$clientFormsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+    where?: ClientFormWhereInput
+    orderBy?: ClientFormOrderByWithRelationInput | ClientFormOrderByWithRelationInput[]
+    cursor?: ClientFormWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClientFormScalarFieldEnum | ClientFormScalarFieldEnum[]
   }
 
   /**
@@ -26179,6 +26311,1125 @@ export namespace Prisma {
 
 
   /**
+   * Model ClientForm
+   */
+
+  export type AggregateClientForm = {
+    _count: ClientFormCountAggregateOutputType | null
+    _min: ClientFormMinAggregateOutputType | null
+    _max: ClientFormMaxAggregateOutputType | null
+  }
+
+  export type ClientFormMinAggregateOutputType = {
+    id: string | null
+    formId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+    formType: $Enums.FormType | null
+    formName: string | null
+    status: string | null
+    lastEditedBy: string | null
+  }
+
+  export type ClientFormMaxAggregateOutputType = {
+    id: string | null
+    formId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+    formType: $Enums.FormType | null
+    formName: string | null
+    status: string | null
+    lastEditedBy: string | null
+  }
+
+  export type ClientFormCountAggregateOutputType = {
+    id: number
+    formId: number
+    createdAt: number
+    updatedAt: number
+    userId: number
+    formType: number
+    formName: number
+    formData: number
+    status: number
+    lastEditedBy: number
+    _all: number
+  }
+
+
+  export type ClientFormMinAggregateInputType = {
+    id?: true
+    formId?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    formType?: true
+    formName?: true
+    status?: true
+    lastEditedBy?: true
+  }
+
+  export type ClientFormMaxAggregateInputType = {
+    id?: true
+    formId?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    formType?: true
+    formName?: true
+    status?: true
+    lastEditedBy?: true
+  }
+
+  export type ClientFormCountAggregateInputType = {
+    id?: true
+    formId?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    formType?: true
+    formName?: true
+    formData?: true
+    status?: true
+    lastEditedBy?: true
+    _all?: true
+  }
+
+  export type ClientFormAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClientForm to aggregate.
+     */
+    where?: ClientFormWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClientForms to fetch.
+     */
+    orderBy?: ClientFormOrderByWithRelationInput | ClientFormOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ClientFormWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClientForms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClientForms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ClientForms
+    **/
+    _count?: true | ClientFormCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClientFormMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClientFormMaxAggregateInputType
+  }
+
+  export type GetClientFormAggregateType<T extends ClientFormAggregateArgs> = {
+        [P in keyof T & keyof AggregateClientForm]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateClientForm[P]>
+      : GetScalarType<T[P], AggregateClientForm[P]>
+  }
+
+
+
+
+  export type ClientFormGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClientFormWhereInput
+    orderBy?: ClientFormOrderByWithAggregationInput | ClientFormOrderByWithAggregationInput[]
+    by: ClientFormScalarFieldEnum[] | ClientFormScalarFieldEnum
+    having?: ClientFormScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClientFormCountAggregateInputType | true
+    _min?: ClientFormMinAggregateInputType
+    _max?: ClientFormMaxAggregateInputType
+  }
+
+  export type ClientFormGroupByOutputType = {
+    id: string
+    formId: string
+    createdAt: Date
+    updatedAt: Date
+    userId: string
+    formType: $Enums.FormType
+    formName: string
+    formData: JsonValue
+    status: string
+    lastEditedBy: string | null
+    _count: ClientFormCountAggregateOutputType | null
+    _min: ClientFormMinAggregateOutputType | null
+    _max: ClientFormMaxAggregateOutputType | null
+  }
+
+  type GetClientFormGroupByPayload<T extends ClientFormGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ClientFormGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClientFormGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClientFormGroupByOutputType[P]>
+            : GetScalarType<T[P], ClientFormGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ClientFormSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    formType?: boolean
+    formName?: boolean
+    formData?: boolean
+    status?: boolean
+    lastEditedBy?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["clientForm"]>
+
+  export type ClientFormSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    formType?: boolean
+    formName?: boolean
+    formData?: boolean
+    status?: boolean
+    lastEditedBy?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["clientForm"]>
+
+  export type ClientFormSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    formType?: boolean
+    formName?: boolean
+    formData?: boolean
+    status?: boolean
+    lastEditedBy?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["clientForm"]>
+
+  export type ClientFormSelectScalar = {
+    id?: boolean
+    formId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    formType?: boolean
+    formName?: boolean
+    formData?: boolean
+    status?: boolean
+    lastEditedBy?: boolean
+  }
+
+  export type ClientFormOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formId" | "createdAt" | "updatedAt" | "userId" | "formType" | "formName" | "formData" | "status" | "lastEditedBy", ExtArgs["result"]["clientForm"]>
+  export type ClientFormInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ClientFormIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ClientFormIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ClientFormPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ClientForm"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      formId: string
+      createdAt: Date
+      updatedAt: Date
+      userId: string
+      formType: $Enums.FormType
+      formName: string
+      formData: Prisma.JsonValue
+      status: string
+      lastEditedBy: string | null
+    }, ExtArgs["result"]["clientForm"]>
+    composites: {}
+  }
+
+  type ClientFormGetPayload<S extends boolean | null | undefined | ClientFormDefaultArgs> = $Result.GetResult<Prisma.$ClientFormPayload, S>
+
+  type ClientFormCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClientFormFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClientFormCountAggregateInputType | true
+    }
+
+  export interface ClientFormDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClientForm'], meta: { name: 'ClientForm' } }
+    /**
+     * Find zero or one ClientForm that matches the filter.
+     * @param {ClientFormFindUniqueArgs} args - Arguments to find a ClientForm
+     * @example
+     * // Get one ClientForm
+     * const clientForm = await prisma.clientForm.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ClientFormFindUniqueArgs>(args: SelectSubset<T, ClientFormFindUniqueArgs<ExtArgs>>): Prisma__ClientFormClient<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ClientForm that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ClientFormFindUniqueOrThrowArgs} args - Arguments to find a ClientForm
+     * @example
+     * // Get one ClientForm
+     * const clientForm = await prisma.clientForm.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ClientFormFindUniqueOrThrowArgs>(args: SelectSubset<T, ClientFormFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClientFormClient<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ClientForm that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientFormFindFirstArgs} args - Arguments to find a ClientForm
+     * @example
+     * // Get one ClientForm
+     * const clientForm = await prisma.clientForm.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ClientFormFindFirstArgs>(args?: SelectSubset<T, ClientFormFindFirstArgs<ExtArgs>>): Prisma__ClientFormClient<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ClientForm that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientFormFindFirstOrThrowArgs} args - Arguments to find a ClientForm
+     * @example
+     * // Get one ClientForm
+     * const clientForm = await prisma.clientForm.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ClientFormFindFirstOrThrowArgs>(args?: SelectSubset<T, ClientFormFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClientFormClient<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ClientForms that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientFormFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ClientForms
+     * const clientForms = await prisma.clientForm.findMany()
+     * 
+     * // Get first 10 ClientForms
+     * const clientForms = await prisma.clientForm.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const clientFormWithIdOnly = await prisma.clientForm.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ClientFormFindManyArgs>(args?: SelectSubset<T, ClientFormFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ClientForm.
+     * @param {ClientFormCreateArgs} args - Arguments to create a ClientForm.
+     * @example
+     * // Create one ClientForm
+     * const ClientForm = await prisma.clientForm.create({
+     *   data: {
+     *     // ... data to create a ClientForm
+     *   }
+     * })
+     * 
+     */
+    create<T extends ClientFormCreateArgs>(args: SelectSubset<T, ClientFormCreateArgs<ExtArgs>>): Prisma__ClientFormClient<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ClientForms.
+     * @param {ClientFormCreateManyArgs} args - Arguments to create many ClientForms.
+     * @example
+     * // Create many ClientForms
+     * const clientForm = await prisma.clientForm.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ClientFormCreateManyArgs>(args?: SelectSubset<T, ClientFormCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ClientForms and returns the data saved in the database.
+     * @param {ClientFormCreateManyAndReturnArgs} args - Arguments to create many ClientForms.
+     * @example
+     * // Create many ClientForms
+     * const clientForm = await prisma.clientForm.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ClientForms and only return the `id`
+     * const clientFormWithIdOnly = await prisma.clientForm.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ClientFormCreateManyAndReturnArgs>(args?: SelectSubset<T, ClientFormCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ClientForm.
+     * @param {ClientFormDeleteArgs} args - Arguments to delete one ClientForm.
+     * @example
+     * // Delete one ClientForm
+     * const ClientForm = await prisma.clientForm.delete({
+     *   where: {
+     *     // ... filter to delete one ClientForm
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ClientFormDeleteArgs>(args: SelectSubset<T, ClientFormDeleteArgs<ExtArgs>>): Prisma__ClientFormClient<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ClientForm.
+     * @param {ClientFormUpdateArgs} args - Arguments to update one ClientForm.
+     * @example
+     * // Update one ClientForm
+     * const clientForm = await prisma.clientForm.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ClientFormUpdateArgs>(args: SelectSubset<T, ClientFormUpdateArgs<ExtArgs>>): Prisma__ClientFormClient<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ClientForms.
+     * @param {ClientFormDeleteManyArgs} args - Arguments to filter ClientForms to delete.
+     * @example
+     * // Delete a few ClientForms
+     * const { count } = await prisma.clientForm.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ClientFormDeleteManyArgs>(args?: SelectSubset<T, ClientFormDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClientForms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientFormUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ClientForms
+     * const clientForm = await prisma.clientForm.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ClientFormUpdateManyArgs>(args: SelectSubset<T, ClientFormUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClientForms and returns the data updated in the database.
+     * @param {ClientFormUpdateManyAndReturnArgs} args - Arguments to update many ClientForms.
+     * @example
+     * // Update many ClientForms
+     * const clientForm = await prisma.clientForm.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ClientForms and only return the `id`
+     * const clientFormWithIdOnly = await prisma.clientForm.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ClientFormUpdateManyAndReturnArgs>(args: SelectSubset<T, ClientFormUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ClientForm.
+     * @param {ClientFormUpsertArgs} args - Arguments to update or create a ClientForm.
+     * @example
+     * // Update or create a ClientForm
+     * const clientForm = await prisma.clientForm.upsert({
+     *   create: {
+     *     // ... data to create a ClientForm
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ClientForm we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ClientFormUpsertArgs>(args: SelectSubset<T, ClientFormUpsertArgs<ExtArgs>>): Prisma__ClientFormClient<$Result.GetResult<Prisma.$ClientFormPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ClientForms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientFormCountArgs} args - Arguments to filter ClientForms to count.
+     * @example
+     * // Count the number of ClientForms
+     * const count = await prisma.clientForm.count({
+     *   where: {
+     *     // ... the filter for the ClientForms we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClientFormCountArgs>(
+      args?: Subset<T, ClientFormCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClientFormCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ClientForm.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientFormAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClientFormAggregateArgs>(args: Subset<T, ClientFormAggregateArgs>): Prisma.PrismaPromise<GetClientFormAggregateType<T>>
+
+    /**
+     * Group by ClientForm.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientFormGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ClientFormGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ClientFormGroupByArgs['orderBy'] }
+        : { orderBy?: ClientFormGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ClientFormGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClientFormGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ClientForm model
+   */
+  readonly fields: ClientFormFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ClientForm.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ClientFormClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ClientForm model
+   */
+  interface ClientFormFieldRefs {
+    readonly id: FieldRef<"ClientForm", 'String'>
+    readonly formId: FieldRef<"ClientForm", 'String'>
+    readonly createdAt: FieldRef<"ClientForm", 'DateTime'>
+    readonly updatedAt: FieldRef<"ClientForm", 'DateTime'>
+    readonly userId: FieldRef<"ClientForm", 'String'>
+    readonly formType: FieldRef<"ClientForm", 'FormType'>
+    readonly formName: FieldRef<"ClientForm", 'String'>
+    readonly formData: FieldRef<"ClientForm", 'Json'>
+    readonly status: FieldRef<"ClientForm", 'String'>
+    readonly lastEditedBy: FieldRef<"ClientForm", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ClientForm findUnique
+   */
+  export type ClientFormFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+    /**
+     * Filter, which ClientForm to fetch.
+     */
+    where: ClientFormWhereUniqueInput
+  }
+
+  /**
+   * ClientForm findUniqueOrThrow
+   */
+  export type ClientFormFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+    /**
+     * Filter, which ClientForm to fetch.
+     */
+    where: ClientFormWhereUniqueInput
+  }
+
+  /**
+   * ClientForm findFirst
+   */
+  export type ClientFormFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+    /**
+     * Filter, which ClientForm to fetch.
+     */
+    where?: ClientFormWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClientForms to fetch.
+     */
+    orderBy?: ClientFormOrderByWithRelationInput | ClientFormOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClientForms.
+     */
+    cursor?: ClientFormWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClientForms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClientForms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClientForms.
+     */
+    distinct?: ClientFormScalarFieldEnum | ClientFormScalarFieldEnum[]
+  }
+
+  /**
+   * ClientForm findFirstOrThrow
+   */
+  export type ClientFormFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+    /**
+     * Filter, which ClientForm to fetch.
+     */
+    where?: ClientFormWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClientForms to fetch.
+     */
+    orderBy?: ClientFormOrderByWithRelationInput | ClientFormOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClientForms.
+     */
+    cursor?: ClientFormWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClientForms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClientForms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClientForms.
+     */
+    distinct?: ClientFormScalarFieldEnum | ClientFormScalarFieldEnum[]
+  }
+
+  /**
+   * ClientForm findMany
+   */
+  export type ClientFormFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+    /**
+     * Filter, which ClientForms to fetch.
+     */
+    where?: ClientFormWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClientForms to fetch.
+     */
+    orderBy?: ClientFormOrderByWithRelationInput | ClientFormOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ClientForms.
+     */
+    cursor?: ClientFormWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClientForms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClientForms.
+     */
+    skip?: number
+    distinct?: ClientFormScalarFieldEnum | ClientFormScalarFieldEnum[]
+  }
+
+  /**
+   * ClientForm create
+   */
+  export type ClientFormCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ClientForm.
+     */
+    data: XOR<ClientFormCreateInput, ClientFormUncheckedCreateInput>
+  }
+
+  /**
+   * ClientForm createMany
+   */
+  export type ClientFormCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ClientForms.
+     */
+    data: ClientFormCreateManyInput | ClientFormCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ClientForm createManyAndReturn
+   */
+  export type ClientFormCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * The data used to create many ClientForms.
+     */
+    data: ClientFormCreateManyInput | ClientFormCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ClientForm update
+   */
+  export type ClientFormUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ClientForm.
+     */
+    data: XOR<ClientFormUpdateInput, ClientFormUncheckedUpdateInput>
+    /**
+     * Choose, which ClientForm to update.
+     */
+    where: ClientFormWhereUniqueInput
+  }
+
+  /**
+   * ClientForm updateMany
+   */
+  export type ClientFormUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ClientForms.
+     */
+    data: XOR<ClientFormUpdateManyMutationInput, ClientFormUncheckedUpdateManyInput>
+    /**
+     * Filter which ClientForms to update
+     */
+    where?: ClientFormWhereInput
+    /**
+     * Limit how many ClientForms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClientForm updateManyAndReturn
+   */
+  export type ClientFormUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * The data used to update ClientForms.
+     */
+    data: XOR<ClientFormUpdateManyMutationInput, ClientFormUncheckedUpdateManyInput>
+    /**
+     * Filter which ClientForms to update
+     */
+    where?: ClientFormWhereInput
+    /**
+     * Limit how many ClientForms to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ClientForm upsert
+   */
+  export type ClientFormUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ClientForm to update in case it exists.
+     */
+    where: ClientFormWhereUniqueInput
+    /**
+     * In case the ClientForm found by the `where` argument doesn't exist, create a new ClientForm with this data.
+     */
+    create: XOR<ClientFormCreateInput, ClientFormUncheckedCreateInput>
+    /**
+     * In case the ClientForm was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ClientFormUpdateInput, ClientFormUncheckedUpdateInput>
+  }
+
+  /**
+   * ClientForm delete
+   */
+  export type ClientFormDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+    /**
+     * Filter which ClientForm to delete.
+     */
+    where: ClientFormWhereUniqueInput
+  }
+
+  /**
+   * ClientForm deleteMany
+   */
+  export type ClientFormDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClientForms to delete
+     */
+    where?: ClientFormWhereInput
+    /**
+     * Limit how many ClientForms to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClientForm without action
+   */
+  export type ClientFormDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientForm
+     */
+    select?: ClientFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClientForm
+     */
+    omit?: ClientFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientFormInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -26576,6 +27827,22 @@ export namespace Prisma {
   export type CustomFormScalarFieldEnum = (typeof CustomFormScalarFieldEnum)[keyof typeof CustomFormScalarFieldEnum]
 
 
+  export const ClientFormScalarFieldEnum: {
+    id: 'id',
+    formId: 'formId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    userId: 'userId',
+    formType: 'formType',
+    formName: 'formName',
+    formData: 'formData',
+    status: 'status',
+    lastEditedBy: 'lastEditedBy'
+  };
+
+  export type ClientFormScalarFieldEnum = (typeof ClientFormScalarFieldEnum)[keyof typeof ClientFormScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -26814,6 +28081,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormListRelationFilter
     immobillionForms?: ImmobillionFormListRelationFilter
     personalDetails?: XOR<PersonalDetailsNullableScalarRelationFilter, PersonalDetailsWhereInput> | null
+    clientForms?: ClientFormListRelationFilter
     clientsAsCoach?: PersonalDetailsListRelationFilter
   }
 
@@ -26835,6 +28103,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormOrderByRelationAggregateInput
     immobillionForms?: ImmobillionFormOrderByRelationAggregateInput
     personalDetails?: PersonalDetailsOrderByWithRelationInput
+    clientForms?: ClientFormOrderByRelationAggregateInput
     clientsAsCoach?: PersonalDetailsOrderByRelationAggregateInput
   }
 
@@ -26859,6 +28128,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormListRelationFilter
     immobillionForms?: ImmobillionFormListRelationFilter
     personalDetails?: XOR<PersonalDetailsNullableScalarRelationFilter, PersonalDetailsWhereInput> | null
+    clientForms?: ClientFormListRelationFilter
     clientsAsCoach?: PersonalDetailsListRelationFilter
   }, "id" | "email">
 
@@ -28790,6 +30060,86 @@ export namespace Prisma {
     updatedDate?: DateTimeWithAggregatesFilter<"CustomForm"> | Date | string
   }
 
+  export type ClientFormWhereInput = {
+    AND?: ClientFormWhereInput | ClientFormWhereInput[]
+    OR?: ClientFormWhereInput[]
+    NOT?: ClientFormWhereInput | ClientFormWhereInput[]
+    id?: StringFilter<"ClientForm"> | string
+    formId?: StringFilter<"ClientForm"> | string
+    createdAt?: DateTimeFilter<"ClientForm"> | Date | string
+    updatedAt?: DateTimeFilter<"ClientForm"> | Date | string
+    userId?: StringFilter<"ClientForm"> | string
+    formType?: EnumFormTypeFilter<"ClientForm"> | $Enums.FormType
+    formName?: StringFilter<"ClientForm"> | string
+    formData?: JsonFilter<"ClientForm">
+    status?: StringFilter<"ClientForm"> | string
+    lastEditedBy?: StringNullableFilter<"ClientForm"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ClientFormOrderByWithRelationInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    formType?: SortOrder
+    formName?: SortOrder
+    formData?: SortOrder
+    status?: SortOrder
+    lastEditedBy?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ClientFormWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    formId?: string
+    AND?: ClientFormWhereInput | ClientFormWhereInput[]
+    OR?: ClientFormWhereInput[]
+    NOT?: ClientFormWhereInput | ClientFormWhereInput[]
+    createdAt?: DateTimeFilter<"ClientForm"> | Date | string
+    updatedAt?: DateTimeFilter<"ClientForm"> | Date | string
+    userId?: StringFilter<"ClientForm"> | string
+    formType?: EnumFormTypeFilter<"ClientForm"> | $Enums.FormType
+    formName?: StringFilter<"ClientForm"> | string
+    formData?: JsonFilter<"ClientForm">
+    status?: StringFilter<"ClientForm"> | string
+    lastEditedBy?: StringNullableFilter<"ClientForm"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "formId">
+
+  export type ClientFormOrderByWithAggregationInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    formType?: SortOrder
+    formName?: SortOrder
+    formData?: SortOrder
+    status?: SortOrder
+    lastEditedBy?: SortOrderInput | SortOrder
+    _count?: ClientFormCountOrderByAggregateInput
+    _max?: ClientFormMaxOrderByAggregateInput
+    _min?: ClientFormMinOrderByAggregateInput
+  }
+
+  export type ClientFormScalarWhereWithAggregatesInput = {
+    AND?: ClientFormScalarWhereWithAggregatesInput | ClientFormScalarWhereWithAggregatesInput[]
+    OR?: ClientFormScalarWhereWithAggregatesInput[]
+    NOT?: ClientFormScalarWhereWithAggregatesInput | ClientFormScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ClientForm"> | string
+    formId?: StringWithAggregatesFilter<"ClientForm"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ClientForm"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ClientForm"> | Date | string
+    userId?: StringWithAggregatesFilter<"ClientForm"> | string
+    formType?: EnumFormTypeWithAggregatesFilter<"ClientForm"> | $Enums.FormType
+    formName?: StringWithAggregatesFilter<"ClientForm"> | string
+    formData?: JsonWithAggregatesFilter<"ClientForm">
+    status?: StringWithAggregatesFilter<"ClientForm"> | string
+    lastEditedBy?: StringNullableWithAggregatesFilter<"ClientForm"> | string | null
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -28807,6 +30157,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
     personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+    clientForms?: ClientFormCreateNestedManyWithoutUserInput
     clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
   }
 
@@ -28827,6 +30178,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
     personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+    clientForms?: ClientFormUncheckedCreateNestedManyWithoutUserInput
     clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
   }
 
@@ -28847,6 +30199,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
     personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+    clientForms?: ClientFormUpdateManyWithoutUserNestedInput
     clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
   }
 
@@ -28867,6 +30220,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
     personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
+    clientForms?: ClientFormUncheckedUpdateManyWithoutUserNestedInput
     clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
   }
 
@@ -31139,6 +32493,96 @@ export namespace Prisma {
     updatedDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ClientFormCreateInput = {
+    id?: string
+    formId?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formType: $Enums.FormType
+    formName: string
+    formData: JsonNullValueInput | InputJsonValue
+    status?: string
+    lastEditedBy?: string | null
+    user: UserCreateNestedOneWithoutClientFormsInput
+  }
+
+  export type ClientFormUncheckedCreateInput = {
+    id?: string
+    formId?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    formType: $Enums.FormType
+    formName: string
+    formData: JsonNullValueInput | InputJsonValue
+    status?: string
+    lastEditedBy?: string | null
+  }
+
+  export type ClientFormUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formType?: EnumFormTypeFieldUpdateOperationsInput | $Enums.FormType
+    formName?: StringFieldUpdateOperationsInput | string
+    formData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    lastEditedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutClientFormsNestedInput
+  }
+
+  export type ClientFormUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    formType?: EnumFormTypeFieldUpdateOperationsInput | $Enums.FormType
+    formName?: StringFieldUpdateOperationsInput | string
+    formData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    lastEditedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ClientFormCreateManyInput = {
+    id?: string
+    formId?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    formType: $Enums.FormType
+    formName: string
+    formData: JsonNullValueInput | InputJsonValue
+    status?: string
+    lastEditedBy?: string | null
+  }
+
+  export type ClientFormUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formType?: EnumFormTypeFieldUpdateOperationsInput | $Enums.FormType
+    formName?: StringFieldUpdateOperationsInput | string
+    formData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    lastEditedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ClientFormUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    formType?: EnumFormTypeFieldUpdateOperationsInput | $Enums.FormType
+    formName?: StringFieldUpdateOperationsInput | string
+    formData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    lastEditedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -31218,6 +32662,12 @@ export namespace Prisma {
     isNot?: PersonalDetailsWhereInput | null
   }
 
+  export type ClientFormListRelationFilter = {
+    every?: ClientFormWhereInput
+    some?: ClientFormWhereInput
+    none?: ClientFormWhereInput
+  }
+
   export type PersonalDetailsListRelationFilter = {
     every?: PersonalDetailsWhereInput
     some?: PersonalDetailsWhereInput
@@ -31234,6 +32684,10 @@ export namespace Prisma {
   }
 
   export type ImmobillionFormOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ClientFormOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -32874,6 +34328,43 @@ export namespace Prisma {
     updatedDate?: SortOrder
   }
 
+  export type ClientFormCountOrderByAggregateInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    formType?: SortOrder
+    formName?: SortOrder
+    formData?: SortOrder
+    status?: SortOrder
+    lastEditedBy?: SortOrder
+  }
+
+  export type ClientFormMaxOrderByAggregateInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    formType?: SortOrder
+    formName?: SortOrder
+    status?: SortOrder
+    lastEditedBy?: SortOrder
+  }
+
+  export type ClientFormMinOrderByAggregateInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    formType?: SortOrder
+    formName?: SortOrder
+    status?: SortOrder
+    lastEditedBy?: SortOrder
+  }
+
   export type RoleCreateNestedOneWithoutUsersInput = {
     create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
     connectOrCreate?: RoleCreateOrConnectWithoutUsersInput
@@ -32898,6 +34389,13 @@ export namespace Prisma {
     create?: XOR<PersonalDetailsCreateWithoutUserInput, PersonalDetailsUncheckedCreateWithoutUserInput>
     connectOrCreate?: PersonalDetailsCreateOrConnectWithoutUserInput
     connect?: PersonalDetailsWhereUniqueInput
+  }
+
+  export type ClientFormCreateNestedManyWithoutUserInput = {
+    create?: XOR<ClientFormCreateWithoutUserInput, ClientFormUncheckedCreateWithoutUserInput> | ClientFormCreateWithoutUserInput[] | ClientFormUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClientFormCreateOrConnectWithoutUserInput | ClientFormCreateOrConnectWithoutUserInput[]
+    createMany?: ClientFormCreateManyUserInputEnvelope
+    connect?: ClientFormWhereUniqueInput | ClientFormWhereUniqueInput[]
   }
 
   export type PersonalDetailsCreateNestedManyWithoutCoachInput = {
@@ -32925,6 +34423,13 @@ export namespace Prisma {
     create?: XOR<PersonalDetailsCreateWithoutUserInput, PersonalDetailsUncheckedCreateWithoutUserInput>
     connectOrCreate?: PersonalDetailsCreateOrConnectWithoutUserInput
     connect?: PersonalDetailsWhereUniqueInput
+  }
+
+  export type ClientFormUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ClientFormCreateWithoutUserInput, ClientFormUncheckedCreateWithoutUserInput> | ClientFormCreateWithoutUserInput[] | ClientFormUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClientFormCreateOrConnectWithoutUserInput | ClientFormCreateOrConnectWithoutUserInput[]
+    createMany?: ClientFormCreateManyUserInputEnvelope
+    connect?: ClientFormWhereUniqueInput | ClientFormWhereUniqueInput[]
   }
 
   export type PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput = {
@@ -33000,6 +34505,20 @@ export namespace Prisma {
     update?: XOR<XOR<PersonalDetailsUpdateToOneWithWhereWithoutUserInput, PersonalDetailsUpdateWithoutUserInput>, PersonalDetailsUncheckedUpdateWithoutUserInput>
   }
 
+  export type ClientFormUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ClientFormCreateWithoutUserInput, ClientFormUncheckedCreateWithoutUserInput> | ClientFormCreateWithoutUserInput[] | ClientFormUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClientFormCreateOrConnectWithoutUserInput | ClientFormCreateOrConnectWithoutUserInput[]
+    upsert?: ClientFormUpsertWithWhereUniqueWithoutUserInput | ClientFormUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ClientFormCreateManyUserInputEnvelope
+    set?: ClientFormWhereUniqueInput | ClientFormWhereUniqueInput[]
+    disconnect?: ClientFormWhereUniqueInput | ClientFormWhereUniqueInput[]
+    delete?: ClientFormWhereUniqueInput | ClientFormWhereUniqueInput[]
+    connect?: ClientFormWhereUniqueInput | ClientFormWhereUniqueInput[]
+    update?: ClientFormUpdateWithWhereUniqueWithoutUserInput | ClientFormUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ClientFormUpdateManyWithWhereWithoutUserInput | ClientFormUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ClientFormScalarWhereInput | ClientFormScalarWhereInput[]
+  }
+
   export type PersonalDetailsUpdateManyWithoutCoachNestedInput = {
     create?: XOR<PersonalDetailsCreateWithoutCoachInput, PersonalDetailsUncheckedCreateWithoutCoachInput> | PersonalDetailsCreateWithoutCoachInput[] | PersonalDetailsUncheckedCreateWithoutCoachInput[]
     connectOrCreate?: PersonalDetailsCreateOrConnectWithoutCoachInput | PersonalDetailsCreateOrConnectWithoutCoachInput[]
@@ -33050,6 +34569,20 @@ export namespace Prisma {
     delete?: PersonalDetailsWhereInput | boolean
     connect?: PersonalDetailsWhereUniqueInput
     update?: XOR<XOR<PersonalDetailsUpdateToOneWithWhereWithoutUserInput, PersonalDetailsUpdateWithoutUserInput>, PersonalDetailsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ClientFormUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ClientFormCreateWithoutUserInput, ClientFormUncheckedCreateWithoutUserInput> | ClientFormCreateWithoutUserInput[] | ClientFormUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClientFormCreateOrConnectWithoutUserInput | ClientFormCreateOrConnectWithoutUserInput[]
+    upsert?: ClientFormUpsertWithWhereUniqueWithoutUserInput | ClientFormUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ClientFormCreateManyUserInputEnvelope
+    set?: ClientFormWhereUniqueInput | ClientFormWhereUniqueInput[]
+    disconnect?: ClientFormWhereUniqueInput | ClientFormWhereUniqueInput[]
+    delete?: ClientFormWhereUniqueInput | ClientFormWhereUniqueInput[]
+    connect?: ClientFormWhereUniqueInput | ClientFormWhereUniqueInput[]
+    update?: ClientFormUpdateWithWhereUniqueWithoutUserInput | ClientFormUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ClientFormUpdateManyWithWhereWithoutUserInput | ClientFormUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ClientFormScalarWhereInput | ClientFormScalarWhereInput[]
   }
 
   export type PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput = {
@@ -34044,6 +35577,20 @@ export namespace Prisma {
     update?: XOR<XOR<PersonalDetailsUpdateToOneWithWhereWithoutCustomFormsInput, PersonalDetailsUpdateWithoutCustomFormsInput>, PersonalDetailsUncheckedUpdateWithoutCustomFormsInput>
   }
 
+  export type UserCreateNestedOneWithoutClientFormsInput = {
+    create?: XOR<UserCreateWithoutClientFormsInput, UserUncheckedCreateWithoutClientFormsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClientFormsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutClientFormsNestedInput = {
+    create?: XOR<UserCreateWithoutClientFormsInput, UserUncheckedCreateWithoutClientFormsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClientFormsInput
+    upsert?: UserUpsertWithoutClientFormsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutClientFormsInput, UserUpdateWithoutClientFormsInput>, UserUncheckedUpdateWithoutClientFormsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -34608,6 +36155,40 @@ export namespace Prisma {
     create: XOR<PersonalDetailsCreateWithoutUserInput, PersonalDetailsUncheckedCreateWithoutUserInput>
   }
 
+  export type ClientFormCreateWithoutUserInput = {
+    id?: string
+    formId?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formType: $Enums.FormType
+    formName: string
+    formData: JsonNullValueInput | InputJsonValue
+    status?: string
+    lastEditedBy?: string | null
+  }
+
+  export type ClientFormUncheckedCreateWithoutUserInput = {
+    id?: string
+    formId?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formType: $Enums.FormType
+    formName: string
+    formData: JsonNullValueInput | InputJsonValue
+    status?: string
+    lastEditedBy?: string | null
+  }
+
+  export type ClientFormCreateOrConnectWithoutUserInput = {
+    where: ClientFormWhereUniqueInput
+    create: XOR<ClientFormCreateWithoutUserInput, ClientFormUncheckedCreateWithoutUserInput>
+  }
+
+  export type ClientFormCreateManyUserInputEnvelope = {
+    data: ClientFormCreateManyUserInput | ClientFormCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PersonalDetailsCreateWithoutCoachInput = {
     id?: string
     createdAt?: Date | string
@@ -34860,6 +36441,38 @@ export namespace Prisma {
     customForms?: CustomFormUncheckedUpdateManyWithoutPersonalDetailsNestedInput
   }
 
+  export type ClientFormUpsertWithWhereUniqueWithoutUserInput = {
+    where: ClientFormWhereUniqueInput
+    update: XOR<ClientFormUpdateWithoutUserInput, ClientFormUncheckedUpdateWithoutUserInput>
+    create: XOR<ClientFormCreateWithoutUserInput, ClientFormUncheckedCreateWithoutUserInput>
+  }
+
+  export type ClientFormUpdateWithWhereUniqueWithoutUserInput = {
+    where: ClientFormWhereUniqueInput
+    data: XOR<ClientFormUpdateWithoutUserInput, ClientFormUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ClientFormUpdateManyWithWhereWithoutUserInput = {
+    where: ClientFormScalarWhereInput
+    data: XOR<ClientFormUpdateManyMutationInput, ClientFormUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ClientFormScalarWhereInput = {
+    AND?: ClientFormScalarWhereInput | ClientFormScalarWhereInput[]
+    OR?: ClientFormScalarWhereInput[]
+    NOT?: ClientFormScalarWhereInput | ClientFormScalarWhereInput[]
+    id?: StringFilter<"ClientForm"> | string
+    formId?: StringFilter<"ClientForm"> | string
+    createdAt?: DateTimeFilter<"ClientForm"> | Date | string
+    updatedAt?: DateTimeFilter<"ClientForm"> | Date | string
+    userId?: StringFilter<"ClientForm"> | string
+    formType?: EnumFormTypeFilter<"ClientForm"> | $Enums.FormType
+    formName?: StringFilter<"ClientForm"> | string
+    formData?: JsonFilter<"ClientForm">
+    status?: StringFilter<"ClientForm"> | string
+    lastEditedBy?: StringNullableFilter<"ClientForm"> | string | null
+  }
+
   export type PersonalDetailsUpsertWithWhereUniqueWithoutCoachInput = {
     where: PersonalDetailsWhereUniqueInput
     update: XOR<PersonalDetailsUpdateWithoutCoachInput, PersonalDetailsUncheckedUpdateWithoutCoachInput>
@@ -34916,6 +36529,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
     personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+    clientForms?: ClientFormCreateNestedManyWithoutUserInput
     clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
   }
 
@@ -34935,6 +36549,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
     personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+    clientForms?: ClientFormUncheckedCreateNestedManyWithoutUserInput
     clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
   }
 
@@ -35659,6 +37274,7 @@ export namespace Prisma {
     role: RoleCreateNestedOneWithoutUsersInput
     analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
     personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+    clientForms?: ClientFormCreateNestedManyWithoutUserInput
     clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
   }
 
@@ -35678,6 +37294,7 @@ export namespace Prisma {
     resetTokenExpiry?: Date | string | null
     analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
     personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+    clientForms?: ClientFormUncheckedCreateNestedManyWithoutUserInput
     clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
   }
 
@@ -35821,6 +37438,7 @@ export namespace Prisma {
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
     personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+    clientForms?: ClientFormUpdateManyWithoutUserNestedInput
     clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
   }
 
@@ -35840,6 +37458,7 @@ export namespace Prisma {
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
     personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
+    clientForms?: ClientFormUncheckedUpdateManyWithoutUserNestedInput
     clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
   }
 
@@ -35927,6 +37546,7 @@ export namespace Prisma {
     role: RoleCreateNestedOneWithoutUsersInput
     immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
     personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+    clientForms?: ClientFormCreateNestedManyWithoutUserInput
     clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
   }
 
@@ -35946,6 +37566,7 @@ export namespace Prisma {
     resetTokenExpiry?: Date | string | null
     immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
     personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+    clientForms?: ClientFormUncheckedCreateNestedManyWithoutUserInput
     clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
   }
 
@@ -36121,6 +37742,7 @@ export namespace Prisma {
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
     personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+    clientForms?: ClientFormUpdateManyWithoutUserNestedInput
     clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
   }
 
@@ -36140,6 +37762,7 @@ export namespace Prisma {
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
     personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
+    clientForms?: ClientFormUncheckedUpdateManyWithoutUserNestedInput
     clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
   }
 
@@ -36206,6 +37829,7 @@ export namespace Prisma {
     role: RoleCreateNestedOneWithoutUsersInput
     analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
+    clientForms?: ClientFormCreateNestedManyWithoutUserInput
     clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
   }
 
@@ -36225,6 +37849,7 @@ export namespace Prisma {
     resetTokenExpiry?: Date | string | null
     analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
+    clientForms?: ClientFormUncheckedCreateNestedManyWithoutUserInput
     clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
   }
 
@@ -36250,6 +37875,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
     personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+    clientForms?: ClientFormCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutClientsAsCoachInput = {
@@ -36269,6 +37895,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
     immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
     personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+    clientForms?: ClientFormUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutClientsAsCoachInput = {
@@ -36691,6 +38318,7 @@ export namespace Prisma {
     role?: RoleUpdateOneRequiredWithoutUsersNestedInput
     analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
+    clientForms?: ClientFormUpdateManyWithoutUserNestedInput
     clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
   }
 
@@ -36710,6 +38338,7 @@ export namespace Prisma {
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
+    clientForms?: ClientFormUncheckedUpdateManyWithoutUserNestedInput
     clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
   }
 
@@ -36741,6 +38370,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
     personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+    clientForms?: ClientFormUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientsAsCoachInput = {
@@ -36760,6 +38390,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
     personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
+    clientForms?: ClientFormUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EmploymentDetailsUpsertWithWhereUniqueWithoutPersonalDetailsInput = {
@@ -38675,6 +40306,102 @@ export namespace Prisma {
     forms?: FormUncheckedUpdateManyWithoutPersonalDetailsNestedInput
   }
 
+  export type UserCreateWithoutClientFormsInput = {
+    id?: string
+    email: string
+    password: string
+    displayName?: string | null
+    emailVerified?: boolean
+    profileImage?: string | null
+    phoneNumber?: string | null
+    firebaseUid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    role: RoleCreateNestedOneWithoutUsersInput
+    analysisForms?: AnalysisFormCreateNestedManyWithoutUserInput
+    immobillionForms?: ImmobillionFormCreateNestedManyWithoutUserInput
+    personalDetails?: PersonalDetailsCreateNestedOneWithoutUserInput
+    clientsAsCoach?: PersonalDetailsCreateNestedManyWithoutCoachInput
+  }
+
+  export type UserUncheckedCreateWithoutClientFormsInput = {
+    id?: string
+    email: string
+    password: string
+    displayName?: string | null
+    emailVerified?: boolean
+    profileImage?: string | null
+    phoneNumber?: string | null
+    firebaseUid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roleId: string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    analysisForms?: AnalysisFormUncheckedCreateNestedManyWithoutUserInput
+    immobillionForms?: ImmobillionFormUncheckedCreateNestedManyWithoutUserInput
+    personalDetails?: PersonalDetailsUncheckedCreateNestedOneWithoutUserInput
+    clientsAsCoach?: PersonalDetailsUncheckedCreateNestedManyWithoutCoachInput
+  }
+
+  export type UserCreateOrConnectWithoutClientFormsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutClientFormsInput, UserUncheckedCreateWithoutClientFormsInput>
+  }
+
+  export type UserUpsertWithoutClientFormsInput = {
+    update: XOR<UserUpdateWithoutClientFormsInput, UserUncheckedUpdateWithoutClientFormsInput>
+    create: XOR<UserCreateWithoutClientFormsInput, UserUncheckedCreateWithoutClientFormsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutClientFormsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutClientFormsInput, UserUncheckedUpdateWithoutClientFormsInput>
+  }
+
+  export type UserUpdateWithoutClientFormsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
+    immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
+    personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutClientFormsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    profileImage?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
+    immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
+    personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
+    clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
+  }
+
   export type AnalysisFormCreateManyUserInput = {
     id?: string
     status?: string
@@ -38711,6 +40438,18 @@ export namespace Prisma {
     updatedAt?: Date | string
     formType?: string
     formVersion?: string
+  }
+
+  export type ClientFormCreateManyUserInput = {
+    id?: string
+    formId?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formType: $Enums.FormType
+    formName: string
+    formData: JsonNullValueInput | InputJsonValue
+    status?: string
+    lastEditedBy?: string | null
   }
 
   export type PersonalDetailsCreateManyCoachInput = {
@@ -38853,6 +40592,42 @@ export namespace Prisma {
     formVersion?: StringFieldUpdateOperationsInput | string
   }
 
+  export type ClientFormUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formType?: EnumFormTypeFieldUpdateOperationsInput | $Enums.FormType
+    formName?: StringFieldUpdateOperationsInput | string
+    formData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    lastEditedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ClientFormUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formType?: EnumFormTypeFieldUpdateOperationsInput | $Enums.FormType
+    formName?: StringFieldUpdateOperationsInput | string
+    formData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    lastEditedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ClientFormUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formType?: EnumFormTypeFieldUpdateOperationsInput | $Enums.FormType
+    formName?: StringFieldUpdateOperationsInput | string
+    formData?: JsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    lastEditedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type PersonalDetailsUpdateWithoutCoachInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38966,6 +40741,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUpdateManyWithoutUserNestedInput
     personalDetails?: PersonalDetailsUpdateOneWithoutUserNestedInput
+    clientForms?: ClientFormUpdateManyWithoutUserNestedInput
     clientsAsCoach?: PersonalDetailsUpdateManyWithoutCoachNestedInput
   }
 
@@ -38985,6 +40761,7 @@ export namespace Prisma {
     analysisForms?: AnalysisFormUncheckedUpdateManyWithoutUserNestedInput
     immobillionForms?: ImmobillionFormUncheckedUpdateManyWithoutUserNestedInput
     personalDetails?: PersonalDetailsUncheckedUpdateOneWithoutUserNestedInput
+    clientForms?: ClientFormUncheckedUpdateManyWithoutUserNestedInput
     clientsAsCoach?: PersonalDetailsUncheckedUpdateManyWithoutCoachNestedInput
   }
 

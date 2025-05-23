@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "YWC Backend - Immobilien Data Form API",
+    "description": "Collection for testing Your Wealth Coach immobilien data form API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Immobilien Data Form",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"formType\": \"Immobilien\",\n  \"formName\": \"Immobilien Property Form\",\n  \"personalDetails\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+49123456789\",\n    \"birthDate\": \"1985-05-15\",\n    \"birthPlace\": \"Berlin\",\n    \"nationality\": \"German\",\n    \"maritalStatus\": \"Single\",\n    \"streetAddress\": \"123 Main St\",\n    \"postalCode\": \"12345\",\n    \"city\": \"Berlin\",\n    \"country\": \"Germany\",\n    \"taxId\": \"12345678901\",\n    \"housing\": \"Rented\"\n  },\n  \"immobilienDetails\": {\n    \"propertyType\": \"Single Family House\",\n    \"propertyAddress\": {\n      \"street\": \"Property Street\",\n      \"houseNumber\": \"42\",\n      \"postalCode\": \"54321\",\n      \"city\": \"Munich\",\n      \"country\": \"Germany\"\n    },\n    \"propertySize\": 150,\n    \"plotSize\": 500,\n    \"buildYear\": 2000,\n    \"lastRenovation\": 2020,\n    \"propertyCondition\": \"Good\",\n    \"propertyValue\": 450000,\n    \"purchasePrice\": 420000,\n    \"additionalCosts\": 30000,\n    \"heatingType\": \"Gas\",\n    \"energyEfficiencyClass\": \"B\",\n    \"propertyUsage\": \"Self-occupied\",\n    \"currentlyRented\": false,\n    \"propertyDescription\": \"Beautiful single-family house with garden\"\n  },\n  \"financingDetails\": {\n    \"downPayment\": 100000,\n    \"loanAmount\": 320000,\n    \"loanTerm\": 30,\n    \"interestRate\": 2.5,\n    \"monthlyPayment\": 1200,\n    \"fixedInterestPeriod\": 10,\n    \"specialRepayments\": true,\n    \"governmentSubsidies\": false\n  },\n  \"documents\": [\n    {\n      \"documentName\": \"ID Card\",\n      \"documentType\": \"Identification\",\n      \"documentPath\": \"/uploads/id-card.pdf\",\n      \"uploadDate\": \"2023-05-15\",\n      \"required\": true\n    },\n    {\n      \"documentName\": \"Property Information\",\n      \"documentType\": \"Property\",\n      \"documentPath\": \"/uploads/property-info.pdf\",\n      \"uploadDate\": \"2023-05-15\",\n      \"required\": true\n    },\n    {\n      \"documentName\": \"Salary Statement\",\n      \"documentType\": \"Financial\",\n      \"documentPath\": \"/uploads/salary-statement.pdf\",\n      \"uploadDate\": \"2023-05-15\",\n      \"required\": true\n    }\n  ],\n  \"consent\": {\n    \"consentGiven\": true,\n    \"consentDate\": \"2023-05-15\",\n    \"location\": \"Berlin\",\n    \"dataProcessingAgreement\": true,\n    \"marketingConsent\": false\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/immobilien-data",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "immobilien-data"]
+        }
+      }
+    },
+    {
+      "name": "Get All Immobilien Data Forms",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/immobilien-data",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "immobilien-data"]
+        }
+      }
+    },
+    {
+      "name": "Get Immobilien Data Form By ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/immobilien-data/{{formId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "immobilien-data", "{{formId}}"]
+        }
+      }
+    },
+    {
+      "name": "Update Immobilien Data Form",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"formType\": \"Immobilien\",\n  \"formName\": \"Updated Immobilien Property Form\",\n  \"personalDetails\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+49123456789\",\n    \"birthDate\": \"1985-05-15\",\n    \"birthPlace\": \"Berlin\",\n    \"nationality\": \"German\",\n    \"maritalStatus\": \"Married\",\n    \"streetAddress\": \"123 Main St\",\n    \"postalCode\": \"12345\",\n    \"city\": \"Berlin\",\n    \"country\": \"Germany\",\n    \"taxId\": \"12345678901\",\n    \"housing\": \"Owned\"\n  },\n  \"immobilienDetails\": {\n    \"propertyType\": \"Single Family House\",\n    \"propertyAddress\": {\n      \"street\": \"Property Street\",\n      \"houseNumber\": \"42\",\n      \"postalCode\": \"54321\",\n      \"city\": \"Munich\",\n      \"country\": \"Germany\"\n    },\n    \"propertySize\": 150,\n    \"plotSize\": 500,\n    \"buildYear\": 2000,\n    \"lastRenovation\": 2021,\n    \"propertyCondition\": \"Very Good\",\n    \"propertyValue\": 480000,\n    \"purchasePrice\": 420000,\n    \"additionalCosts\": 30000,\n    \"heatingType\": \"Heat Pump\",\n    \"energyEfficiencyClass\": \"A\",\n    \"propertyUsage\": \"Self-occupied\",\n    \"currentlyRented\": false,\n    \"propertyDescription\": \"Beautiful single-family house with garden and recent renovations\"\n  },\n  \"financingDetails\": {\n    \"downPayment\": 120000,\n    \"loanAmount\": 300000,\n    \"loanTerm\": 25,\n    \"interestRate\": 2.2,\n    \"monthlyPayment\": 1150,\n    \"fixedInterestPeriod\": 15,\n    \"specialRepayments\": true,\n    \"governmentSubsidies\": true,\n    \"subsidyDetails\": \"Energy efficiency subsidy\"\n  },\n  \"consent\": {\n    \"consentGiven\": true,\n    \"consentDate\": \"2023-05-15\",\n    \"location\": \"Berlin\",\n    \"dataProcessingAgreement\": true,\n    \"marketingConsent\": false\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/immobilien-data/{{formId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "immobilien-data", "{{formId}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Immobilien Data Form",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/immobilien-data/{{formId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "immobilien-data", "{{formId}}"]
+        }
+      }
+    },
+    {
+      "name": "Update Immobilien Data Form Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Approved\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/immobilien-data/{{formId}}/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "immobilien-data", "{{formId}}", "status"]
+        }
+      }
+    }
+  ]
+} 

@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "YWC Backend - Master Data Form API",
+    "description": "Collection for testing Your Wealth Coach master data form API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Master Data Form",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"formType\": \"Analysis\",\n  \"formName\": \"Master Data Form\",\n  \"personalDetails\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+49123456789\",\n    \"birthDate\": \"1985-05-15\",\n    \"birthPlace\": \"Berlin\",\n    \"nationality\": \"German\",\n    \"maritalStatus\": \"Single\",\n    \"streetAddress\": \"123 Main St\",\n    \"postalCode\": \"12345\",\n    \"city\": \"Berlin\",\n    \"country\": \"Germany\",\n    \"taxId\": \"12345678901\",\n    \"housing\": \"Rented\"\n  },\n  \"employmentDetails\": {\n    \"employmentType\": \"employed\",\n    \"occupation\": \"Software Engineer\",\n    \"contractType\": \"Permanent\",\n    \"contractDuration\": \"Indefinite\",\n    \"employerName\": \"Tech Company GmbH\",\n    \"employedSince\": \"2018-01-15\"\n  },\n  \"incomeDetails\": {\n    \"grossIncome\": 75000,\n    \"netIncome\": 45000,\n    \"taxClass\": \"1\",\n    \"numberOfSalaries\": 12,\n    \"childBenefit\": 0,\n    \"otherIncome\": 0,\n    \"incomeTradeBusiness\": 0,\n    \"incomeSelfEmployedWork\": 0,\n    \"incomeSideJob\": 0\n  },\n  \"expensesDetails\": {\n    \"coldRent\": 1200,\n    \"electricity\": 80,\n    \"livingExpenses\": 600,\n    \"gas\": 60,\n    \"telecommunication\": 50,\n    \"accountMaintenanceFee\": 10,\n    \"alimony\": 0,\n    \"subscriptions\": 50,\n    \"otherExpenses\": 100\n  },\n  \"assets\": [\n    {\n      \"assetType\": \"Securities\",\n      \"description\": \"ETF Portfolio\",\n      \"value\": 50000,\n      \"purchaseDate\": \"2019-05-15\",\n      \"notes\": \"Diversified ETF portfolio\"\n    },\n    {\n      \"assetType\": \"Bank Deposits\",\n      \"description\": \"Savings Account\",\n      \"value\": 25000,\n      \"notes\": \"Emergency fund\"\n    }\n  ],\n  \"liabilities\": [\n    {\n      \"loanType\": \"PersonalLoan\",\n      \"loanBank\": \"Example Bank\",\n      \"loanAmount\": 15000,\n      \"loanMonthlyRate\": 300,\n      \"loanInterest\": 3.5,\n      \"notes\": \"Personal loan for car\"\n    }\n  ],\n  \"consent\": {\n    \"consentGiven\": true,\n    \"consentDate\": \"2023-05-15\",\n    \"location\": \"Berlin\",\n    \"dataProcessingAgreement\": true,\n    \"marketingConsent\": false\n  },\n  \"documents\": [\n    {\n      \"documentName\": \"ID Card\",\n      \"documentType\": \"Identification\",\n      \"documentPath\": \"/uploads/id-card.pdf\",\n      \"uploadDate\": \"2023-05-15\"\n    },\n    {\n      \"documentName\": \"Income Statement\",\n      \"documentType\": \"Financial\",\n      \"documentPath\": \"/uploads/income-statement.pdf\",\n      \"uploadDate\": \"2023-05-15\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/master-data",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "master-data"]
+        }
+      }
+    },
+    {
+      "name": "Get All Master Data Forms",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/master-data",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "master-data"]
+        }
+      }
+    },
+    {
+      "name": "Get Master Data Form By ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/master-data/{{formId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "master-data", "{{formId}}"]
+        }
+      }
+    },
+    {
+      "name": "Update Master Data Form",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"formType\": \"Analysis\",\n  \"formName\": \"Updated Master Data Form\",\n  \"personalDetails\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+49123456789\",\n    \"birthDate\": \"1985-05-15\",\n    \"birthPlace\": \"Berlin\",\n    \"nationality\": \"German\",\n    \"maritalStatus\": \"Married\",\n    \"streetAddress\": \"456 New St\",\n    \"postalCode\": \"54321\",\n    \"city\": \"Munich\",\n    \"country\": \"Germany\",\n    \"taxId\": \"12345678901\",\n    \"housing\": \"Owned\"\n  },\n  \"employmentDetails\": {\n    \"employmentType\": \"employed\",\n    \"occupation\": \"Senior Software Engineer\",\n    \"contractType\": \"Permanent\",\n    \"contractDuration\": \"Indefinite\",\n    \"employerName\": \"New Tech Company GmbH\",\n    \"employedSince\": \"2021-01-15\"\n  },\n  \"incomeDetails\": {\n    \"grossIncome\": 95000,\n    \"netIncome\": 55000,\n    \"taxClass\": \"3\",\n    \"numberOfSalaries\": 12,\n    \"childBenefit\": 219,\n    \"otherIncome\": 0,\n    \"incomeTradeBusiness\": 0,\n    \"incomeSelfEmployedWork\": 0,\n    \"incomeSideJob\": 0\n  },\n  \"consent\": {\n    \"consentGiven\": true,\n    \"consentDate\": \"2023-05-15\",\n    \"location\": \"Munich\",\n    \"dataProcessingAgreement\": true,\n    \"marketingConsent\": false\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/master-data/{{formId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "master-data", "{{formId}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Master Data Form",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/master-data/{{formId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "master-data", "{{formId}}"]
+        }
+      }
+    },
+    {
+      "name": "Update Master Data Form Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Approved\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forms/master-data/{{formId}}/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "forms", "master-data", "{{formId}}", "status"]
+        }
+      }
+    }
+  ]
+} 

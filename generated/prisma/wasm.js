@@ -447,6 +447,19 @@ exports.Prisma.CustomFormScalarFieldEnum = {
   updatedDate: 'updatedDate'
 };
 
+exports.Prisma.ClientFormScalarFieldEnum = {
+  id: 'id',
+  formId: 'formId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  formType: 'formType',
+  formName: 'formName',
+  formData: 'formData',
+  status: 'status',
+  lastEditedBy: 'lastEditedBy'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -482,8 +495,12 @@ exports.ApplicantType = exports.$Enums.ApplicantType = {
 };
 
 exports.EmploymentType = exports.$Enums.EmploymentType = {
-  PrimaryEmployment: 'PrimaryEmployment',
-  SecondaryEmployment: 'SecondaryEmployment'
+  Employed: 'Employed',
+  SelfEmployed: 'SelfEmployed',
+  Unemployed: 'Unemployed',
+  Retired: 'Retired',
+  Student: 'Student',
+  Other: 'Other'
 };
 
 exports.LoanType = exports.$Enums.LoanType = {
@@ -540,7 +557,8 @@ exports.Prisma.ModelName = {
   Consent: 'Consent',
   Document: 'Document',
   Form: 'Form',
-  CustomForm: 'CustomForm'
+  CustomForm: 'CustomForm',
+  ClientForm: 'ClientForm'
 };
 
 /**
