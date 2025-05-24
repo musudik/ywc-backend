@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from '../../../generated/prisma';
 import { AuthService, LoginDto, RegisterUserDto } from '../services/auth-service';
+import * as jwt from 'jsonwebtoken';
 
 const authService = new AuthService();
 const prisma = new PrismaClient();
@@ -220,6 +221,64 @@ export class AuthController {
     } catch (error: any) {
       console.error('Update profile error:', error);
       res.status(500).json({ message: 'Failed to update profile', error: error.message });
+    }
+  }
+
+  /**
+   * Refresh a user's token
+   */
+  async refreshToken(req: Request, res: Response): Promise<void> {
+    try {
+      // Since we're using the authenticate middleware, the user is already verified
+      if (!req.currentUser) {
+        res.status(401).json({ message: 'Not authenticated' });
+        return;
+      }
+      
+      // Generate a new JWT token for the authenticated user
+      const token = jwt.sign(
+        {
+          userId: req.currentUser.id,
+          email: req.currentUser.email,
+          role: req.currentUser.role
+        }, 
+        process.env.JWT_SECRET || 'your-secret-key',
+        { expiresIn: process.env.JWT_EXPIRES_IN || '1d' }
+      );
+      
+      res.status(200).json({
+        token,
+        user: {
+          id: req.currentUser.id,
+          email: req.currentUser.email,
+          displayName: req.currentUser.displayName,
+          phoneNumber: req.currentUser.phoneNumber,
+          emailVerified: req.currentUser.emailVerified,
+          role: req.currentUser.role ? {
+            id: req.currentUser.role.id,
+            name: req.currentUser.role.name,
+          } : null,
+        },
+        expiresIn: process.env.JWT_EXPIRES_IN || '1d'
+      });
+    } catch (error: any) {
+      console.error('Token refresh error:', error);
+      res.status(500).json({ message: 'Failed to refresh token', error: error.message });
+    }
+  }
+
+  /**
+   * Logout a user (stateless - just return success)
+   */
+  async logout(req: Request, res: Response): Promise<void> {
+    try {
+      // Since we're using stateless JWTs, logout is handled client-side
+      // This endpoint exists for API compatibility
+      console.log('User logout requested');
+      res.status(200).json({ message: 'Logout successful' });
+    } catch (error: any) {
+      console.error('Logout error:', error);
+      res.status(500).json({ message: 'Failed to logout', error: error.message });
     }
   }
 } 

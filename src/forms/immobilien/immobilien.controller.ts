@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { PrismaClient } from '../../../generated/prisma';
 import { z } from 'zod';
 import crypto from 'crypto';
+import { incomeDetailsSchema } from '../../business/controllers/client-data.controller';
 
 const prisma = new PrismaClient();
 
@@ -26,7 +27,7 @@ const personalDetailsSchema = z.object({
 // Employment Details validation schema
 const employmentDetailsSchema = z.object({
   personalId: z.string(),
-  employmentType: z.enum(["employed", "selfEmployed", "unemployed", "retired", "student", "other"]),
+  employmentType: z.enum(["Employed", "SelfEmployed", "Unemployed", "Retired", "Student", "Other"]),
   occupation: z.string(),
   contractType: z.string(),
   contractDuration: z.string(),
@@ -37,23 +38,23 @@ const employmentDetailsSchema = z.object({
 // Function to normalize employment type values to match validation schema
 function normalizeEmploymentType(value: string): string {
   // Handle case conversions
-  if (typeof value !== 'string') return 'employed';
+  if (typeof value !== 'string') return 'Employed';
   
   const lowercasedValue = value.toLowerCase();
   
-  // Map capitalized/pascal case to the expected lowercase format
+  // Map capitalized/pascal case to the expected backend enum format
   const mappings: Record<string, string> = {
-    'employed': 'employed',
-    'selfemployed': 'selfEmployed',
-    'unemployed': 'unemployed',
-    'retired': 'retired',
-    'student': 'student',
-    'other': 'other',
+    'employed': 'Employed',
+    'selfemployed': 'SelfEmployed',
+    'unemployed': 'Unemployed',
+    'retired': 'Retired',
+    'student': 'Student',
+    'other': 'Other',
   };
   
   // Remove spaces, hyphens, and underscores for more flexible matching
   const normalized = lowercasedValue.replace(/[\s\-_]/g, '');
-  return mappings[normalized] || 'employed'; // Default to employed if no match
+  return mappings[normalized] || 'Employed'; // Default to Employed if no match
 }
 
 // Function to map employment type to database enum
@@ -168,20 +169,7 @@ async function createEmploymentDetailsRaw(data: any) {
   }
 }
 
-// Income Details validation schema
-const incomeDetailsSchema = z.object({
-  personalId: z.string(),
-  grossIncome: z.string().or(z.number()),
-  netIncome: z.string().or(z.number()),
-  taxClass: z.string(),
-  taxId: z.string(),
-  numberOfSalaries: z.string().or(z.number()),
-  childBenefit: z.string().or(z.number()),
-  otherIncome: z.string().or(z.number()),
-  incomeTradeBusiness: z.string().or(z.number()),
-  incomeSelfEmployedWork: z.string().or(z.number()),
-  incomeSideJob: z.string().or(z.number())
-});
+// Income Details validation schemaconst incomeDetailsSchema = z.object({  personalId: z.string(),  incomeId: z.string().optional(),  grossIncome: z.string().or(z.number()),  netIncome: z.string().or(z.number()),  taxClass: z.string().optional(),  taxId: z.string().optional(),  numberOfSalaries: z.string().or(z.number()).optional(),  childBenefit: z.string().or(z.number()).optional(),  otherIncome: z.string().or(z.number()).optional(),  incomeTradeBusiness: z.string().or(z.number()).optional(),  incomeSelfEmployedWork: z.string().or(z.number()).optional(),  incomeSideJob: z.string().or(z.number()).optional(),  // Additional fields that frontend sends but backend should accept  additionalIncomeSource: z.string().optional(),  rentalIncome: z.string().or(z.number()).optional(),  investmentIncome: z.string().or(z.number()).optional()});
 
 // Expenses Details validation schema
 const expensesDetailsSchema = z.object({
@@ -294,6 +282,7 @@ export class ImmobilienController {
         req.body.employment.employmentType = normalizeEmploymentType(req.body.employment.employmentType);
       }
 
+      console.log("Immobilien Form Data", req.body);
       // Validate the submitted form data
       const validatedData = immobilienFormSchema.parse(req.body);
 

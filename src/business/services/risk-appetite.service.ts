@@ -1,4 +1,4 @@
-import { PrismaClient, RiskAppetite } from '../../../generated/prisma';
+import { PrismaClient, RiskAppetite, Prisma } from '../../../generated/prisma';
 import { RiskAppetiteInput } from '../types';
 
 export class RiskAppetiteService {
@@ -9,7 +9,16 @@ export class RiskAppetiteService {
   }
 
   async create(data: RiskAppetiteInput): Promise<RiskAppetite> {
-    return this.prisma.riskAppetite.create({ data });
+    const { riskAppetiteId, ...createData } = data;
+    
+    const uncheckedData: Prisma.RiskAppetiteUncheckedCreateInput = {
+      ...createData,
+      personalId: data.personalId
+    };
+    
+    return this.prisma.riskAppetite.create({ 
+      data: uncheckedData
+    });
   }
 
   async findByPersonalId(personalId: string): Promise<RiskAppetite | null> {

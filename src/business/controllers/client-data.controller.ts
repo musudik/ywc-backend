@@ -18,7 +18,7 @@ import { z } from 'zod';
 // Employment Details validation schema
 const employmentDetailsSchema = z.object({
   personalId: z.string(),
-  employmentType: z.enum(["employed", "selfEmployed", "unemployed", "retired", "student"]),
+  employmentType: z.enum(["Employed", "SelfEmployed", "Unemployed", "Retired", "Student", "Other"]),
   occupation: z.string(),
   contractType: z.string(),
   contractDuration: z.string(),
