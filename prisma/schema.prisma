@@ -37,6 +37,9 @@ model User {
   // Coach's clients (if user is a coach)
   clientsAsCoach PersonalDetails[] @relation("CoachToClient")
 
+  // Form configurations created by admin users
+  formConfigurations FormConfiguration[]
+
   @@map("users")
 }
 
@@ -589,5 +592,37 @@ enum FormType {
   Sanuspay
   Gems
   Other
+}
+
+// Form Configuration model for admin-created form templates
+model FormConfiguration {
+  id              String    @id @default(uuid())
+  configId        String    @unique @default(uuid())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  // Creator relation
+  createdById     String
+  createdBy       User      @relation(fields: [createdById], references: [id])
+  
+  // Basic configuration info
+  name            String
+  formType        String    // immobilien, privateHealthInsurance, etc.
+  version         String    @default("1.0")
+  description     String?
+  isActive        Boolean   @default(true)
+  
+  // Configuration data stored as JSON
+  sections        Json      // Array of section configurations
+  customFields    Json      // Array of custom field definitions
+  consentForm     Json      // Consent form configuration
+  documents       Json      // Required documents configuration
+  
+  // Metadata
+  usageCount      Int       @default(0)
+  lastUsedAt      DateTime?
+  
+  @@unique([name, formType])
+  @@map("form_configurations")
 }
 

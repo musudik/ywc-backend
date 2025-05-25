@@ -104,9 +104,10 @@ async function main() {
 
     // Create Admin User
     console.log('Creating admin user...');
+    let adminUser;
     try {
       const adminPassword = await bcrypt.hash('Team2025*', 10);
-      const adminUser = await prisma.user.upsert({
+      adminUser = await prisma.user.upsert({
         where: { email: 'master@yourwealth.coach' },
         update: {
           password: adminPassword,
@@ -156,6 +157,129 @@ async function main() {
       console.log('All users after creation:', allUsers);
     } catch (findUsersError) {
       console.error('Error finding users:', findUsersError);
+    }
+
+    // Create sample form configurations
+    console.log('Creating sample form configurations...');
+    try {
+      const sampleConfigs = [
+        {
+          name: 'immobilien_standard_2025',
+          formType: 'immobilien',
+          version: '1.0',
+          description: 'Standard real estate form configuration for 2025',
+          isActive: true,
+          sections: [
+            {
+              id: 'personal-section',
+              sectionType: 'Personal',
+              showFields: ['firstName', 'lastName', 'email', 'phone', 'birthDate', 'address'],
+              hideFields: [],
+              order: 0
+            },
+            {
+              id: 'family-section',
+              sectionType: 'Family',
+              showFields: ['hasSpouse', 'numberOfChildren'],
+              hideFields: [],
+              order: 1
+            },
+            {
+              id: 'income-section',
+              sectionType: 'Income',
+              showFields: ['grossIncome', 'netIncome', 'employmentType'],
+              hideFields: [],
+              order: 2
+            }
+          ],
+          customFields: [
+            {
+              id: 'property-type',
+              name: 'propertyType',
+              label: 'Property Type',
+              type: 'select',
+              required: true,
+              options: ['House', 'Apartment', 'Commercial', 'Land']
+            }
+          ],
+          consentForm: {
+            enabled: true,
+            customText: 'I consent to the processing of my real estate application data.',
+            sections: ['dataProcessing', 'terms']
+          },
+          documents: [
+            {
+              id: 'income-proof',
+              name: 'Income Proof',
+              required: true,
+              description: 'Recent salary statements or tax returns'
+            }
+          ],
+          createdById: adminUser?.id || '387b2f0e-218d-46bf-8bf6-8aa3d53acd00'
+        },
+        {
+          name: 'health_insurance_basic',
+          formType: 'privateHealthInsurance',
+          version: '1.0',
+          description: 'Basic private health insurance application form',
+          isActive: true,
+          sections: [
+            {
+              id: 'personal-section',
+              sectionType: 'Personal',
+              showFields: ['firstName', 'lastName', 'email', 'phone', 'birthDate'],
+              hideFields: [],
+              order: 0
+            },
+            {
+              id: 'employment-section',
+              sectionType: 'Employment',
+              showFields: ['employmentType', 'occupation', 'employerName'],
+              hideFields: [],
+              order: 1
+            }
+          ],
+          customFields: [
+            {
+              id: 'health-conditions',
+              name: 'healthConditions',
+              label: 'Pre-existing Health Conditions',
+              type: 'textarea',
+              required: false
+            }
+          ],
+          consentForm: {
+            enabled: true,
+            customText: 'I consent to health data processing for insurance purposes.',
+            sections: ['healthDataProcessing', 'terms']
+          },
+          documents: [
+            {
+              id: 'health-records',
+              name: 'Health Records',
+              required: false,
+              description: 'Recent medical examination results'
+            }
+          ],
+          createdById: adminUser?.id || '387b2f0e-218d-46bf-8bf6-8aa3d53acd00'
+        }
+      ];
+
+      for (const config of sampleConfigs) {
+        const result = await prisma.formConfiguration.upsert({
+          where: { 
+            name_formType: {
+              name: config.name,
+              formType: config.formType
+            }
+          },
+          update: config,
+          create: config
+        });
+        console.log(`Form configuration "${config.name}" created:`, result.id);
+      }
+    } catch (configError) {
+      console.error('Error creating sample form configurations:', configError);
     }
 
     console.log('Database seeding completed successfully!');

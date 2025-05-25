@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import businessRoutes from './business/routes';
 import formsRoutes from './forms/routes';
+import adminRoutes from './admin/routes';
 
 // Create Express app
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 // API routes
 app.use('/api/business', businessRoutes);
 app.use('/api/forms', formsRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check endpoint
 app.get('/health', (req: Request, res: Response) => {

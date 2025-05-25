@@ -8,6 +8,7 @@ import { authRoutes } from './auth/routes/auth-routes';
 import analysisFormRoutes from './forms/master/analysis-form.routes';
 import businessRoutes from './business/routes';
 import formsRoutes from './forms/routes';
+import adminRoutes from './admin/routes';
 
 // Load environment variables with explicit path
 const envPath = path.resolve(process.cwd(), '.env');
@@ -36,6 +37,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/forms/analysis', analysisFormRoutes);
 app.use('/api/forms', formsRoutes);
 app.use('/api', businessRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check route
 app.get('/health', (req, res) => {
