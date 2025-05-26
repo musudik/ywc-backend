@@ -9,7 +9,19 @@ export class LiabilityService {
   }
 
   async create(data: LiabilityInput): Promise<Liability> {
-    return this.prisma.liability.create({ data });
+    // Remove auto-generated fields that shouldn't be included in create operations
+    const { id, liabilityId, createdAt, updatedAt, ...createData } = data as any;
+    
+    // Ensure all required fields are present and valid
+    if (!createData.personalId) {
+      throw new Error('personalId is required');
+    }
+    
+    if (!createData.loanType) {
+      throw new Error('loanType is required');
+    }
+    
+    return this.prisma.liability.create({ data: createData });
   }
 
   async findByPersonalId(personalId: string): Promise<Liability[]> {

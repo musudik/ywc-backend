@@ -29,16 +29,30 @@ const employmentDetailsSchema = z.object({
 // Income Details validation schema
 const incomeDetailsSchema = z.object({
   personalId: z.string(),
-  grossIncome: z.number(),
-  netIncome: z.number(),
+  grossIncome: z.number().or(z.string().transform(val => parseFloat(val))),
+  netIncome: z.number().or(z.string().transform(val => parseFloat(val))),
   taxClass: z.string(),
   taxId: z.string(),
-  numberOfSalaries: z.number(),
-  childBenefit: z.number(),
-  otherIncome: z.number(),
-  incomeTradeBusiness: z.number(),
-  incomeSelfEmployedWork: z.number(),
-  incomeSideJob: z.number()
+  numberOfSalaries: z.number().or(z.string().transform(val => parseInt(val))),
+  childBenefit: z.number().or(z.string().transform(val => parseFloat(val))),
+  otherIncome: z.number().or(z.string().transform(val => parseFloat(val))),
+  incomeTradeBusiness: z.number().or(z.string().transform(val => parseFloat(val))),
+  incomeSelfEmployedWork: z.number().or(z.string().transform(val => parseFloat(val))),
+  incomeSideJob: z.number().or(z.string().transform(val => parseFloat(val)))
+});
+
+// Expenses Details validation schema
+const expensesDetailsSchema = z.object({
+  personalId: z.string(),
+  coldRent: z.number().or(z.string().transform(val => parseFloat(val))),
+  electricity: z.number().or(z.string().transform(val => parseFloat(val))),
+  livingExpenses: z.number().or(z.string().transform(val => parseFloat(val))),
+  gas: z.number().or(z.string().transform(val => parseFloat(val))),
+  telecommunication: z.number().or(z.string().transform(val => parseFloat(val))),
+  accountMaintenanceFee: z.number().or(z.string().transform(val => parseFloat(val))),
+  alimony: z.number().or(z.string().transform(val => parseFloat(val))),
+  subscriptions: z.number().or(z.string().transform(val => parseFloat(val))),
+  otherExpenses: z.number().or(z.string().transform(val => parseFloat(val)))
 });
 
 // Asset validation schema
@@ -50,6 +64,16 @@ const assetSchema = z.object({
   buildingSavings: z.number().or(z.string().transform(val => parseFloat(val))),
   insuranceValues: z.number().or(z.string().transform(val => parseFloat(val))),
   otherAssets: z.number().or(z.string().transform(val => parseFloat(val)))
+});
+
+// Liability validation schema
+const liabilitySchema = z.object({
+  personalId: z.string(),
+  loanType: z.enum(["PersonalLoan", "HomeLoan", "CarLoan", "BusinessLoan", "EducationLoan", "OtherLoan"]),
+  loanBank: z.string().optional(),
+  loanAmount: z.number().or(z.string().transform(val => parseFloat(val))).optional(),
+  loanMonthlyRate: z.number().or(z.string().transform(val => parseFloat(val))).optional(),
+  loanInterest: z.number().or(z.string().transform(val => parseFloat(val))).optional()
 });
 
 // Other schemas can be defined as needed...
@@ -241,7 +265,20 @@ export class ClientDataController {
         return res.status(403).json({ message: 'Access denied' });
       }
 
-      const income = await this.incomeService.create(req.body);
+      // Convert string values to numbers if needed
+      const incomeData = {
+        ...req.body,
+        grossIncome: parseFloat(req.body.grossIncome),
+        netIncome: parseFloat(req.body.netIncome),
+        numberOfSalaries: parseInt(req.body.numberOfSalaries),
+        childBenefit: parseFloat(req.body.childBenefit),
+        otherIncome: parseFloat(req.body.otherIncome),
+        incomeTradeBusiness: parseFloat(req.body.incomeTradeBusiness),
+        incomeSelfEmployedWork: parseFloat(req.body.incomeSelfEmployedWork),
+        incomeSideJob: parseFloat(req.body.incomeSideJob)
+      };
+
+      const income = await this.incomeService.create(incomeData);
       return res.status(201).json(income);
     } catch (error) {
       console.error('Error creating income details:', error);
@@ -334,13 +371,38 @@ export class ClientDataController {
         return res.status(401).json({ message: 'Not authenticated' });
       }
 
+      // Validate request body
+      try {
+        expensesDetailsSchema.parse(req.body);
+      } catch (error) {
+        console.error('Expenses validation error:', error);
+        return res.status(400).json({
+          message: 'Validation error',
+          errors: error instanceof z.ZodError ? error.errors : undefined
+        });
+      }
+
       // Check if the user has access to the personal details
       const hasAccess = await this.checkAccess(req, req.body.personalId);
       if (!hasAccess) {
         return res.status(403).json({ message: 'Access denied' });
       }
 
-      const expenses = await this.expensesService.create(req.body);
+      // Convert string values to numbers if needed
+      const expensesData = {
+        ...req.body,
+        coldRent: parseFloat(req.body.coldRent),
+        electricity: parseFloat(req.body.electricity),
+        livingExpenses: parseFloat(req.body.livingExpenses),
+        gas: parseFloat(req.body.gas),
+        telecommunication: parseFloat(req.body.telecommunication),
+        accountMaintenanceFee: parseFloat(req.body.accountMaintenanceFee),
+        alimony: parseFloat(req.body.alimony),
+        subscriptions: parseFloat(req.body.subscriptions),
+        otherExpenses: parseFloat(req.body.otherExpenses)
+      };
+
+      const expenses = await this.expensesService.create(expensesData);
       return res.status(201).json(expenses);
     } catch (error) {
       console.error('Error creating expenses details:', error);
@@ -433,8 +495,6 @@ export class ClientDataController {
         return res.status(401).json({ message: 'Not authenticated' });
       }
 
-      console.log('createAsset:: request body', JSON.stringify(req.body, null, 2));
-
       // Validate request body
       try {
         assetSchema.parse(req.body);
@@ -448,7 +508,6 @@ export class ClientDataController {
 
       // Check if the user has access to the personal details
       const hasAccess = await this.checkAccess(req, req.body.personalId);
-      console.log('createAsset:: hasAccess', hasAccess);
       if (!hasAccess) {
         return res.status(403).json({ message: 'Access denied' });
       }
@@ -464,7 +523,10 @@ export class ClientDataController {
         otherAssets: parseFloat(req.body.otherAssets)
       };
 
-      console.log('createAsset:: processed data', JSON.stringify(assetData, null, 2));
+      // Additional safety check - ensure we're not passing an array
+      if (Array.isArray(assetData)) {
+        return res.status(400).json({ message: 'Invalid data format: expected object, got array' });
+      }
       
       const asset = await this.assetService.create(assetData);
       return res.status(201).json(asset);
@@ -559,13 +621,32 @@ export class ClientDataController {
         return res.status(401).json({ message: 'Not authenticated' });
       }
 
+      // Validate request body
+      try {
+        liabilitySchema.parse(req.body);
+      } catch (error) {
+        console.error('Liability validation error:', error);
+        return res.status(400).json({
+          message: 'Validation error',
+          errors: error instanceof z.ZodError ? error.errors : undefined
+        });
+      }
+
       // Check if the user has access to the personal details
       const hasAccess = await this.checkAccess(req, req.body.personalId);
       if (!hasAccess) {
         return res.status(403).json({ message: 'Access denied' });
       }
 
-      const liability = await this.liabilityService.create(req.body);
+      // Convert string values to numbers if needed
+      const liabilityData = {
+        ...req.body,
+        loanAmount: req.body.loanAmount ? parseFloat(req.body.loanAmount) : undefined,
+        loanMonthlyRate: req.body.loanMonthlyRate ? parseFloat(req.body.loanMonthlyRate) : undefined,
+        loanInterest: req.body.loanInterest ? parseFloat(req.body.loanInterest) : undefined
+      };
+
+      const liability = await this.liabilityService.create(liabilityData);
       return res.status(201).json(liability);
     } catch (error) {
       console.error('Error creating liability:', error);
@@ -664,7 +745,7 @@ export class ClientDataController {
         return res.status(403).json({ message: 'Access denied' });
       }
 
-      const goalsAndWishes = await this.goalsAndWishesService.create(req.body);
+      const goalsAndWishes = await this.goalsAndWishesService.upsert(req.body);
       return res.status(201).json(goalsAndWishes);
     } catch (error) {
       console.error('Error creating goals and wishes:', error);
@@ -763,7 +844,7 @@ export class ClientDataController {
         return res.status(403).json({ message: 'Access denied' });
       }
 
-      const riskAppetite = await this.riskAppetiteService.create(req.body);
+      const riskAppetite = await this.riskAppetiteService.upsert(req.body);
       return res.status(201).json(riskAppetite);
     } catch (error) {
       console.error('Error creating risk appetite:', error);

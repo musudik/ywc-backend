@@ -64,23 +64,84 @@ export class PersonalDetailsController {
       try {
         personalDetailsSchema.parse(req.body);
       } catch (error) {
+        console.error('Validation error:', error);
         return res.status(400).json({ 
           message: 'Validation error', 
           errors: error instanceof z.ZodError ? error.errors : undefined 
         });
       }
       
-      // Set the userId to the current user's ID if not provided
+      // Determine the userId based on the user's role and request
+      let userId: string;
+      
+      if (req.body.userId) {
+        // If userId is explicitly provided in the request, use it
+        userId = req.body.userId;
+        console.log('Using provided userId:', userId);
+      } else if (req.currentUser.role === 'ADMIN' || req.currentUser.role === 'COACH') {
+        // For Admins and Coaches, check if client already exists by email
+        if (req.body.email) {
+          console.log('Checking if client already exists with email:', req.body.email);
+          
+          // Look for existing personal details with this email
+          const existingClients = await this.service.findAll(req.currentUser.id);
+          const existingClient = existingClients.find(client => 
+            client.email === req.body.email
+          );
+          
+          if (existingClient) {
+            console.log('Found existing client with userId:', existingClient.userId);
+            userId = existingClient.userId;
+          } else {
+            console.log('No existing client found, generating new userId');
+            userId = await this.service.generateNewUserId();
+            console.log('Generated new userId for client:', userId);
+          }
+        } else {
+          // No email provided, generate new userId
+          userId = await this.service.generateNewUserId();
+          console.log('Generated new userId for client (no email provided):', userId);
+        }
+      } else {
+        // For regular users (clients), use their own ID
+        userId = req.currentUser.id;
+        console.log('Using current user ID:', userId);
+      }
+      
       const data = {
         ...req.body,
-        userId: req.body.userId || req.currentUser.id
+        userId: userId
       };
       
-      const personalDetails = await this.service.create(data as PersonalDetailsInput);
-      return res.status(201).json(personalDetails);
-    } catch (error) {
+      console.log('Creating/updating personal details with data:', JSON.stringify(data, null, 2));
+      
+      // Use upsert to handle both create and update cases
+      const personalDetails = await this.service.upsert(data as PersonalDetailsInput);
+      return res.status(200).json(personalDetails);
+    } catch (error: any) {
       console.error('Error creating personal details:', error);
-      return res.status(500).json({ message: 'Internal server error' });
+      console.error('Error details:', {
+        code: error?.code,
+        meta: error?.meta,
+        message: error?.message
+      });
+      
+      // Handle specific Prisma errors
+      if (error?.code === 'P2002') {
+        console.error('Unique constraint violation:', error.meta);
+        return res.status(409).json({ 
+          message: 'Personal details already exist for this user',
+          error: 'DUPLICATE_USER',
+          details: 'A user can only have one personal details record. Use update instead.',
+          field: error.meta?.target?.[0] || 'userId'
+        });
+      }
+      
+      return res.status(500).json({ 
+        message: 'Internal server error',
+        error: error?.message || 'Unknown error occurred',
+        code: error?.code || 'UNKNOWN_ERROR'
+      });
     }
   }
 

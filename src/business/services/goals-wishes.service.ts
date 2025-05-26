@@ -9,7 +9,20 @@ export class GoalsAndWishesService {
   }
 
   async create(data: GoalsAndWishesInput): Promise<GoalsAndWishes> {
-    return this.prisma.goalsAndWishes.create({ data });
+    // Remove auto-generated fields that shouldn't be included in create operations
+    const { id, goalsAndWishesId, createdAt, updatedAt, ...createData } = data as any;
+    return this.prisma.goalsAndWishes.create({ data: createData });
+  }
+
+  async upsert(data: GoalsAndWishesInput): Promise<GoalsAndWishes> {
+    // Remove auto-generated fields that shouldn't be included in upsert operations
+    const { id, goalsAndWishesId, createdAt, updatedAt, ...upsertData } = data as any;
+    
+    return this.prisma.goalsAndWishes.upsert({
+      where: { personalId: upsertData.personalId },
+      update: upsertData,
+      create: upsertData
+    });
   }
 
   async findByPersonalId(personalId: string): Promise<GoalsAndWishes | null> {

@@ -21,6 +21,21 @@ export class RiskAppetiteService {
     });
   }
 
+  async upsert(data: RiskAppetiteInput): Promise<RiskAppetite> {
+    const { riskAppetiteId, id, createdAt, updatedAt, ...upsertData } = data as any;
+    
+    const uncheckedData: Prisma.RiskAppetiteUncheckedCreateInput = {
+      ...upsertData,
+      personalId: data.personalId
+    };
+    
+    return this.prisma.riskAppetite.upsert({
+      where: { personalId: data.personalId },
+      update: uncheckedData,
+      create: uncheckedData
+    });
+  }
+
   async findByPersonalId(personalId: string): Promise<RiskAppetite | null> {
     return this.prisma.riskAppetite.findUnique({
       where: { personalId }

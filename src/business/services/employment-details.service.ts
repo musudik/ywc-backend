@@ -9,7 +9,7 @@ export class EmploymentDetailsService {
   }
 
   async create(data: EmploymentDetailsInput): Promise<EmploymentDetails> {
-    const { employedSince, ...rest } = data;
+    const { employedSince, id, employmentId, createdAt, updatedAt, ...rest } = data as any;
     
     return this.prisma.employmentDetails.create({
       data: {

@@ -9,7 +9,9 @@ export class ExpensesService {
   }
 
   async create(data: ExpensesDetailsInput): Promise<ExpensesDetails> {
-    return this.prisma.expensesDetails.create({ data });
+    // Remove auto-generated fields that shouldn't be included in create operations
+    const { id, expensesId, createdAt, updatedAt, ...createData } = data as any;
+    return this.prisma.expensesDetails.create({ data: createData });
   }
 
   async findByPersonalId(personalId: string): Promise<ExpensesDetails[]> {
