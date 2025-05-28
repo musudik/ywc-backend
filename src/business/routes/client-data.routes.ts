@@ -10,23 +10,15 @@ router.use(authenticate);
 
 // Employment routes
 router.post('/employment', controller.createEmployment.bind(controller));
-router.post('/employments', controller.createEmployment.bind(controller));
 router.get('/employment/:personalId', controller.getEmployments.bind(controller));
-router.get('/employments/:personalId', controller.getEmployments.bind(controller));
 router.put('/employment/:id', controller.updateEmployment.bind(controller));
-router.put('/employments/:id', controller.updateEmployment.bind(controller));
 router.delete('/employment/:id', controller.deleteEmployment.bind(controller));
-router.delete('/employments/:id', controller.deleteEmployment.bind(controller));
 
 // Income routes
 router.post('/income', controller.createIncome.bind(controller));
-router.post('/incomes', controller.createIncome.bind(controller));
 router.get('/income/:personalId', controller.getIncomes.bind(controller));
-router.get('/incomes/:personalId', controller.getIncomes.bind(controller));
 router.put('/income/:id', controller.updateIncome.bind(controller));
-router.put('/incomes/:id', controller.updateIncome.bind(controller));
 router.delete('/income/:id', controller.deleteIncome.bind(controller));
-router.delete('/incomes/:id', controller.deleteIncome.bind(controller));
 
 // Expenses routes
 router.post('/expenses', controller.createExpenses.bind(controller));
@@ -35,23 +27,15 @@ router.put('/expenses/:id', controller.updateExpenses.bind(controller));
 router.delete('/expenses/:id', controller.deleteExpenses.bind(controller));
 
 // Asset routes
-router.post('/asset', controller.createAsset.bind(controller));
 router.post('/assets', controller.createAsset.bind(controller));
-router.get('/asset/:personalId', controller.getAssets.bind(controller));
 router.get('/assets/:personalId', controller.getAssets.bind(controller));
-router.put('/asset/:id', controller.updateAsset.bind(controller));
 router.put('/assets/:id', controller.updateAsset.bind(controller));
-router.delete('/asset/:id', controller.deleteAsset.bind(controller));
 router.delete('/assets/:id', controller.deleteAsset.bind(controller));
 
 // Liability routes
-router.post('/liability', controller.createLiability.bind(controller));
 router.post('/liabilities', controller.createLiability.bind(controller));
-router.get('/liability/:personalId', controller.getLiabilities.bind(controller));
 router.get('/liabilities/:personalId', controller.getLiabilities.bind(controller));
-router.put('/liability/:id', controller.updateLiability.bind(controller));
 router.put('/liabilities/:id', controller.updateLiability.bind(controller));
-router.delete('/liability/:id', controller.deleteLiability.bind(controller));
 router.delete('/liabilities/:id', controller.deleteLiability.bind(controller));
 
 // Goals and Wishes routes

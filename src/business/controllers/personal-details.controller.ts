@@ -54,6 +54,7 @@ export class PersonalDetailsController {
 
   // Create a new personal details record
   async create(req: Request, res: Response) {
+    console.log('create:: req', req);
     try {
       // Ensure user is authenticated
       if (!req.currentUser) {
@@ -147,6 +148,7 @@ export class PersonalDetailsController {
 
   // Get all personal details (coach only)
   async getAll(req: Request, res: Response) {
+    console.log('getAll:: req', req);
     try {
       // Ensure user is authenticated
       if (!req.currentUser) {
@@ -192,6 +194,7 @@ export class PersonalDetailsController {
 
   // Get one personal details record
   async getOne(req: Request, res: Response) {
+    console.log('getOne:: req', req);
     try {
       // Ensure user is authenticated
       if (!req.currentUser) {
@@ -233,6 +236,7 @@ export class PersonalDetailsController {
       
       // Find the personal details to check permissions
       const existingDetails = await this.service.findOne(id);
+      console.log('update:: existingDetails', existingDetails);
       if (!existingDetails) {
         return res.status(404).json({ message: 'Personal details not found' });
       }
